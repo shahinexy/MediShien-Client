@@ -66,7 +66,7 @@ const NavBar = () => {
 
           <Navbar.Container className="flex gap-2">
             {user ? (
-              <Dropdown action={<img className="w-12 h-12 rounded-full" src={user?.photoURL} alt="" />} actionClassName="border-none bg-inherit" className="bg-secondary border-none rounded-none shadow-lg shadow-secondary text-center">
+              <Dropdown action={<img className="w-12 h-12 rounded-full" src={user?.photoURL} alt="" />} actionClassName="border-none bg-inherit p-0" className="bg-secondary border-none rounded-none shadow-lg shadow-secondary text-center">
                 <div>
                   <div className="flex justify-center pb-3"><img className="w-16 h-16 rounded-full" src={user?.photoURL} alt="" /></div>
                   <p className="text-lg ">{user?.displayName} </p>

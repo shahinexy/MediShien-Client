@@ -18,6 +18,7 @@ const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loader, setLoader] = useState(true);
+  const [isRefetch, setRefetch] = useState(true)
 
   // create user
   const createUser = (email, pass) => {
@@ -36,6 +37,11 @@ const AuthProvider = ({ children }) => {
     setLoader(true);
     return signInWithPopup(auth, googleProvider);
   };
+
+  // refetch
+  const refetch = () =>{
+    setRefetch(!isRefetch)
+  }
 
   // update user
   const updateUser = (name, photo) => {
@@ -72,6 +78,7 @@ const AuthProvider = ({ children }) => {
     googleLogin,
     updateUser,
     loader,
+    refetch,
   };
   return (
     <div>

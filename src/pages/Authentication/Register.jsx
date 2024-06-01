@@ -1,67 +1,80 @@
-import { toast } from "keep-react";
-import { useContext, useState } from "react";
+
+import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { authContext } from "../../AuthProvider/AuthProvider";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import icon1 from '../../assets/images/pngwing.com (2).png'
-import icon2 from '../../assets/images/pngwing.com.png'
+import icon1 from "../../assets/images/pngwing.com (2).png";
+import icon2 from "../../assets/images/pngwing.com.png";
+import useAuth from "./../../Hooks/useAuth";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Register = () => {
-    const { createUser, updateUser } = useContext(authContext);
-    const [showHide, setShowHide] = useState(true);
-    const [passType, setPassType] = useState(true);
-  
-    const navegate = useNavigate();
-  
-    const {
-      register,
-      handleSubmit,
-    } = useForm();
-  
-    const onSubmit = (data) => {
-      console.log(data);
-  
-      if (!/^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(data.pass)) {
-        return toast.error(
-          "Password requires 1 lowercase, 1 uppercase, and min 6 characters."
-        );
-      }
-  
-      createUser(data.email, data.pass)
-        .then((res) => {
-          toast.success("Register Successfull");
-          navegate("/");
-          if (res) {
-            updateUser(data.name, data.photo)
-              .then(
-                setTimeout(() => {
-                  window.location.reload();
-                }, 1000)
-              )
-              .catch((error) => console.log(error));
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          toast.error(error.message.split("/")[1].replaceAll(")", ""));
-        });
-    };
-  
-    //handle show hide icon
-    const handleShowHide = () => {
-      setShowHide(!showHide);
-      setPassType(!passType);
-    };
-  
-    return (
-        <div className="md:pt-10 pt-20 flex md:flex-row flex-col justify-cente items-center md:gap-10 gap-4">
+  const { createUser, updateUser, refetch } = useAuth();
+  const [showHide, setShowHide] = useState(true);
+  const [passType, setPassType] = useState(true);
+  const navegate = useNavigate();
+
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (data) => {
+    
+    if (!/^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(data.pass)) {
+      return toast.error(
+        "Password requires 1 lowercase, 1 uppercase, and min 6 characters."
+      );
+    }
+
+    const photoFile = { image: data.photo[0] };
+    const name = data.name;
+    createUser(data.email, data.pass)
+      .then((res) => {
+        toast.success("Register Successfull");
+        navegate("/");
+        if (res) {
+          axios
+            .post(
+              `https://api.imgbb.com/1/upload?key=${
+                import.meta.env.VITE_IMAGEBB_SECRET_KEY
+              }`,
+              photoFile,
+              {
+                headers: {
+                  "content-type": "multipart/form-data",
+                },
+              }
+            )
+            .then((res) => {
+              if (res.data.success) {
+                const photoUrl = res.data.data.display_url;
+                updateUser(name, photoUrl)
+                  .then(() => refetch())
+                  .catch((error) => console.log(error));
+              }
+            })
+            .catch((error) => console.log(error));
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.message.split("/")[1].replaceAll(")", ""));
+      });
+  };
+
+  //handle show hide icon
+  const handleShowHide = () => {
+    setShowHide(!showHide);
+    setPassType(!passType);
+  };
+
+  return (
+    <div className="md:pt-10 pt-20 flex md:flex-row flex-col justify-cente items-center md:gap-10 gap-4">
       <Helmet>
         <title>Legister</title>
       </Helmet>
       <div className="lg:w-4/12">
-      <img  src={icon1} alt="" />
+        <img src={icon1} alt="" />
       </div>
       <div className="lg:w-4/12 p-8 bg-secondary/50 mx-auto md:my-20 my-6 border-2 shadow-lg shadow-secondary">
         <h1 className="text-3xl font-bold text-center mb-8">Register Now</h1>
@@ -77,12 +90,11 @@ const Register = () => {
             />
           </div>
           <div>
-            <p className="font-semibold mb-1">Photo URL</p>
+            <p className="font-semibold mb-1">Photo</p>
             <input
               {...register("photo")}
-              className="w-full p-2 border-l-4 border-secondary"
-              type="text"
-              placeholder="url"
+              className="w-full p-[6px] border-l-4 border-secondary bg-[#ffffff]"
+              type="file"
             />
           </div>
           <div>
@@ -126,10 +138,10 @@ const Register = () => {
         </form>
       </div>
       <div className="lg:w-4/12">
-      <img className="md:w-6/12" src={icon2} alt="" />
+        <img className="md:w-6/12" src={icon2} alt="" />
       </div>
     </div>
-    );
+  );
 };
 
 export default Register;
