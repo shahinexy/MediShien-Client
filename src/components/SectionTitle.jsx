@@ -1,13 +1,12 @@
 import { PropTypes } from "prop-types";
+import heartbeat from "../assets/images/heartbeat.png";
 const SectionTitle = ({ title, des }) => {
   return (
     <div className="max-w-4xl mb-12">
-      <h2 className="text-4xl font-semibold text-secondary uppercase">
+      <h2 className="sm:text-4xl text-3xl font-semibold text-secondary uppercase">
         {title}
       </h2>
-      <div className="flex mt-3 mb-4">
-        <p className="border-t-[3px] border-primary w-36"></p>
-      </div>
+      <img className="-mt-6 -mb-4" src={heartbeat} alt="" />
       <p>{des}</p>
     </div>
   );
