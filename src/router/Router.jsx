@@ -4,6 +4,8 @@ import Root from "../Root/Root";
 import Home from "../pages/Home/Home";
 import Shop from "../pages/Shop/Shop";
 import ErrorPage from "../pages/Home/ErrorPage/ErrorPage";
+import Register from "../pages/Authentication/Register";
+import Login from "../pages/Authentication/Login";
 
 
 
@@ -20,6 +22,14 @@ const router = createBrowserRouter([
         {
           path: '/shop',
           element: <Shop></Shop>
+        },
+        {
+          path:'register',
+          element: <Register></Register>
+        },
+        {
+          path: '/login',
+          element: <Login></Login>
         }
       ]
     },

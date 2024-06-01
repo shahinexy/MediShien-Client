@@ -1,8 +1,12 @@
 import { toast } from "keep-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { authContext } from "../../AuthProvider/AuthProvider";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import icon1 from '../../assets/images/pngwing.com (2).png'
+import icon2 from '../../assets/images/pngwing.com.png'
 
 const Register = () => {
 
@@ -53,11 +57,14 @@ const Register = () => {
     };
   
     return (
-        <div>
+        <div className="md:pt-10 pt-20 flex md:flex-row flex-col justify-cente items-center md:gap-10 gap-4">
       <Helmet>
         <title>Legister</title>
       </Helmet>
-      <div className="xl:w-1/3 md:w-2/3 text-forth p-8 bg-secondary mx-auto md:my-20 my-6">
+      <div className="lg:w-4/12">
+      <img  src={icon1} alt="" />
+      </div>
+      <div className="lg:w-4/12 p-8 bg-secondary/50 mx-auto md:my-20 my-6 border-2 shadow-lg shadow-secondary">
         <h1 className="text-3xl font-bold text-center mb-8">Register Now</h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -65,7 +72,7 @@ const Register = () => {
             <p className="font-semibold mb-1">Name</p>
             <input
               {...register("name")}
-              className="w-full bg-third p-2 border-l-4 border-forth"
+              className="w-full p-2 border-l-4 border-secondary"
               type="text"
               placeholder="name"
             />
@@ -74,7 +81,7 @@ const Register = () => {
             <p className="font-semibold mb-1">Photo URL</p>
             <input
               {...register("photo")}
-              className="w-full bg-third p-2 border-l-4 border-forth"
+              className="w-full p-2 border-l-4 border-secondary"
               type="text"
               placeholder="url"
             />
@@ -83,7 +90,7 @@ const Register = () => {
             <p className="font-semibold mb-1">Email</p>
             <input
               {...register("email")}
-              className="w-full bg-third p-2 border-l-4 border-forth"
+              className="w-full p-2 border-l-4 border-secondary"
               type="email"
               placeholder="email"
               required
@@ -93,7 +100,7 @@ const Register = () => {
             <p className="font-semibold mb-1">Password</p>
             <input
               {...register("pass")}
-              className="w-full bg-third p-2 border-l-4 border-forth"
+              className="w-full p-2 border-l-4 border-secondary"
               type={passType ? "password" : "text"}
               placeholder="password"
               required
@@ -107,17 +114,20 @@ const Register = () => {
             </span>
           </div>
           <div>
-            <button className="btn w-full text-xl text-forth font-semibold hover:bg-primary rounded-none border-2 border-forth hover:border-primary bg-inherit mt-6">
+            <button className="btn w-full text-xl text-forth font-semibold rounded-none border-2 border-forth bg-inherit mt-6 py-2 hover:scale-95 duration-300">
               Register
             </button>
           </div>
           <p>
             Already have an account?{" "}
-            <Link to={"/login"} className="font-bold underline">
+            <Link to={"/login"} className="font-bold underline text-primary">
               Login
             </Link>
           </p>
         </form>
+      </div>
+      <div className="lg:w-4/12">
+      <img className="md:w-6/12" src={icon2} alt="" />
       </div>
     </div>
     );

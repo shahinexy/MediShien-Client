@@ -1,6 +1,6 @@
 import logo from '../assets/images/icons8-medicine-60.png'
 import { Navbar, Button } from "keep-react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 const NavBar = () => {
   const navItems = (
     <>
@@ -31,7 +31,7 @@ const NavBar = () => {
     </>
   );
   return (
-    <div className="max-w-7xl mx-auto px-4 py-3 bg-primary text-white shadow-xl shadow-black/50 z-30">
+    <div className="max-w-7xl mx-auto px-4 py-3 bg-primary text-white shadow-lg shadow-secondary/50 z-30">
       <Navbar fluid={true} className="bg-inherit ">
         <Navbar.Container className="flex items-center justify-between">
           <Navbar.Container className="flex items-center">
@@ -57,7 +57,9 @@ const NavBar = () => {
 
           <Navbar.Container className="flex gap-2">
             
+            <Link to={'/login'}>
             <Button className="bg-secondary rounded-none hover:bg-[#44adb0] hover:scale-95 duration-300">Join Us</Button>
+            </Link>
             <Navbar.Toggle />
           </Navbar.Container>
         </Navbar.Container>
