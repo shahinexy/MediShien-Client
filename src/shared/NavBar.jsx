@@ -1,14 +1,13 @@
 import logo from "../assets/images/icons8-medicine-60.png";
-import { Navbar, Button, Dropdown } from "keep-react";
-import { useContext } from "react";
-import { GrLogin } from "react-icons/gr";
+import { Navbar, Dropdown } from "keep-react";
+import { GrLogin, GrLogout } from "react-icons/gr";
 import { Link, NavLink } from "react-router-dom";
-import { authContext } from "../AuthProvider/AuthProvider";
 import { FaUserEdit } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
+import useAuth from './../Hooks/useAuth';
 
 const NavBar = () => {
-  const {user} = useContext(authContext)
+  const {user, logoutUser} = useAuth()
   const navItems = (
     <>
       <NavLink
@@ -38,7 +37,7 @@ const NavBar = () => {
     </>
   );
   return (
-    <div className="max-w-7xl mx-auto px-4 py-1 bg-primary text-white shadow-lg shadow-secondary/50 z-30">
+    <div className="max-w-7xl mx-auto px-4 py-3 bg-primary text-white shadow-lg shadow-secondary/50 z-30">
       <Navbar fluid={true} className="bg-inherit ">
         <Navbar.Container className="flex items-center justify-between">
           <Navbar.Container className="flex items-center">
@@ -72,17 +71,18 @@ const NavBar = () => {
                   <div className="flex justify-center pb-3"><img className="w-16 h-16 rounded-full" src={user?.photoURL} alt="" /></div>
                   <p className="text-lg ">{user?.displayName} </p>
                   <div className="flex flex-col items-center justify-center">
-                  <button className="bg-primary flex items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300">Dashboard <MdDashboard className="text-xl" /> </button>
+                  <button className="bg-primary flex w-full justify-center items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300">Dashboard <MdDashboard className="text-xl" /> </button>
 
-                  <button className="bg-primary flex items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300">Update User <FaUserEdit className="text-xl" /> </button>
+                  <button className="bg-primary flex w-full justify-center items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300">Update User <FaUserEdit className="text-xl" /> </button>
+                  <button onClick={logoutUser} className="bg-primary flex w-full justify-center items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300">Logout <GrLogout className="text-xl" /> </button>
                   </div>
                 </div>
               </Dropdown>
             ) : (
               <Link to={"/login"}>
-                <Button className="bg-secondary rounded-none hover:bg-[#44adb0] hover:scale-95 duration-300">
+                <button className="flex bg-secondary py-2 px-5 rounded-none hover:bg-[#44adb0] hover:scale-95 duration-300">
                   Join Us <GrLogin className="ml-3 text-xl" />
-                </Button>
+                </button>
               </Link>
             )}
 
