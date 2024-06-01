@@ -1,7 +1,14 @@
-import logo from '../assets/images/icons8-medicine-60.png'
-import { Navbar, Button } from "keep-react";
+import logo from "../assets/images/icons8-medicine-60.png";
+import { Navbar, Button, Dropdown } from "keep-react";
+import { useContext } from "react";
+import { GrLogin } from "react-icons/gr";
 import { Link, NavLink } from "react-router-dom";
+import { authContext } from "../AuthProvider/AuthProvider";
+import { FaUserEdit } from "react-icons/fa";
+import { MdDashboard } from "react-icons/md";
+
 const NavBar = () => {
+  const {user} = useContext(authContext)
   const navItems = (
     <>
       <NavLink
@@ -31,13 +38,16 @@ const NavBar = () => {
     </>
   );
   return (
-    <div className="max-w-7xl mx-auto px-4 py-3 bg-primary text-white shadow-lg shadow-secondary/50 z-30">
+    <div className="max-w-7xl mx-auto px-4 py-1 bg-primary text-white shadow-lg shadow-secondary/50 z-30">
       <Navbar fluid={true} className="bg-inherit ">
         <Navbar.Container className="flex items-center justify-between">
           <Navbar.Container className="flex items-center">
-            <Navbar.Brand className='flex gap-1 items-center text-xl font-semibold'>
-                <img className='w-10' src={logo} alt="" />
-                <p>Medi<span className='text-[#44adb0]'>Shine</span></p></Navbar.Brand>
+            <Navbar.Brand className="flex gap-1 items-center text-xl font-semibold">
+              <img className="w-10" src={logo} alt="" />
+              <p>
+                Medi<span className="text-[#44adb0]">Shine</span>
+              </p>
+            </Navbar.Brand>
             {/* ==== Mobile === */}
             <Navbar.Collapse collapseType="sidebar">
               <Navbar.Container tag="ul" className="flex flex-col gap-5">
@@ -56,10 +66,26 @@ const NavBar = () => {
           </Navbar.Container>
 
           <Navbar.Container className="flex gap-2">
-            
-            <Link to={'/login'}>
-            <Button className="bg-secondary rounded-none hover:bg-[#44adb0] hover:scale-95 duration-300">Join Us</Button>
-            </Link>
+            {user ? (
+              <Dropdown action={<img className="w-12 h-12 rounded-full" src={user?.photoURL} alt="" />} actionClassName="border-none bg-inherit" className="bg-secondary border-none rounded-none shadow-lg shadow-secondary text-center">
+                <div>
+                  <div className="flex justify-center pb-3"><img className="w-16 h-16 rounded-full" src={user?.photoURL} alt="" /></div>
+                  <p className="text-lg ">{user?.displayName} </p>
+                  <div className="flex flex-col items-center justify-center">
+                  <button className="bg-primary flex items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300">Dashboard <MdDashboard className="text-xl" /> </button>
+
+                  <button className="bg-primary flex items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300">Update User <FaUserEdit className="text-xl" /> </button>
+                  </div>
+                </div>
+              </Dropdown>
+            ) : (
+              <Link to={"/login"}>
+                <Button className="bg-secondary rounded-none hover:bg-[#44adb0] hover:scale-95 duration-300">
+                  Join Us <GrLogin className="ml-3 text-xl" />
+                </Button>
+              </Link>
+            )}
+
             <Navbar.Toggle />
           </Navbar.Container>
         </Navbar.Container>

@@ -9,7 +9,6 @@ import icon1 from '../../assets/images/pngwing.com (2).png'
 import icon2 from '../../assets/images/pngwing.com.png'
 
 const Register = () => {
-
     const { createUser, updateUser } = useContext(authContext);
     const [showHide, setShowHide] = useState(true);
     const [passType, setPassType] = useState(true);
