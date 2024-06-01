@@ -1,5 +1,8 @@
 import { toast } from "keep-react";
+import { useState } from "react";
 import { Helmet } from "react-helmet";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
 
