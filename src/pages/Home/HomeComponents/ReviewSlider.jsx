@@ -21,10 +21,11 @@ const ReviewSlider = () => {
         modules={[Autoplay, Pagination]}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <div className="border-t-4 border-primary p-7 space-y-4">
-            <FaQuoteLeft className="text-5xl text-secondary" />
-            <div className="px-16">
+        <SwiperSlide >
+          <div className="lg:w-7/12 mx-auto border-x border-b border-gray-400 shadow-xl">
+          <div className=" border-t-4 border-primary sm:p-7 p-3 space-y-4">
+            <FaQuoteLeft className="sm:text-5xl text-4xl text-secondary" />
+            <div className="sm:px-16 px-4">
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
                 minus consectetur ipsa at aut nulla aliquid aspernatur sint
@@ -40,54 +41,9 @@ const ReviewSlider = () => {
               </div>
             </div>
             <div className="flex justify-end">
-              <FaQuoteRight className="text-5xl text-secondary" />
+              <FaQuoteRight className="sm:text-5xl text-4xl text-secondary" />
             </div>
           </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="border-t-4 border-primary p-7 space-y-4">
-            <FaQuoteLeft className="text-5xl text-secondary" />
-            <div className="px-16">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
-                minus consectetur ipsa at aut nulla aliquid aspernatur sint
-                optio ut? Dolores minus consectetur ipsa at aut nulla aliquid
-                aspernatur sint optio ut?
-              </p>
-              <div className="flex gap-3 items-center mt-7">
-                <img className="w-12 h-12 rounded-full" src="" alt="" />
-                <div>
-                  <p className="text-lg font-medium">reivewar Name</p>
-                  <small>Adammje nagar, Narayanganj</small>
-                </div>
-              </div>
-            </div>
-            <div className="flex justify-end">
-              <FaQuoteRight className="text-5xl text-secondary" />
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="border-t-4 border-primary p-7 space-y-4">
-            <FaQuoteLeft className="text-5xl text-secondary" />
-            <div className="px-16">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
-                minus consectetur ipsa at aut nulla aliquid aspernatur sint
-                optio ut? Dolores minus consectetur ipsa at aut nulla aliquid
-                aspernatur sint optio ut?
-              </p>
-              <div className="flex gap-3 items-center mt-7">
-                <img className="w-12 h-12 rounded-full" src="" alt="" />
-                <div>
-                  <p className="text-lg font-medium">reivewar Name</p>
-                  <small>Adammje nagar, Narayanganj</small>
-                </div>
-              </div>
-            </div>
-            <div className="flex justify-end">
-              <FaQuoteRight className="text-5xl text-secondary" />
-            </div>
           </div>
         </SwiperSlide>
       </Swiper>

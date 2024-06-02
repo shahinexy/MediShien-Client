@@ -1,4 +1,4 @@
-import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
+
 import SectionTitle from "../../../components/SectionTitle";
 import ReviewSlider from "./ReviewSlider";
 
@@ -9,11 +9,7 @@ const Review = () => {
         <SectionTitle title={"What our cient say"}></SectionTitle>
       </div>
 
-      <div className="flex justify-center">
-          <div className="max-w-3xl border-x border-b border-gray-400 shadow-xl">
-          <ReviewSlider></ReviewSlider>
-          </div>
-      </div>
+      <ReviewSlider></ReviewSlider>
     </div>
   );
 };
