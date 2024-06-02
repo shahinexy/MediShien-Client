@@ -7,9 +7,9 @@ import { GiReturnArrow } from "react-icons/gi";
 import { IoShieldCheckmark } from "react-icons/io5";
 const Footer = () => {
   return (
-    <div className="relative text-white grid  grid-cols-3 h-[60%]">
+    <div className="relative text-white grid  grid-cols-3 md:h-[500px] h-[800px]">
       <div className="absolute inset-0 flex items-center">
-        <div className="max-w-7xl mx-auto px-4 py-20 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10 h-full">
+        <div className="max-w-7xl mx-auto px-4 py-20 grid lg:grid-cols-3 md:grid-cols-2  grid-cols-1 gap-10 h-full">
           <div>
             <div className="flex items-center gap-2">
               <img className="w-14" src={logo} alt="" />
@@ -23,11 +23,11 @@ const Footer = () => {
               perspiciatis, delectus vel nemo eius quasi explicabo laudantium,
               vero, neque in commodi.
             </p>
-            <p className="flex items-center gap-2 mt-10">
+            <p className="flex items-center gap-2 sm:mt-10 mt-6">
               <FaLocationDot className="text-[#44adb0] text-xl" /> Adanjee
               Nagar, Narayanganj.
             </p>
-            <p className="flex items-center gap-2 mt-10">
+            <p className="flex items-center gap-2 sm:mt-10 mt-6">
               <MdAttachEmail className="text-[#44adb0] text-xl" />{" "}
               example@gmail.com
             </p>
@@ -51,7 +51,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="space-y-7">
+          <div className="lg:inline-block hidden space-y-7">
             <div className="flex gap-4 ">
               <div>
                 <p className="border-2 border-primary rounded-full p-2">
@@ -61,7 +61,7 @@ const Footer = () => {
               <div>
                 <h3 className="text-xl mb-2">RETURN & EXCHANGE</h3>
                 <p className="text-sm">
-                You can return or exchange the item within 30 days
+                  You can return or exchange the item within 30 days
                 </p>
               </div>
             </div>
@@ -74,7 +74,7 @@ const Footer = () => {
               <div>
                 <h3 className="text-xl mb-2">100% QUALITY GUARANTEE</h3>
                 <p className="text-sm">
-                No MOQ, Customize Production Acceptable
+                  No MOQ, Customize Production Acceptable
                 </p>
               </div>
             </div>
@@ -87,7 +87,7 @@ const Footer = () => {
               <div>
                 <h3 className="text-xl mb-2">FREE DELIVERY</h3>
                 <p className="text-sm">
-                Free delivery on orders of $200 and more
+                  Free delivery on orders of $200 and more
                 </p>
               </div>
             </div>
@@ -99,9 +99,7 @@ const Footer = () => {
               </div>
               <div>
                 <h3 className="text-xl mb-2">+3(800) 2345-6789</h3>
-                <p className="text-sm">
-                Round-the-clock free hotline (24/7)
-                </p>
+                <p className="text-sm">Round-the-clock free hotline (24/7)</p>
               </div>
             </div>
           </div>
@@ -111,6 +109,9 @@ const Footer = () => {
       <div className="bg-primary"></div>
       <div className="bg-secondary"></div>
       <div className="bg-[#44adb0]"></div>
+      <p className="absolute bottom-8 w-full text-center">
+        Copyright © 2024 - All right reserved
+      </p>
     </div>
   );
 };
