@@ -3,7 +3,7 @@ import cart from "../assets/images/cart.png";
 import { Navbar, Dropdown } from "keep-react";
 import { GrLogin, GrLogout } from "react-icons/gr";
 import { Link, NavLink } from "react-router-dom";
-import { FaUserEdit } from "react-icons/fa";
+import { FaUserCircle, FaUserEdit } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import useAuth from './../Hooks/useAuth';
 
@@ -66,7 +66,7 @@ const NavBar = () => {
           </Navbar.Container>
 
           <Navbar.Container className="flex gap-2">
-            <Link className="relative pr-2">
+            <Link to={'/dashboard'} className="relative pr-2">
               <img className="w-10" src={cart} alt="" />
               <small className="absolute px-1 top-0 right-0 bg-white rounded-full text-primary font-semibold">+2</small>
             </Link>
@@ -79,7 +79,7 @@ const NavBar = () => {
             </div>
 
             {user ? (
-              <Dropdown action={<img className="w-12 h-12 rounded-full" src={user?.photoURL} alt="" />} actionClassName="border-none bg-inherit p-0" className="bg-secondary border-none rounded-none shadow-lg shadow-secondary text-center">
+              <Dropdown action={user?.photoURL ? <img className="sm:w-12 w-10 sm:h-12 h-10 rounded-full" src={user?.photoURL} alt="" /> : <FaUserCircle className="sm:text-5xl text-4xl text-white" />} actionClassName="border-none bg-inherit p-0" className="bg-secondary border-none rounded-none shadow-lg shadow-secondary text-center">
                 <div>
                   <div className="flex justify-center pb-3"><img className="w-16 h-16 rounded-full" src={user?.photoURL} alt="" /></div>
                   <p className="text-lg ">{user?.displayName} </p>

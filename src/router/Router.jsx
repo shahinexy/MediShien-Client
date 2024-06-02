@@ -6,6 +6,8 @@ import Shop from "../pages/Shop/Shop";
 import ErrorPage from "../pages/Home/ErrorPage/ErrorPage";
 import Register from "../pages/Authentication/Register";
 import Login from "../pages/Authentication/Login";
+import Dashboard from "../Dashboard/Dashboard";
+import PaymentHistory from "../Dashboard/User/PaymentHistory";
 
 
 
@@ -33,6 +35,16 @@ const router = createBrowserRouter([
         }
       ]
     },
+    {
+      path: '/dashboard',
+      element: <Dashboard></Dashboard>,
+      children: [
+        {
+          path: 'payment',
+          element: <PaymentHistory></PaymentHistory>
+        }
+      ]
+    }
   ]);
 
   export default router;
