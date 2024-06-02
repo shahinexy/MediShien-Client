@@ -34,7 +34,7 @@ const Home = () => {
 
       <div
         style={{ backgroundImage: `url(${review})` }}
-        className="bg-fixed bg-no-repeat bg-cover bg-center py-16"
+        className="bg-fixed bg-no-repeat bg-cover bg-center py-16 sm:my-36 my-20"
       >
         <Review></Review>
       </div>
