@@ -2,9 +2,11 @@ import { Helmet } from "react-helmet";
 import Slider from "./HomeComponents/Slider";
 import Categories from "./HomeComponents/Categories";
 import DiscountSection from "./HomeComponents/DiscountSection";
+import FacilitySection from "./HomeComponents/FacilitySection";
 import heroBg from "../../assets/images/—Slidesdocs—medical light blue_016efe7fdf.jpg";
 import sectionbg from '../../assets/images/Free-Medicine-Background-1024x576.jpg'
-import FacilitySection from "./HomeComponents/FacilitySection";
+import review from '../../assets/images/1685488950_en-idei-club-p-medical-background-dizain-pinterest-2.jpg'
+import Review from "./HomeComponents/Review";
 
 const Home = () => {
   return (
@@ -28,6 +30,13 @@ const Home = () => {
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:my-36 my-20">
         <DiscountSection></DiscountSection>
+      </div>
+
+      <div
+        style={{ backgroundImage: `url(${review})` }}
+        className="bg-fixed bg-no-repeat bg-cover bg-center py-16"
+      >
+        <Review></Review>
       </div>
     </div>
   );

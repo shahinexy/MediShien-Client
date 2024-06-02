@@ -19,7 +19,7 @@ const FacilitySection = () => {
           </p>
         </div>
       </div>
-      <div className="flex gap-4 bg-primary text-white sm:p-10 p-4 lg:-translate-y-10">
+      <div className="flex gap-4 bg-primary text-white sm:p-10 p-4 lg:-translate-y-16">
         <div>
           <p className="border-2 border-secondary rounded-full p-3">
             <FaMoneyCheckAlt className="text-4xl text-white " />
