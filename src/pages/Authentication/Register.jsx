@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
@@ -19,7 +18,7 @@ const Register = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    
+    console.log(data);
     if (!/^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(data.pass)) {
       return toast.error(
         "Password requires 1 lowercase, 1 uppercase, and min 6 characters."
@@ -90,14 +89,6 @@ const Register = () => {
             />
           </div>
           <div>
-            <p className="font-semibold mb-1">Photo</p>
-            <input
-              {...register("photo")}
-              className="w-full p-[6px] border-l-4 border-secondary bg-[#ffffff]"
-              type="file"
-            />
-          </div>
-          <div>
             <p className="font-semibold mb-1">Email</p>
             <input
               {...register("email")}
@@ -124,6 +115,28 @@ const Register = () => {
               {showHide ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
             </span>
           </div>
+
+          <div className="flex gap-4">
+            <div className="w-1/2">
+              <p className="font-semibold mb-1">Photo</p>
+              <input
+                {...register("photo")}
+                className="w-full p-[6px] border-l-4 border-secondary bg-[#ffffff]"
+                type="file"
+              />
+            </div>
+            <div className="w-1/2">
+              <p className="font-semibold mb-1">Role</p>
+              <select
+              {...register("role")}
+                className="w-full p-[10px] border-l-4 border-secondary bg-[#ffffff]"
+              >
+                <option value="user">User</option>
+                <option value="seller">Seller</option>
+              </select>
+            </div>
+          </div>
+
           <div>
             <button className="btn w-full text-xl text-forth font-semibold rounded-none border-2 border-forth bg-inherit mt-6 py-2 hover:scale-95 duration-300">
               Register

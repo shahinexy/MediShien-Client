@@ -1,4 +1,5 @@
 import logo from "../assets/images/icons8-medicine-60.png";
+import cart from "../assets/images/cart.png";
 import { Navbar, Dropdown } from "keep-react";
 import { GrLogin, GrLogout } from "react-icons/gr";
 import { Link, NavLink } from "react-router-dom";
@@ -65,6 +66,18 @@ const NavBar = () => {
           </Navbar.Container>
 
           <Navbar.Container className="flex gap-2">
+            <Link className="relative pr-2">
+              <img className="w-10" src={cart} alt="" />
+              <small className="absolute px-1 top-0 right-0 bg-white rounded-full text-primary font-semibold">+2</small>
+            </Link>
+
+            <div className="flex items-center mx-5">
+            <select className="bg-inherit border p-1" name="" id="">
+              <option className="bg-primary" value="">ENG</option>
+              <option className="bg-primary" value="">BAN</option>
+            </select>
+            </div>
+
             {user ? (
               <Dropdown action={<img className="w-12 h-12 rounded-full" src={user?.photoURL} alt="" />} actionClassName="border-none bg-inherit p-0" className="bg-secondary border-none rounded-none shadow-lg shadow-secondary text-center">
                 <div>
