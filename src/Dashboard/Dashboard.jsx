@@ -1,6 +1,12 @@
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaTwitter,
+  FaUser,
+  FaWallet,
+} from "react-icons/fa";
 import useAuth from "../Hooks/useAuth";
-import { Link } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import logo from "../assets/images/icons8-medicine-60.png";
 
 const Dashboard = () => {
@@ -28,7 +34,39 @@ const Dashboard = () => {
             </Link>
           </div>
         </div>
+
+        <div className="w-full px-2 mt-5 ">
+          <NavLink
+            to={"/dashboard"}
+            className={({ isActive, isPending }) =>
+              isPending
+                ? "pending"
+                : isActive
+                ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                : " hover:bg-black/10 py-2 px-2 w-full inline-block"
+            }
+          >
+            <p className="flex items-center gap-3">
+              <FaUser /> User Profiel
+            </p>
+          </NavLink>
+          <NavLink
+            to={"/dashboard/paymentHistory"}
+            className={({ isActive, isPending }) =>
+              isPending
+                ? "pending"
+                : isActive
+                ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                : " hover:bg-black/10 py-2 px-2 w-full inline-block"
+            }
+          >
+            <p className="flex items-center gap-3">
+              <FaWallet /> Payment History
+            </p>
+          </NavLink>
+        </div>
       </div>
+
       <div className="w-64 px-4"></div>
 
       <div className="w-full">
@@ -41,12 +79,12 @@ const Dashboard = () => {
               </p>
             </div>
           </div>
-          <h3 className=" text-2xl font-semibold">
-            DASHBOARD
-          </h3>
+          <h3 className=" text-2xl font-semibold">DASHBOARD</h3>
         </div>
 
-
+        <div className=" mt-20">
+            <Outlet></Outlet>
+        </div>
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ import Register from "../pages/Authentication/Register";
 import Login from "../pages/Authentication/Login";
 import Dashboard from "../Dashboard/Dashboard";
 import PaymentHistory from "../Dashboard/User/PaymentHistory";
+import UserProfile from "../Dashboard/UserProfile";
 
 
 
@@ -40,9 +41,13 @@ const router = createBrowserRouter([
       element: <Dashboard></Dashboard>,
       children: [
         {
-          path: 'payment',
+          path: '/dashboard',
+          element: <UserProfile></UserProfile>
+        },
+        {
+          path: 'paymentHistory',
           element: <PaymentHistory></PaymentHistory>
-        }
+        },
       ]
     }
   ]);
