@@ -27,7 +27,6 @@ const Dashboard = () => {
     }
   })
 
-  // ----- TODO: get the user data form api ------
   return (
     <div className="flex gap-9">
       <div className="fixed w-64 h-screen bg-primary text-white px-4">
