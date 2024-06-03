@@ -12,10 +12,21 @@ import logo from "../assets/images/icons8-medicine-60.png";
 import { PiShoppingCartFill } from "react-icons/pi";
 import { GrLogout } from "react-icons/gr";
 import { RiMedicineBottleFill } from "react-icons/ri";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const Dashboard = () => {
   const { user, logoutUser } = useAuth();
-  
+  const axisoPublic = useAxiosPublic()
+
+  const {data: currentUser} = useQuery({
+    queryKey: ['user'],
+    queryFn: async () =>{
+      const res = await axisoPublic.get(`/users?email=${user.email}`)
+      return res.data;
+    }
+  })
+
   // ----- TODO: get the user data form api ------
   return (
     <div className="flex gap-9">
@@ -43,7 +54,7 @@ const Dashboard = () => {
         </div>
 
         {/* ====== Seller menu =====  */}
-        {user?.userRole === "seller" && (
+        {currentUser?.userRole === "seller" && (
           <div className="px-2 mt-5 space-y-1 border-b border-secondary pb-12">
             <NavLink
               to={"/dashboard/userProfile"}
@@ -77,7 +88,7 @@ const Dashboard = () => {
         )}
 
         {/* ====== User menu =====  */}
-        {user?.userRole === "user" && (
+        {currentUser?.userRole === "user" && (
           <div className="px-2 mt-5 space-y-1 border-b border-secondary pb-12">
             <NavLink
               to={"/dashboard/userProfile"}

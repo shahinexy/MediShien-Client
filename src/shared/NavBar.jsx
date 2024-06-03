@@ -5,10 +5,10 @@ import { GrLogin, GrLogout } from "react-icons/gr";
 import { Link, NavLink } from "react-router-dom";
 import { FaUserCircle, FaUserEdit } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
-import useAuth from './../Hooks/useAuth';
+import useAuth from "./../Hooks/useAuth";
 
 const NavBar = () => {
-  const {user, logoutUser} = useAuth()
+  const { user, logoutUser } = useAuth();
   const navItems = (
     <>
       <NavLink
@@ -66,28 +66,69 @@ const NavBar = () => {
           </Navbar.Container>
 
           <Navbar.Container className="flex gap-2">
-            <Link to={'/dashboard'} className="relative pr-2">
+            <Link to={"/dashboard"} className="relative pr-2">
               <img className="w-10" src={cart} alt="" />
-              <small className="absolute px-1 top-0 right-0 bg-white rounded-full text-primary font-semibold">+2</small>
+              <small className="absolute px-1 top-0 right-0 bg-white rounded-full text-primary font-semibold">
+                +2
+              </small>
             </Link>
 
             <div className="flex items-center mx-5">
-            <select className="bg-inherit border p-1" name="" id="">
-              <option className="bg-primary" value="">ENG</option>
-              <option className="bg-primary" value="">BAN</option>
-            </select>
+              <select className="bg-inherit border p-1" name="" id="">
+                <option className="bg-primary" value="">
+                  ENG
+                </option>
+                <option className="bg-primary" value="">
+                  BAN
+                </option>
+              </select>
             </div>
 
             {user ? (
-              <Dropdown action={user?.photoURL ? <img className="sm:w-12 w-10 sm:h-12 h-10 rounded-full" src={user?.photoURL} alt="" /> : <FaUserCircle className="sm:text-5xl text-4xl text-white" />} actionClassName="border-none bg-inherit p-0" className="bg-secondary border-none rounded-none shadow-lg shadow-secondary text-center">
+              <Dropdown
+                action={
+                  user?.photoURL ? (
+                    <img
+                      className="sm:w-12 w-10 sm:h-12 h-10 rounded-full"
+                      src={user?.photoURL}
+                      alt=""
+                    />
+                  ) : (
+                    <FaUserCircle className="sm:text-5xl text-4xl text-white" />
+                  )
+                }
+                actionClassName="border-none bg-inherit p-0"
+                className="bg-secondary border-none rounded-none shadow-lg shadow-secondary text-center"
+              >
                 <div>
-                  <div className="flex justify-center pb-3"><img className="w-16 h-16 rounded-full" src={user?.photoURL} alt="" /></div>
+                  <div className="flex justify-center pb-3">
+                    <img
+                      className="w-16 h-16 rounded-full"
+                      src={user?.photoURL}
+                      alt=""
+                    />
+                  </div>
                   <p className="text-lg ">{user?.displayName} </p>
                   <div className="flex flex-col items-center justify-center">
-                  <button className="bg-primary flex w-full justify-center items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300">Dashboard <MdDashboard className="text-xl" /> </button>
 
-                  <button className="bg-primary flex w-full justify-center items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300">Update User <FaUserEdit className="text-xl" /> </button>
-                  <button onClick={logoutUser} className="bg-primary flex w-full justify-center items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300">Log Out <GrLogout className="text-xl" /> </button>
+                    <Link to={"/dashboard/userProfile"} className="w-full">
+                      <button className="bg-primary flex w-full justify-center items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300">
+                        Dashboard <MdDashboard className="text-xl" />{" "}
+                      </button>
+                    </Link>
+
+                    <Link  className="w-full">
+                      <button className="bg-primary flex w-full justify-center items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300">
+                        Update User <FaUserEdit className="text-xl" />{" "}
+                      </button>
+                    </Link>
+
+                    <button
+                      onClick={logoutUser}
+                      className="bg-primary flex w-full justify-center items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300"
+                    >
+                      Log Out <GrLogout className="text-xl" />{" "}
+                    </button>
                   </div>
                 </div>
               </Dropdown>

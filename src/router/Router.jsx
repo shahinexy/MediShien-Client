@@ -9,6 +9,7 @@ import Login from "../pages/Authentication/Login";
 import Dashboard from "../Dashboard/Dashboard";
 import PaymentHistory from "../Dashboard/User/PaymentHistory";
 import UserProfile from "../Dashboard/UserProfile";
+import ManageMedicines from "../Dashboard/Seller/ManageMedicines";
 
 
 
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
       path: '/dashboard',
       element: <Dashboard></Dashboard>,
       children: [
+        // ==== user routs ===
         {
           path: 'userProfile',
           element: <UserProfile></UserProfile>
@@ -48,6 +50,12 @@ const router = createBrowserRouter([
           path: 'paymentHistory',
           element: <PaymentHistory></PaymentHistory>
         },
+
+        // ===== seller routs =====
+        {
+          path: 'manageMedicines',
+          element: <ManageMedicines></ManageMedicines>
+        }
       ]
     }
   ]);
