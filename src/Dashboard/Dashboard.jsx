@@ -1,5 +1,6 @@
 import {
   FaFacebook,
+  FaHome,
   FaInstagram,
   FaTwitter,
   FaUser,
@@ -8,12 +9,15 @@ import {
 import useAuth from "../Hooks/useAuth";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import logo from "../assets/images/icons8-medicine-60.png";
+import { PiShoppingCartFill } from "react-icons/pi";
+import { GrLogout } from "react-icons/gr";
 
 const Dashboard = () => {
-  const { user } = useAuth();
+  const { user,logoutUser } = useAuth();
   return (
     <div className="flex gap-9">
       <div className="fixed w-64 h-screen bg-primary text-white px-4">
+        {/* ===== User Info ===== */}
         <div className="flex flex-col items-center justify-center mt-3 border-b border-secondary pb-5">
           <img
             className="w-20 h-20 rounded-full mb-3"
@@ -22,7 +26,7 @@ const Dashboard = () => {
           />
           <p className="text-xl mb-1">{user?.displayName}</p>
           <p className="text-sm">{user?.email}</p>
-          <div className="flex w-full justify-evenly text-3xl mt-4">
+          <div className="flex w-full justify-evenly text-2xl mt-4">
             <Link>
               <FaFacebook></FaFacebook>
             </Link>
@@ -35,19 +39,20 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="w-full px-2 mt-5 ">
+        {/* ====== User menu =====  */}
+        <div className="px-2 mt-5 space-y-1 border-b border-secondary pb-12">
           <NavLink
-            to={"/dashboard"}
+            to={"/dashboard/userProfile"}
             className={({ isActive, isPending }) =>
               isPending
                 ? "pending"
                 : isActive
                 ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
-                : " hover:bg-black/10 py-2 px-2 w-full inline-block"
+                : " hover:bg-black/10 py-1 px-2 w-full inline-block"
             }
           >
             <p className="flex items-center gap-3">
-              <FaUser /> User Profiel
+              <FaUser className="text-lg" /> User Profiel
             </p>
           </NavLink>
           <NavLink
@@ -57,20 +62,56 @@ const Dashboard = () => {
                 ? "pending"
                 : isActive
                 ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
-                : " hover:bg-black/10 py-2 px-2 w-full inline-block"
+                : " hover:bg-black/10 py-1 px-2 w-full inline-block"
             }
           >
             <p className="flex items-center gap-3">
-              <FaWallet /> Payment History
+              <FaWallet className="text-lg" /> Payment History
             </p>
           </NavLink>
+        </div>
+
+        {/* ====== All user menu ===== */}
+        <div className="px-2 mt-5 space-y-1">
+          <NavLink
+            to={"/"}
+            className={({ isActive, isPending }) =>
+              isPending
+                ? "pending"
+                : isActive
+                ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+            }
+          >
+            <p className="flex items-center gap-3">
+              <FaHome className="text-2xl" /> Home
+            </p>
+          </NavLink>
+          <NavLink
+            to={"/shop"}
+            className={({ isActive, isPending }) =>
+              isPending
+                ? "pending"
+                : isActive
+                ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+            }
+          >
+            <p className="flex items-center gap-3">
+              <PiShoppingCartFill className="text-2xl" /> Shop
+            </p>
+          </NavLink>
+        </div>
+
+        <div onClick={logoutUser} className="absolute bottom-0 left-0 w-full flex gap-4 items-center justify-center text-center py-3 bg-secondary hover:bg-black/30 cursor-pointer font-medium">
+          Log Out <GrLogout className="text-lg font-bold" />
         </div>
       </div>
 
       <div className="w-64 px-4"></div>
 
       <div className="w-full">
-        <div className="fixed w-full grid grid-cols-3 bg-primary py-3 px-10 items-center text-white">
+        <div className="fixed w-full grid grid-cols-3 bg-primary py-2 px-10 items-center text-white">
           <div className="">
             <div className="flex items-center gap-2">
               <img className="w-12" src={logo} alt="" />
@@ -82,8 +123,8 @@ const Dashboard = () => {
           <h3 className=" text-2xl font-semibold">DASHBOARD</h3>
         </div>
 
-        <div className=" mt-20">
-            <Outlet></Outlet>
+        <div className=" mt-32 mx-20 ">
+          <Outlet></Outlet>
         </div>
       </div>
     </div>

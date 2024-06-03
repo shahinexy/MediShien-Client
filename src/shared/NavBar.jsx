@@ -87,7 +87,7 @@ const NavBar = () => {
                   <button className="bg-primary flex w-full justify-center items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300">Dashboard <MdDashboard className="text-xl" /> </button>
 
                   <button className="bg-primary flex w-full justify-center items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300">Update User <FaUserEdit className="text-xl" /> </button>
-                  <button onClick={logoutUser} className="bg-primary flex w-full justify-center items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300">Logout <GrLogout className="text-xl" /> </button>
+                  <button onClick={logoutUser} className="bg-primary flex w-full justify-center items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300">Log Out <GrLogout className="text-xl" /> </button>
                   </div>
                 </div>
               </Dropdown>
