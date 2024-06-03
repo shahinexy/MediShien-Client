@@ -9,6 +9,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import google from '../../assets/images/google-icon.png'
 import icon1 from '../../assets/images/pngwing.com (1).png'
 import icon2 from '../../assets/images/pngwing.com (3).png'
+import GoogleLoginBtn from "../../components/GoogleLoginBtn";
 
 const Login = () => {
     const [showHide, setShowHide] = useState(true);
@@ -39,19 +40,19 @@ const Login = () => {
       });
   };
 
-  // handle google login
-  const handleGoogleLogin = () => {
-    googleLogin()
-      .then((res) => {
-        if (res) {
-          toast.success("Login Successfull");
-          navigate(location?.state ? location.state : "/");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // // handle google login
+  // const handleGoogleLogin = () => {
+  //   googleLogin()
+  //     .then((res) => {
+  //       if (res) {
+  //         toast.success("Login Successfull");
+  //         navigate(location?.state ? location.state : "/");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   //handle show hide icon
   const handleShowHide = () => {
@@ -107,14 +108,7 @@ const Login = () => {
               </Link>
             </p>
           </form>
-          <div className="flex gap-3">
-            <button
-              onClick={handleGoogleLogin}
-              className="btn flex justify-center items-center flex-1 text-xl font-semibold rounded-none border-2 hover:border-forth bg-inherit mt-6 hover:scale-95 duration-300"
-            >
-              <img className="w-16" src={google} alt="" /> Login
-            </button>
-          </div>
+          <GoogleLoginBtn></GoogleLoginBtn>
         </div>
         <div className="lg:w-4/12">
       <img  src={icon2} alt="" />

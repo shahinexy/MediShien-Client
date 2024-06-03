@@ -8,13 +8,15 @@ import icon2 from "../../assets/images/pngwing.com.png";
 import useAuth from "./../../Hooks/useAuth";
 import axios from "axios";
 import toast from "react-hot-toast";
+import GoogleLoginBtn from "../../components/GoogleLoginBtn";
+import useAxiosPublic from './../../Hooks/useAxiosPublic';
 
 const Register = () => {
   const { createUser, updateUser, refetch } = useAuth();
+  const axiosPublic = useAxiosPublic()
   const [showHide, setShowHide] = useState(true);
   const [passType, setPassType] = useState(true);
   const navegate = useNavigate();
-
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
@@ -31,12 +33,21 @@ const Register = () => {
       .then((res) => {
         toast.success("Register Successfull");
         navegate("/");
+
+
+        // --- TODO: if user didn't give image have to fixed
+        const user = {userName: data.name, userEmail: data.email, userRole: data.role}
+        axiosPublic.post('/users', user)
+        .then(res =>console.log(res.data))
+        .catch(err => console.log(err))
+
         if (res) {
           axios
             .post(
               `https://api.imgbb.com/1/upload?key=${
                 import.meta.env.VITE_IMAGEBB_SECRET_KEY
-              }`,
+              }`
+,
               photoFile,
               {
                 headers: {
@@ -149,6 +160,7 @@ const Register = () => {
             </Link>
           </p>
         </form>
+        <GoogleLoginBtn></GoogleLoginBtn>
       </div>
       <div className="lg:w-4/12">
         <img className="md:w-6/12" src={icon2} alt="" />

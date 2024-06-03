@@ -11,9 +11,12 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import logo from "../assets/images/icons8-medicine-60.png";
 import { PiShoppingCartFill } from "react-icons/pi";
 import { GrLogout } from "react-icons/gr";
+import { RiMedicineBottleFill } from "react-icons/ri";
 
 const Dashboard = () => {
-  const { user,logoutUser } = useAuth();
+  const { user, logoutUser } = useAuth();
+  
+  // ----- TODO: get the user data form api ------
   return (
     <div className="flex gap-9">
       <div className="fixed w-64 h-screen bg-primary text-white px-4">
@@ -39,37 +42,73 @@ const Dashboard = () => {
           </div>
         </div>
 
+        {/* ====== Seller menu =====  */}
+        {user?.userRole === "seller" && (
+          <div className="px-2 mt-5 space-y-1 border-b border-secondary pb-12">
+            <NavLink
+              to={"/dashboard/userProfile"}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                  : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+              }
+            >
+              <p className="flex items-center gap-3">
+                <FaUser className="text-lg" /> User Profiel
+              </p>
+            </NavLink>
+            <NavLink
+              to={"/dashboard/manageMedicines"}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                  : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+              }
+            >
+              <p className="flex items-center gap-3">
+                <RiMedicineBottleFill className="text-xl" /> Manage Medicines
+              </p>
+            </NavLink>
+          </div>
+        )}
+
         {/* ====== User menu =====  */}
-        <div className="px-2 mt-5 space-y-1 border-b border-secondary pb-12">
-          <NavLink
-            to={"/dashboard/userProfile"}
-            className={({ isActive, isPending }) =>
-              isPending
-                ? "pending"
-                : isActive
-                ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
-                : " hover:bg-black/10 py-1 px-2 w-full inline-block"
-            }
-          >
-            <p className="flex items-center gap-3">
-              <FaUser className="text-lg" /> User Profiel
-            </p>
-          </NavLink>
-          <NavLink
-            to={"/dashboard/paymentHistory"}
-            className={({ isActive, isPending }) =>
-              isPending
-                ? "pending"
-                : isActive
-                ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
-                : " hover:bg-black/10 py-1 px-2 w-full inline-block"
-            }
-          >
-            <p className="flex items-center gap-3">
-              <FaWallet className="text-lg" /> Payment History
-            </p>
-          </NavLink>
-        </div>
+        {user?.userRole === "user" && (
+          <div className="px-2 mt-5 space-y-1 border-b border-secondary pb-12">
+            <NavLink
+              to={"/dashboard/userProfile"}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                  : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+              }
+            >
+              <p className="flex items-center gap-3">
+                <FaUser className="text-lg" /> User Profiel
+              </p>
+            </NavLink>
+            <NavLink
+              to={"/dashboard/paymentHistory"}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                  : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+              }
+            >
+              <p className="flex items-center gap-3">
+                <FaWallet className="text-lg" /> Payment History
+              </p>
+            </NavLink>
+          </div>
+        )}
 
         {/* ====== All user menu ===== */}
         <div className="px-2 mt-5 space-y-1">
@@ -103,7 +142,10 @@ const Dashboard = () => {
           </NavLink>
         </div>
 
-        <div onClick={logoutUser} className="absolute bottom-0 left-0 w-full flex gap-4 items-center justify-center text-center py-3 bg-secondary hover:bg-black/30 cursor-pointer font-medium">
+        <div
+          onClick={logoutUser}
+          className="absolute bottom-0 left-0 w-full flex gap-4 items-center justify-center text-center py-3 bg-secondary hover:bg-black/30 cursor-pointer font-medium"
+        >
           Log Out <GrLogout className="text-lg font-bold" />
         </div>
       </div>
