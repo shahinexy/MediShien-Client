@@ -1,13 +1,13 @@
 import { Navigate, useLocation } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
-import Skeleton from './../components/Skeleton';
+import Loader from "../components/Loader";
 
 const PrivetRoute = ({ children }) => {
   const { user, loader } = useAuth();
   const location = useLocation();
 
   if (loader) {
-    return <Skeleton></Skeleton>;
+    return <Loader></Loader>;
   }
 
   if (user) {

@@ -1,8 +1,9 @@
+import Loader from "../../components/Loader";
 
 const Shop = () => {
     return (
         <div>
-            this is shop
+            <Loader></Loader>
         </div>
     );
 };
