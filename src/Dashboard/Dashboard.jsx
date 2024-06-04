@@ -12,6 +12,7 @@ import { Navbar } from "keep-react";
 import { GiShoppingBag } from "react-icons/gi";
 import { MdCategory } from "react-icons/md";
 import { TbReportSearch } from "react-icons/tb";
+import { SiGooglehome } from "react-icons/si";
 
 const Dashboard = () => {
   const { user, logoutUser } = useAuth();
@@ -79,7 +80,7 @@ const Dashboard = () => {
               }
             >
               <p className="flex items-center gap-3">
-                <RiMedicineBottleFill className="text-xl" /> Admin Home
+                <SiGooglehome className="text-xl" /> Admin Home
               </p>
             </NavLink>
             <NavLink

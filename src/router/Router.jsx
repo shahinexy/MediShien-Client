@@ -14,6 +14,7 @@ import SellerPaymentHistory from "../Dashboard/Seller/SellerPaymentHistory";
 import Advertisement from "../Dashboard/Seller/Advertisement";
 import PrivetRoute from './PrivetRoute';
 import ManageUser from "../Dashboard/Admin/ManageUser";
+import ManageCategory from "../Dashboard/Admin/ManageCategory";
 
 
 
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
         {
           path: 'manageUser',
           element: <ManageUser></ManageUser>
+        },
+        {
+          path: 'manageCategory',
+          element: <ManageCategory></ManageCategory>
         }
       ]
     }

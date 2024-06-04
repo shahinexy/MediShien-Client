@@ -18,7 +18,7 @@ const ManageUser = () => {
   const handleRole = (id, userRole) => {
     console.log(id, userRole);
     axiosPublic
-      .patch(`/users/${id}`, {userRole})
+      .patch(`/users/${id}`, { userRole })
       .then((res) => {
         console.log(res.data);
         refetch();
@@ -61,30 +61,34 @@ const ManageUser = () => {
                 <td className="px-3 py-2 ">{user.userEmail}</td>
                 <td className="px-3 py-2">{user.userRole}</td>
                 <td className="px-3 py-2">
-                  <Dropdown
-                    action={
-                      <div className="flex items-center gap-2 text-sm w-20 justify-center">
-                        {user.userRole} <IoMdArrowDropdown />
-                      </div>
-                    }
-                    actionClassName="rounded-none border border-primary bg-inherit text-primary font-semibold"
-                    className="rounded-none bg-secondary w-40"
-                  >
-                    <Dropdown.List>
-                      <Dropdown.Item
-                        onClick={() => handleRole(user._id, "user")}
-                        className="text-black text-sm border-b border-white rounded-none"
-                      >
-                        User
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => handleRole(user._id, "seller")}
-                        className="text-black text-sm rounded-none"
-                      >
-                        Seller
-                      </Dropdown.Item>
-                    </Dropdown.List>
-                  </Dropdown>
+                  {user.userRole === "admin" ? (
+                    <p className="text-green-500 font-semibold p-2">Admin</p>
+                  ) : (
+                    <Dropdown
+                      action={
+                        <div className="flex items-center gap-2 text-sm w-20 justify-center">
+                          {user.userRole} <IoMdArrowDropdown />
+                        </div>
+                      }
+                      actionClassName="rounded-none border border-primary bg-inherit text-primary font-semibold"
+                      className="rounded-none bg-secondary w-40"
+                    >
+                      <Dropdown.List>
+                        <Dropdown.Item
+                          onClick={() => handleRole(user._id, "user")}
+                          className="text-black text-sm border-b border-white rounded-none"
+                        >
+                          User
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => handleRole(user._id, "seller")}
+                          className="text-black text-sm rounded-none"
+                        >
+                          Seller
+                        </Dropdown.Item>
+                      </Dropdown.List>
+                    </Dropdown>
+                  )}
                 </td>
               </tr>
             ))}
