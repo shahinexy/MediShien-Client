@@ -111,7 +111,7 @@ const NavBar = () => {
                   <p className="text-lg ">{user?.displayName} </p>
                   <div className="flex flex-col items-center justify-center">
 
-                    <Link to={"/dashboard/userProfile"} className="w-full">
+                    <Link to={"/dashboard/userProfile"} className="w-full outline-none">
                       <button className="bg-primary flex w-full justify-center items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300">
                         Dashboard <MdDashboard className="text-xl" />{" "}
                       </button>

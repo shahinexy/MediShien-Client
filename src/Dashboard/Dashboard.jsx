@@ -83,6 +83,20 @@ const Dashboard = () => {
                 <RiMedicineBottleFill className="text-xl" /> Manage Medicines
               </p>
             </NavLink>
+            <NavLink
+              to={"/dashboard/sellerPaymentHistory"}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                  : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+              }
+            >
+              <p className="flex items-center gap-3">
+                <FaWallet className="text-lg" /> Payment History
+              </p>
+            </NavLink>
           </div>
         )}
 

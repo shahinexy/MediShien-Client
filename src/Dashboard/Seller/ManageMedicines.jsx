@@ -68,7 +68,7 @@ const ManageMedicines = () => {
             Add Medicien <MdLibraryAdd className="text-xl" />
           </Button>
           <Modal isOpen={isOpen} onClose={closeModal}>
-            <Modal.Body className="lg:w-1/3 sm:w-4/6 w-full rounded-none text-white bg-secondary border-2 border-gray-400 shadow-lg shadow-primary p-0">
+            <Modal.Body className="lg:w-1/3 sm:w-4/6 w-full rounded-none text-white bg-secondary border-2 border-gray-400 shadow-lg shadow-primary p-0 my-20 pt-20">
               <div className="shadow-inner shadow-primary space-y-3 p-7">
                 <Modal.Content className="">
                   <div className="!mb-6">
@@ -138,17 +138,17 @@ const ManageMedicines = () => {
                             <option value="tablet">company</option>
                           </select>
                         </div>
-                        <div className="w-full">
-                          <p className=" mb-1">Mass Unit</p>
-                          <select
-                            {...register("massUnit")}
-                            className="border-white w-full border-2 rounded-none bg-secondary text-base outline-none py-2 text-center"
-                          >
-                            <option value="Mg">Mg</option>
-                            <option value="Ml">Ml</option>
-                          </select>
-                        </div>
                       </div>
+
+                      <div className="w-full">
+                          <p className=" mb-1">Mass Unit (Mg, Ml)</p>
+                          <input
+                          {...register("massUnit")}
+                          className="w-full p-2 border-l-[5px] border-primary text-primary outline-none"
+                          type="text"
+                          placeholder="name"
+                        />
+                        </div>
 
                       <div className="flex gap-3">
                         <div className="w-full">
@@ -161,12 +161,13 @@ const ManageMedicines = () => {
                           />
                         </div>
                         <div className="w-full">
-                          <p className=" mb-1">Discount %</p>
+                          <p className=" mb-1">Discount (%)</p>
                           <input
                             {...register("discount")}
                             className="w-full p-2 border-l-[5px] border-primary text-primary outline-none"
                             type="number"
                             placeholder="name"
+                            defaultValue={0}
                           />
                         </div>
                       </div>

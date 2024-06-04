@@ -10,6 +10,7 @@ import Dashboard from "../Dashboard/Dashboard";
 import PaymentHistory from "../Dashboard/User/PaymentHistory";
 import UserProfile from "../Dashboard/UserProfile";
 import ManageMedicines from "../Dashboard/Seller/ManageMedicines";
+import SellerPaymentHistory from "../Dashboard/Seller/SellerPaymentHistory";
 
 
 
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
         {
           path: 'manageMedicines',
           element: <ManageMedicines></ManageMedicines>
+        },
+        {
+          path: 'sellerPaymentHistory',
+          element: <SellerPaymentHistory></SellerPaymentHistory>
         }
       ]
     }
