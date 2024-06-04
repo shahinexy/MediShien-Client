@@ -11,6 +11,7 @@ import PaymentHistory from "../Dashboard/User/PaymentHistory";
 import UserProfile from "../Dashboard/UserProfile";
 import ManageMedicines from "../Dashboard/Seller/ManageMedicines";
 import SellerPaymentHistory from "../Dashboard/Seller/SellerPaymentHistory";
+import Advertisement from "../Dashboard/Seller/Advertisement";
 
 
 
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
         {
           path: 'sellerPaymentHistory',
           element: <SellerPaymentHistory></SellerPaymentHistory>
+        },
+        {
+          path: 'sellerAdvertisement',
+          element: <Advertisement></Advertisement>
         }
       ]
     }

@@ -57,13 +57,13 @@ const ManageMedicines = () => {
 
   return (
     <div>
-      <div className="flex justify-between bg-secondary py-2 px-7 text-white items-center">
+      <div className="flex justify-between bg-secondary py-2 sm:px-7 px-2 text-white items-center">
         <p className="text-xl font-semibold ">Manage Your Medicines</p>
         <div>
           {/* ======= Modal ====== */}
           <Button
             onClick={openModal}
-            className="flex gap-2 items-center bg-primary py-2 px-5 rounded-none hover:bg-[#44adb0] hover:scale-95 duration-300"
+            className="flex sm:gap-2 items-center bg-primary py-2 sm:px-5 px-2 rounded-none hover:bg-[#44adb0] hover:scale-95 duration-300"
           >
             Add Medicien <MdLibraryAdd className="text-xl" />
           </Button>
