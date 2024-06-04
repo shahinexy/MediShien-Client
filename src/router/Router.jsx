@@ -12,6 +12,8 @@ import UserProfile from "../Dashboard/UserProfile";
 import ManageMedicines from "../Dashboard/Seller/ManageMedicines";
 import SellerPaymentHistory from "../Dashboard/Seller/SellerPaymentHistory";
 import Advertisement from "../Dashboard/Seller/Advertisement";
+import PrivetRoute from './PrivetRoute';
+import ManageUser from "../Dashboard/Admin/ManageUser";
 
 
 
@@ -41,7 +43,7 @@ const router = createBrowserRouter([
     },
     {
       path: '/dashboard',
-      element: <Dashboard></Dashboard>,
+      element: <PrivetRoute><Dashboard></Dashboard></PrivetRoute>,
       children: [
         // ==== user routs ===
         {
@@ -65,6 +67,12 @@ const router = createBrowserRouter([
         {
           path: 'sellerAdvertisement',
           element: <Advertisement></Advertisement>
+        },
+
+        // ====== Admin Route =======
+        {
+          path: 'manageUser',
+          element: <ManageUser></ManageUser>
         }
       ]
     }

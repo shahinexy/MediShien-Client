@@ -4,3 +4,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.swal2-modal {
+    background-color: #035d5e !important;
+    color: white;
+    border: 2px solid #36c7c7;
+    box-shadow: #36c7c7 5px 10px 20px;
+}
+.swal2-container{
+    background-color: #035d5e76 !important;
+}
+.swal2-cancel {
+    background-color: initial !important;
+    border: 1px solid #36c7c7 !important;
+    color: rgb(235, 37, 37) !important;
+}
+.swal2-confirm{
+    background-color: #035d5e !important;
+    border: 1px solid #36c7c7 !important;
+    color: rgb(30, 227, 30) !important;
+}

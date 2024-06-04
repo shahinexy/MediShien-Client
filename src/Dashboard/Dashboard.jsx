@@ -1,11 +1,4 @@
-import {
-  FaFacebook,
-  FaHome,
-  FaInstagram,
-  FaTwitter,
-  FaUser,
-  FaWallet,
-} from "react-icons/fa";
+import { FaHome, FaUser, FaUserFriends, FaWallet } from "react-icons/fa";
 import useAuth from "../Hooks/useAuth";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import logo from "../assets/images/icons8-medicine-60.png";
@@ -16,6 +9,9 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 import { Navbar } from "keep-react";
+import { GiShoppingBag } from "react-icons/gi";
+import { MdCategory } from "react-icons/md";
+import { TbReportSearch } from "react-icons/tb";
 
 const Dashboard = () => {
   const { user, logoutUser } = useAuth();
@@ -42,19 +38,122 @@ const Dashboard = () => {
           <p className="text-xl mb-1">{user?.displayName}</p>
           <p className="text-sm">{user?.email}</p>
 
-          {/* --- TODO: have to add home shop &cart link ---- */}
           <div className="flex w-full justify-evenly text-2xl mt-4">
-            <Link>
-              <FaFacebook></FaFacebook>
+            <Link to={"/"}>
+              <FaHome />
+            </Link>
+            <Link to={"/shop"}>
+              <GiShoppingBag />
             </Link>
             <Link>
-              <FaTwitter></FaTwitter>
-            </Link>
-            <Link>
-              <FaInstagram></FaInstagram>
+              <PiShoppingCartFill />
             </Link>
           </div>
         </div>
+
+        {/* ========== Admin menu ====== */}
+        {currentUser?.userRole === "admin" && (
+          <div className="px-2 mt-5 space-y-1 border-b border-secondary pb-12">
+            <NavLink
+              to={"/dashboard/userProfile"}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                  : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+              }
+            >
+              <p className="flex items-center gap-3">
+                <FaUser className="text-lg" /> User Profiel
+              </p>
+            </NavLink>
+            <NavLink
+              to={"/dashboard/adminHome"}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                  : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+              }
+            >
+              <p className="flex items-center gap-3">
+                <RiMedicineBottleFill className="text-xl" /> Admin Home
+              </p>
+            </NavLink>
+            <NavLink
+              to={"/dashboard/manageUser"}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                  : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+              }
+            >
+              <p className="flex items-center gap-2">
+                <FaUserFriends className="text-2xl" /> Manage User
+              </p>
+            </NavLink>
+            <NavLink
+              to={"/dashboard/manageCategory"}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                  : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+              }
+            >
+              <p className="flex items-center gap-2">
+                <MdCategory className="text-2xl" /> Manage Category
+              </p>
+            </NavLink>
+            <NavLink
+              to={"/dashboard/paymentManagement"}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                  : " hover:bg-black/10 py-1 pl-2 w-full inline-block"
+              }
+            >
+              <p className="flex items-center gap-3 whitespace-nowrap ">
+                <FaWallet className="text-lg" /> Payment management
+              </p>
+            </NavLink>
+            <NavLink
+              to={"/dashboard/salesReport"}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                  : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+              }
+            >
+              <p className="flex items-center gap-2">
+                <TbReportSearch className="text-2xl" /> Sales Report
+              </p>
+            </NavLink>
+            <NavLink
+              to={"/dashboard/manageBannerAdvertise"}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                  : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+              }
+            >
+              <p className="flex items-center gap-2">
+                <PiTelevisionSimpleFill className="text-2xl" /> Manage Advertise
+              </p>
+            </NavLink>
+          </div>
+        )}
 
         {/* ====== Seller menu =====  */}
         {currentUser?.userRole === "seller" && (
@@ -179,7 +278,7 @@ const Dashboard = () => {
             }
           >
             <p className="flex items-center gap-3">
-              <PiShoppingCartFill className="text-2xl" /> Shop
+              <GiShoppingBag className="text-2xl" /> Shop
             </p>
           </NavLink>
         </div>
@@ -197,23 +296,23 @@ const Dashboard = () => {
       <div className="w-full">
         <div className="fixed w-full grid lg:grid-cols-3 grid-cols-2 bg-primary py-2 lg:px-10 items-center text-white">
           <div className="flex items-center">
-          <div>
-            <Navbar className="bg-inherit p-3">
-              <Navbar.Container className="flex items-center justify-between">
-                <Navbar.Collapse collapseType="sidebar">
-                  <Navbar.Container tag="ul" className="flex flex-col gap-5">
-                    <Navbar.Link linkName="Home" />
-                    <Navbar.Link linkName="Projects" />
-                    <Navbar.Link linkName="Blogs" />
-                    <Navbar.Link linkName="News" />
-                    <Navbar.Link linkName="Resources" />
-                  </Navbar.Container>
-                </Navbar.Collapse>
+            <div>
+              <Navbar className="bg-inherit p-3">
+                <Navbar.Container className="flex items-center justify-between">
+                  <Navbar.Collapse collapseType="sidebar">
+                    <Navbar.Container tag="ul" className="flex flex-col gap-5">
+                      <Navbar.Link linkName="Home" />
+                      <Navbar.Link linkName="Projects" />
+                      <Navbar.Link linkName="Blogs" />
+                      <Navbar.Link linkName="News" />
+                      <Navbar.Link linkName="Resources" />
+                    </Navbar.Container>
+                  </Navbar.Collapse>
 
-                <Navbar.Toggle className="bg-white sm:p-2 p-0" />
-              </Navbar.Container>
-            </Navbar>
-          </div>
+                  <Navbar.Toggle className="bg-white sm:p-2 p-0" />
+                </Navbar.Container>
+              </Navbar>
+            </div>
             <div className="flex items-center sm:gap-2">
               <img className="sm:w-12 w-7" src={logo} alt="" />
               <p className="sm:text-2xl text-lg text-white font-semibold">
@@ -221,8 +320,9 @@ const Dashboard = () => {
               </p>
             </div>
           </div>
-          <h3 className="sm:text-2xl text-base sm:text-start text-end font-semibold pr-3">DASHBOARD</h3>
-
+          <h3 className="sm:text-2xl text-base sm:text-start text-end font-semibold pr-3">
+            DASHBOARD
+          </h3>
         </div>
 
         <div className=" mt-32 sm:mx-20 mx-5">

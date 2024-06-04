@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Button, Modal } from "keep-react";
 import { MdLibraryAdd } from "react-icons/md";
+import Swal from "sweetalert2";
 
 const Advertisement = () => {
   const { user } = useAuth();
@@ -18,9 +19,10 @@ const Advertisement = () => {
     setIsOpen(false);
   };
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = (data) => {
+      console.log(data);
     const photoFile = { image: data.photo[0] };
     axios
       .post(
@@ -37,24 +39,24 @@ const Advertisement = () => {
       .then((res) => {
         if (res.data.success) {
           const photoUrl = res.data.data.display_url;
-          const discountPrice = data.price - data.price * (data.discount / 100);
-          const price = parseFloat(data.price);
-          const discount = parseFloat(data.discount);
-          const medicienInfo = {
+          const advertiseInfo = {
             ...data,
             photo: photoUrl,
-            discountPrice,
-            price,
-            discount,
             userEmail: user.email,
+            status: 'pending'
           };
-          console.log(medicienInfo);
+          console.log(advertiseInfo);
 
           axiosPublic
-            .post("/medicines", medicienInfo)
+            .post("/advertisment", advertiseInfo)
             .then((res) => {
               if (res.data.insertedId) {
-                alert("success");
+                Swal.fire({
+                    title: "Adverstisement Apply Succes",
+                    text: "Wait for Admin approval",
+                    icon: "success"
+                  });
+                  reset()
               }
             })
             .catch((err) => console.log(err));
@@ -77,7 +79,7 @@ const Advertisement = () => {
             Apply Advertisement <MdLibraryAdd className="text-xl" />
           </Button>
           <Modal isOpen={isOpen} onClose={closeModal}>
-            <Modal.Body className="lg:w-1/3 sm:w-4/6 w-full rounded-none text-white bg-secondary border-2 border-gray-400 shadow-lg shadow-primary p-0 my-20 pt-20">
+            <Modal.Body className="lg:w-1/3 sm:w-4/6 w-full rounded-none text-white bg-secondary border-2 border-gray-400 shadow-lg shadow-primary p-0">
               <div className="shadow-inner shadow-primary space-y-3 p-7">
                 <Modal.Content className="">
                   <div className="!mb-6">
@@ -97,15 +99,17 @@ const Advertisement = () => {
                           className="w-full p-2 border-l-[5px] border-primary text-primary outline-none"
                           type="text"
                           placeholder="name"
+                          required
                         />
                       </div>
                       <div>
-                        <p className=" mb-1">Generic Name</p>
+                        <p className=" mb-1">Company Name</p>
                         <input
-                          {...register("genericName")}
+                          {...register("companyName")}
                           className="w-full p-2 border-l-[5px] border-primary text-primary outline-none"
                           type="text"
                           placeholder="name"
+                          required
                         />
                       </div>
 
@@ -115,6 +119,7 @@ const Advertisement = () => {
                           {...register("photo")}
                           className="w-full p-[6px] border-l-[5px] border-primary bg-white text-primary"
                           type="file"
+                          required
                         />
                       </div>
 
@@ -125,62 +130,11 @@ const Advertisement = () => {
                           rows={2}
                           placeholder="description"
                           className="w-full p-2 border-l-[5px] border-primary text-primary outline-none"
+                          required
                         ></textarea>
                       </div>
 
-                      <div className="flex gap-3">
-                        <div className="w-full">
-                          <p className=" mb-1">Select Categori</p>
-                          <select
-                            {...register("categori")}
-                            className="border-white w-full border-2 rounded-none bg-secondary text-base outline-none py-2 text-center"
-                          >
-                            <option value="tablet">tablet</option>
-                          </select>
-                        </div>
-                        <div className="w-full">
-                          <p className=" mb-1">Select Company</p>
-                          <select
-                            {...register("company")}
-                            className="border-white w-full border-2 rounded-none bg-secondary text-base outline-none py-2 text-center"
-                          >
-                            <option value="tablet">company</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div className="w-full">
-                        <p className=" mb-1">Mass Unit (Mg, Ml)</p>
-                        <input
-                          {...register("massUnit")}
-                          className="w-full p-2 border-l-[5px] border-primary text-primary outline-none"
-                          type="text"
-                          placeholder="name"
-                        />
-                      </div>
-
-                      <div className="flex gap-3">
-                        <div className="w-full">
-                          <p className=" mb-1">Per Unit Price</p>
-                          <input
-                            {...register("price")}
-                            className="w-full p-2 border-l-[5px] border-primary text-primary outline-none"
-                            type="number"
-                            placeholder="price"
-                          />
-                        </div>
-                        <div className="w-full">
-                          <p className=" mb-1">Discount (%)</p>
-                          <input
-                            {...register("discount")}
-                            className="w-full p-2 border-l-[5px] border-primary text-primary outline-none"
-                            type="number"
-                            placeholder="name"
-                            defaultValue={0}
-                          />
-                        </div>
-                      </div>
-
+                     
                       <div>
                         <button className="btn w-full text-xl text-forth font-semibold rounded-none border-2 border-forth bg-inherit mt-6 py-2 hover:scale-95 duration-300">
                           Submit
