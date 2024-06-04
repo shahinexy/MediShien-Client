@@ -140,7 +140,7 @@ const Dashboard = () => {
               </p>
             </NavLink>
             <NavLink
-              to={"/dashboard/manageBannerAdvertise"}
+              to={"/dashboard/manageAdvertise"}
               className={({ isActive, isPending }) =>
                 isPending
                   ? "pending"

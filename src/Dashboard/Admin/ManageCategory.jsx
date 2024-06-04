@@ -193,7 +193,6 @@ const ManageCategory = () => {
                 </td>
                 <td className="px-3 py-2 font-medium">{category.categoryName}</td>
                 <td className="px-3 py-2 ">
-                  {" "}
                   <RiDeleteBin6Line
                     onClick={() => handleDelete(category._id)}
                     className="text-3xl text-red-500 hover:text-red-700 cursor-pointer hover:scale-110 hover:rotate-3 duration-500"

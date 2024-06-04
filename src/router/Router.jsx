@@ -15,6 +15,7 @@ import Advertisement from "../Dashboard/Seller/Advertisement";
 import PrivetRoute from './PrivetRoute';
 import ManageUser from "../Dashboard/Admin/ManageUser";
 import ManageCategory from "../Dashboard/Admin/ManageCategory";
+import ManageAdvertise from "../Dashboard/Admin/ManageAdvertise";
 
 
 
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
         {
           path: 'manageCategory',
           element: <ManageCategory></ManageCategory>
+        },
+        {
+          path: 'manageAdvertise',
+          element: <ManageAdvertise></ManageAdvertise>
         }
       ]
     }
