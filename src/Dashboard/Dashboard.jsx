@@ -56,20 +56,6 @@ const Dashboard = () => {
         {currentUser?.userRole === "admin" && (
           <div className="px-2 mt-5 space-y-1 border-b border-secondary pb-12">
             <NavLink
-              to={"/dashboard/userProfile"}
-              className={({ isActive, isPending }) =>
-                isPending
-                  ? "pending"
-                  : isActive
-                  ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
-                  : " hover:bg-black/10 py-1 px-2 w-full inline-block"
-              }
-            >
-              <p className="flex items-center gap-3">
-                <FaUser className="text-lg" /> User Profiel
-              </p>
-            </NavLink>
-            <NavLink
               to={"/dashboard/adminHome"}
               className={({ isActive, isPending }) =>
                 isPending
@@ -81,6 +67,20 @@ const Dashboard = () => {
             >
               <p className="flex items-center gap-3">
                 <SiGooglehome className="text-xl" /> Admin Home
+              </p>
+            </NavLink>
+            <NavLink
+              to={"/dashboard/userProfile"}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                  : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+              }
+            >
+              <p className="flex items-center gap-3">
+                <FaUser className="text-lg" /> User Profiel
               </p>
             </NavLink>
             <NavLink
@@ -160,6 +160,20 @@ const Dashboard = () => {
         {currentUser?.userRole === "seller" && (
           <div className="px-2 mt-5 space-y-1 border-b border-secondary pb-12">
             <NavLink
+              to={"/dashboard/userHome"}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                  : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+              }
+            >
+              <p className="flex items-center gap-3">
+                <SiGooglehome className="text-lg" /> Seller Home
+              </p>
+            </NavLink>
+            <NavLink
               to={"/dashboard/userProfile"}
               className={({ isActive, isPending }) =>
                 isPending
@@ -183,7 +197,7 @@ const Dashboard = () => {
                   : " hover:bg-black/10 py-1 px-2 w-full inline-block"
               }
             >
-              <p className="flex items-center gap-3">
+              <p className="flex items-center gap-2">
                 <RiMedicineBottleFill className="text-xl" /> Manage Medicines
               </p>
             </NavLink>
@@ -207,11 +221,11 @@ const Dashboard = () => {
                 isPending
                   ? "pending"
                   : isActive
-                  ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
-                  : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+                  ? " bg-black/20 rounded-none px-[6px] py-1 w-full inline-block"
+                  : " hover:bg-black/10 py-1 px-[6px] w-full inline-block"
               }
             >
-              <p className="flex items-center gap-3">
+              <p className="flex items-center gap-2">
                 <PiTelevisionSimpleFill className="text-2xl" /> Advertisement
               </p>
             </NavLink>

@@ -7,6 +7,8 @@ import axios from "axios";
 import { Button, Modal } from "keep-react";
 import { MdLibraryAdd } from "react-icons/md";
 import Swal from "sweetalert2";
+import { useQuery } from "@tanstack/react-query";
+import Loader from "../../components/Loader";
 
 const Advertisement = () => {
   const { user } = useAuth();
@@ -19,8 +21,16 @@ const Advertisement = () => {
     setIsOpen(false);
   };
 
+  // ====== get advertisement data =======
+  const { data, isPending, refetch } = useQuery({
+    queryKey: ["advertisment"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/advertisment/email/${user.email}`);
+      return res.data;
+    },
+  });
+  // ====== handle form submition ====
   const { register, handleSubmit, reset } = useForm();
-
   const onSubmit = (data) => {
       console.log(data);
     const photoFile = { image: data.photo[0] };
@@ -64,6 +74,8 @@ const Advertisement = () => {
       })
       .catch((error) => console.log(error));
   };
+
+  if (isPending) return <Loader></Loader>;
 
   return (
     <div>
@@ -160,8 +172,10 @@ const Advertisement = () => {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-2 grid-cols-1 mt-7">
-        <AdvertisementCard></AdvertisementCard>
+      <div className="grid lg:grid-cols-2 grid-cols-1 mt-7 gap-6">
+        {
+          data?.map(advertise => <AdvertisementCard key={advertise._id} data={advertise}></AdvertisementCard>)
+        }
       </div>
     </div>
   );

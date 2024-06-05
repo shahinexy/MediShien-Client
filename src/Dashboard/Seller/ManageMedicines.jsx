@@ -6,10 +6,13 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import useAuth from "../../Hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
+import Loader from "../../components/Loader";
+import Swal from "sweetalert2";
 
 const ManageMedicines = () => {
-    const {user} = useAuth()
-    const axiosPublic = useAxiosPublic()
+  const { user } = useAuth();
+  const axiosPublic = useAxiosPublic();
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => {
     setIsOpen(true);
@@ -18,8 +21,17 @@ const ManageMedicines = () => {
     setIsOpen(false);
   };
 
-  const { register, handleSubmit } = useForm();
+  // ===== get medicine data ====
+  const { data, isPending, refetch } = useQuery({
+    queryKey: ["medicineData"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/medicines/email/${user.email}`);
+      return res.data;
+    },
+  });
 
+  // ===== handle form submition ====
+  const { register, handleSubmit, reset } = useForm();
   const onSubmit = (data) => {
     const photoFile = { image: data.photo[0] };
     axios
@@ -37,24 +49,39 @@ const ManageMedicines = () => {
       .then((res) => {
         if (res.data.success) {
           const photoUrl = res.data.data.display_url;
-          const discountPrice = data.price - (data.price * (data.discount / 100))
-          const price = parseFloat(data.price)
-          const discount = parseFloat(data.discount)
-          const medicienInfo = { ...data, photo: photoUrl, discountPrice, price, discount, userEmail: user.email }
+          const discountPrice = data.price - data.price * (data.discount / 100);
+          const price = parseFloat(data.price);
+          const discount = parseFloat(data.discount);
+          const medicienInfo = {
+            ...data,
+            photo: photoUrl,
+            discountPrice,
+            price,
+            discount,
+            userEmail: user.email,
+          };
           console.log(medicienInfo);
 
-          axiosPublic.post('/medicines', medicienInfo)
-          .then(res => {
-            if(res.data.insertedId){
-                alert('success')
-            }
-          })
-          .catch(err => console.log(err))
+          axiosPublic
+            .post("/medicines", medicienInfo)
+            .then((res) => {
+              if (res.data.insertedId) {
+                Swal.fire({
+                  title: "SuccessFull",
+                  text: "Your Medisine Has Been Saved.",
+                  icon: "success",
+                });
+                refetch()
+                reset()
+              }
+            })
+            .catch((err) => console.log(err));
         }
       })
       .catch((error) => console.log(error));
   };
 
+  if (isPending) return <Loader></Loader>;
   return (
     <div>
       <div className="flex justify-between bg-secondary py-2 sm:px-7 px-2 text-white items-center">
@@ -141,14 +168,14 @@ const ManageMedicines = () => {
                       </div>
 
                       <div className="w-full">
-                          <p className=" mb-1">Mass Unit (Mg, Ml)</p>
-                          <input
+                        <p className=" mb-1">Mass Unit (Mg, Ml)</p>
+                        <input
                           {...register("massUnit")}
                           className="w-full p-2 border-l-[5px] border-primary text-primary outline-none"
                           type="text"
                           placeholder="name"
                         />
-                        </div>
+                      </div>
 
                       <div className="flex gap-3">
                         <div className="w-full">
@@ -197,26 +224,45 @@ const ManageMedicines = () => {
         </div>
       </div>
 
-      <div className=" mt-6 overflow-x-auto">
-        <table className="w-full">
+      <div className="mt-6 overflow-x-auto">
+        <table className="w-full p-6 text-left whitespace-nowrap">
           <thead>
-            <tr className="text-start bg-secondary/70 text-white">
-              <th className="text-start py-3 pl-4">Company</th>
-              <th className="text-start py-3 ">Contact</th>
-              <th className="text-start py-3 pr-4">Country</th>
+            <tr className="text-left bg-secondary/70 text-white">
+              <th className="p-3">No.</th>
+              <th className="p-3">Image</th>
+              <th className="p-3 ">Medicine Name</th>
+              <th className="p-3">Description</th>
+              <th className="p-3">Categori</th>
+              <th className="p-3">Price</th>
+              <th className="p-3">View</th>
+              <th className="p-3">Action</th>
+              <th className="p-3">Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-secondary/10 border-b border-secondary/30 hover:bg-secondary/30">
-              <td className="py-2 pl-4">Alfreds Futterkiste</td>
-              <td className="py-2">Maria Anders</td>
-              <td className="py-2 pr-4">Germany</td>
-            </tr>
-            <tr className="bg-secondary/10 border-b border-secondary/30 hover:bg-secondary/30">
-              <td className="py-2 pl-4">Alfreds Futterkiste</td>
-              <td className="py-2">Maria Anders</td>
-              <td className="py-2 pr-4">Germany</td>
-            </tr>
+            {data?.map((medicine, idx) => (
+              <tr
+                key={medicine._id}
+                className="bg-secondary/10 border-b border-secondary/30 hover:bg-secondary/30"
+              >
+                <td className="px-3 py-2 pl-4">{idx + 1}.</td>
+                <td className="px-3 py-2">
+                  <img className="w-16 h-16" src={medicine.photo} alt="" />{" "}
+                </td>
+                <td className="px-3 py-2">
+                  <div>
+                    <p className="font-medium">{medicine.medicienName}</p>
+                    <small>{medicine.genericName}</small>
+                  </div>
+                </td>
+                <td className="px-3 py-2">{medicine.description.slice(0, 50)}...</td>
+                <td className="px-3 py-2">{medicine.categori}</td>
+                <td className="px-3 py-2">{medicine.price}</td>
+                <td className="px-3 py-2">View</td>
+                <td className="px-3 py-2">update</td>
+                <td className="px-3 py-2">delete</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

@@ -18,7 +18,7 @@
 .swal2-cancel {
     background-color: initial !important;
     border: 1px solid #36c7c7 !important;
-    color: rgb(235, 37, 37) !important;
+    color: white !important;
 }
 .swal2-confirm{
     background-color: #035d5e !important;

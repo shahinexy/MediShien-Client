@@ -10,7 +10,6 @@ const ManageAdvertise = () => {
   const axiosPublic = useAxiosPublic();
 
   const hangdleApproval = (id, status) => {
-    console.log(id, status);
 
     if (status === "pending" || status === "cancel") {
       Swal.fire({
@@ -69,6 +68,35 @@ const ManageAdvertise = () => {
     }
   };
 
+  const handleDelete = id =>{
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPublic
+          .delete(`/advertisment/delete/${id}`)
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.deletedCount > 0) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+              refetch()
+            }
+          })
+          .catch((err) => console.log(err));
+      }
+    });
+  }
+
   if (isPending) return <Loader></Loader>;
   return (
     <div>
@@ -112,8 +140,8 @@ const ManageAdvertise = () => {
                       onClick={() =>
                         hangdleApproval(medicine._id, medicine.status)
                       }
-                      className={`flex gap-3 border-2 ${ medicine.status === "pending" && "border-orange-400"}
-                      ${ medicine.status === "approve" && "border-green-400"}
+                      className={`flex gap-3 border-2 ${ medicine.status === "pending" && "border-orange-500"}
+                      ${ medicine.status === "approve" && "border-green-500"}
                       ${ medicine.status === "cancel" && "border-red-400"}  p-2 text-gray-400 cursor-pointer hover:bg-white/70`}
                     >
                       <GiCancel
@@ -123,7 +151,7 @@ const ManageAdvertise = () => {
                       />
                       <GiConfirmed
                         className={`text-xl ${
-                          medicine.status === "approve" && "text-green-500"
+                          medicine.status === "approve" && "text-green-600"
                         }`}
                       />
                     </div>
@@ -131,7 +159,7 @@ const ManageAdvertise = () => {
                 </td>
                 <td className="px-3 py-2">
                   <RiDeleteBin6Line
-                    // onClick={() => handleDelete(category._id)}
+                    onClick={() => handleDelete(medicine._id)}
                     className="text-3xl text-red-500 hover:text-red-700 cursor-pointer hover:scale-110 hover:rotate-3 duration-500"
                   />
                 </td>
