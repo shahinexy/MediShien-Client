@@ -67,6 +67,7 @@ const Advertisement = () => {
                     icon: "success"
                   });
                   reset()
+                  refetch()
               }
             })
             .catch((err) => console.log(err));
