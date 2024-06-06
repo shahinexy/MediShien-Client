@@ -12,8 +12,8 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const Advertisement = () => {
   const { user } = useAuth();
-  // const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure()
+  
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => {
     setIsOpen(true);

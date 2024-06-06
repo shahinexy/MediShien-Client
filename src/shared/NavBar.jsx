@@ -68,7 +68,7 @@ const NavBar = () => {
           </Navbar.Container>
 
           <Navbar.Container className="flex gap-2">
-            <Link to={"/dashboard"} className="relative pr-2">
+            <Link to={"/cart"} className="relative pr-2">
               <img className="w-10" src={cart} alt="" />
               <small className="absolute px-1 top-0 right-0 bg-white rounded-full text-primary font-semibold">
                 +2

@@ -7,7 +7,6 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const ManageAdvertise = () => {
   const { data, isPending, refetch } = useAdvertiseData();
-  // const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure()
 
   const hangdleApproval = (id, status) => {

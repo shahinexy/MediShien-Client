@@ -16,6 +16,7 @@ import PrivetRoute from './PrivetRoute';
 import ManageUser from "../Dashboard/Admin/ManageUser";
 import ManageCategory from "../Dashboard/Admin/ManageCategory";
 import ManageAdvertise from "../Dashboard/Admin/ManageAdvertise";
+import CartPage from "../pages/Cart/CartPage";
 
 
 
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
         {
           path: '/shop',
           element: <Shop></Shop>
+        },
+        {
+          path: '/cart',
+          element: <CartPage></CartPage>
         },
         {
           path:'register',
