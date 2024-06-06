@@ -2,12 +2,13 @@ import { GiCancel, GiConfirmed } from "react-icons/gi";
 import useAdvertiseData from "../../Hooks/useAdvertiseData";
 import Loader from "../../components/Loader";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const ManageAdvertise = () => {
   const { data, isPending, refetch } = useAdvertiseData();
-  const axiosPublic = useAxiosPublic();
+  // const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure()
 
   const hangdleApproval = (id, status) => {
 
@@ -22,7 +23,7 @@ const ManageAdvertise = () => {
         confirmButtonText: "Confirm",
       }).then((result) => {
         if (result.isConfirmed) {
-          axiosPublic
+          axiosSecure
             .patch(`/advertisment/${id}`, { status: "approve" })
             .then((res) => {
               console.log(res.data);
@@ -49,7 +50,7 @@ const ManageAdvertise = () => {
         confirmButtonText: "Confirm",
       }).then((result) => {
         if (result.isConfirmed) {
-          axiosPublic
+          axiosSecure
             .patch(`/advertisment/${id}`, { status: "cancel" })
             .then((res) => {
               console.log(res.data);
@@ -79,7 +80,7 @@ const ManageAdvertise = () => {
       confirmButtonText: "Delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosPublic
+        axiosSecure
           .delete(`/advertisment/delete/${id}`)
           .then((res) => {
             console.log(res.data);
@@ -118,7 +119,7 @@ const ManageAdvertise = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((medicine, idx) => (
+            {data?.map((medicine, idx) => (
               <tr
                 key={medicine._id}
                 className="bg-secondary/10 border-b border-secondary/30 hover:bg-secondary/30"

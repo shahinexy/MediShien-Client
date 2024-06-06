@@ -94,7 +94,7 @@ const Register = () => {
             <p className="font-semibold mb-1">Name</p>
             <input
               {...register("name")}
-              className="w-full p-2 border-l-4 border-secondary"
+              className="w-full p-2 border-l-4 border-secondary outline-none"
               type="text"
               placeholder="name"
             />
@@ -103,7 +103,7 @@ const Register = () => {
             <p className="font-semibold mb-1">Email</p>
             <input
               {...register("email")}
-              className="w-full p-2 border-l-4 border-secondary"
+              className="w-full p-2 border-l-4 border-secondary outline-none"
               type="email"
               placeholder="email"
               required
@@ -113,7 +113,7 @@ const Register = () => {
             <p className="font-semibold mb-1">Password</p>
             <input
               {...register("pass")}
-              className="w-full p-2 border-l-4 border-secondary"
+              className="w-full p-2 border-l-4 border-secondary outline-none"
               type={passType ? "password" : "text"}
               placeholder="password"
               required
@@ -132,7 +132,7 @@ const Register = () => {
               <p className="font-semibold mb-1">Photo</p>
               <input
                 {...register("photo")}
-                className="w-full p-[6px] border-l-4 border-secondary bg-[#ffffff]"
+                className="w-full p-[6px] border-l-4 border-secondary bg-[#ffffff] outline-none"
                 type="file"
               />
             </div>
@@ -140,7 +140,7 @@ const Register = () => {
               <p className="font-semibold mb-1">Role</p>
               <select
               {...register("role")}
-                className="w-full p-[10px] border-l-4 border-secondary bg-[#ffffff]"
+                className="w-full p-[10px] border-l-4 border-secondary bg-[#ffffff] outline-none"
               >
                 <option value="user">User</option>
                 <option value="seller">Seller</option>

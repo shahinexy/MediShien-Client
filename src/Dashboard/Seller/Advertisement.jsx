@@ -1,6 +1,5 @@
 import { useState } from "react";
 import useAuth from "../../Hooks/useAuth";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import AdvertisementCard from "./SellerComponents/AdvertisementCard";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -9,10 +8,12 @@ import { MdLibraryAdd } from "react-icons/md";
 import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../components/Loader";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const Advertisement = () => {
   const { user } = useAuth();
-  const axiosPublic = useAxiosPublic();
+  // const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure()
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => {
     setIsOpen(true);
@@ -25,7 +26,7 @@ const Advertisement = () => {
   const { data, isPending, refetch } = useQuery({
     queryKey: ["advertisment"],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/advertisment/email/${user.email}`);
+      const res = await axiosSecure.get(`/advertisment/email/${user.email}`);
       return res.data;
     },
   });
@@ -57,7 +58,7 @@ const Advertisement = () => {
           };
           console.log(advertiseInfo);
 
-          axiosPublic
+          axiosSecure
             .post("/advertisment", advertiseInfo)
             .then((res) => {
               if (res.data.insertedId) {

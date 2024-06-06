@@ -75,7 +75,7 @@ const Login = () => {
               <p className="font-semibold mb-1">Email</p>
               <input
                 {...register("email")}
-                className="w-full p-2 border-l-4 border-secondary"
+                className="w-full p-2 border-l-4 border-secondary outline-none"
                 type="email"
                 placeholder="email"
               />
@@ -84,7 +84,7 @@ const Login = () => {
               <p className="font-semibold mb-1">Password</p>
               <input
                 {...register("pass")}
-                className="w-full p-2 border-l-4 border-secondary"
+                className="w-full p-2 border-l-4 border-secondary outline-none"
                 type={passType ? "password" : "text"}
                 placeholder="password"
               />

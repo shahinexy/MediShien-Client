@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAxiosSecure from "./../../Hooks/useAxiosSecure";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Button, Modal } from "keep-react";
@@ -10,7 +10,8 @@ import Loader from "../../components/Loader";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 const ManageCategory = () => {
-  const axiosPublic = useAxiosPublic();
+  // const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => {
     setIsOpen(true);
@@ -22,7 +23,7 @@ const ManageCategory = () => {
   const { data, isPending, refetch } = useQuery({
     queryKey: ["manageCategory"],
     queryFn: async () => {
-      const res = await axiosPublic.get("/medicineCategory");
+      const res = await axiosSecure.get("/medicineCategory");
       return res.data;
     },
   });
@@ -49,7 +50,7 @@ const ManageCategory = () => {
           const categoryInfo = { ...data, photo: photoUrl };
           console.log(categoryInfo);
 
-          axiosPublic
+          axiosSecure
             .post("/medicineCategory", categoryInfo)
             .then((res) => {
               if (res.data.insertedId) {
@@ -60,6 +61,7 @@ const ManageCategory = () => {
                   timer: 1500,
                 });
                 reset();
+                refetch();
               }
             })
             .catch((err) => console.log(err));
@@ -69,8 +71,6 @@ const ManageCategory = () => {
   };
 
   const handleDelete = (id) => {
-    console.log(id);
-
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -81,7 +81,7 @@ const ManageCategory = () => {
       confirmButtonText: "Delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosPublic
+        axiosSecure
           .delete(`/medicineCategory/${id}`)
           .then((res) => {
             console.log(res.data);
@@ -91,7 +91,7 @@ const ManageCategory = () => {
                 text: "Your file has been deleted.",
                 icon: "success",
               });
-              refetch()
+              refetch();
             }
           })
           .catch((err) => console.log(err));
@@ -171,7 +171,7 @@ const ManageCategory = () => {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto mt-6 overflow-x-auto">
+      <div className="max-w-2xl mx-auto mt-6 mb-20 overflow-x-auto">
         <table className="w-full  text-left whitespace-nowrap">
           <thead>
             <tr className="text-left text-lg bg-secondary/70 text-white">
@@ -191,7 +191,9 @@ const ManageCategory = () => {
                 <td className="px-3 py-2 font-medium">
                   <img className="w-24 h-20" src={category.photo} alt="" />
                 </td>
-                <td className="px-3 py-2 font-medium">{category.categoryName}</td>
+                <td className="px-3 py-2 font-medium">
+                  {category.categoryName}
+                </td>
                 <td className="px-3 py-2 ">
                   <RiDeleteBin6Line
                     onClick={() => handleDelete(category._id)}

@@ -42,11 +42,13 @@ const NavBar = () => {
       <Navbar fluid={true} className="bg-inherit ">
         <Navbar.Container className="flex items-center justify-between">
           <Navbar.Container className="flex items-center">
-            <Navbar.Brand className="flex gap-1 items-center text-xl font-semibold">
+            <Navbar.Brand >
+              <Link to={'/'} className="flex gap-1 items-center text-xl font-semibold">
               <img className="w-10" src={logo} alt="" />
               <p>
                 Medi<span className="text-[#44adb0]">Shine</span>
               </p>
+              </Link>
             </Navbar.Brand>
             {/* ==== Mobile === */}
             <Navbar.Collapse collapseType="sidebar">
@@ -74,7 +76,7 @@ const NavBar = () => {
             </Link>
 
             <div className="flex items-center mx-5">
-              <select className="bg-inherit border p-1" name="" id="">
+              <select className="bg-inherit border p-1 outline-none" name="" id="">
                 <option className="bg-primary" value="">
                   ENG
                 </option>

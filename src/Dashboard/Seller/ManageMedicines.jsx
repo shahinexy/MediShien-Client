@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button, Modal } from "keep-react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAxiosSecure from './../../Hooks/useAxiosSecure';
 import useAuth from "../../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../components/Loader";
@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 
 const ManageMedicines = () => {
   const { user } = useAuth();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure()
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => {
     setIsOpen(true);
@@ -25,7 +25,7 @@ const ManageMedicines = () => {
   const { data, isPending, refetch } = useQuery({
     queryKey: ["medicineData"],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/medicines/email/${user.email}`);
+      const res = await axiosSecure.get(`/medicines/email/${user.email}`);
       return res.data;
     },
   });
@@ -62,7 +62,7 @@ const ManageMedicines = () => {
           };
           console.log(medicienInfo);
 
-          axiosPublic
+          axiosSecure
             .post("/medicines", medicienInfo)
             .then((res) => {
               if (res.data.insertedId) {

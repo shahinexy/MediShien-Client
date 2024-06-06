@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "./useAxiosPublic";
+import useAxiosSecure from "./useAxiosSecure";
 
 const useAdvertiseData = () => {
-    const axiosPublic = useAxiosPublic()
+    const axiosSecure = useAxiosSecure()
     const advertise = useQuery({
         queryKey: ['advertisement'],
         queryFn: async () =>{
-            const res = await axiosPublic.get('/advertisment')
+            const res = await axiosSecure.get('/advertisment')
             return res.data
         }
     })
