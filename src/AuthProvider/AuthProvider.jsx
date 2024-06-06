@@ -10,6 +10,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import auth from "./../firebase/firebase.config";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 export const authContext = createContext();
 
@@ -18,7 +19,8 @@ const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loader, setLoader] = useState(true);
-  const [isRefetch, setRefetch] = useState(true)
+  const [isRefetch, setRefetch] = useState(true);
+  const axiosPublic = useAxiosPublic();
 
   // create user
   const createUser = (email, pass) => {
@@ -39,9 +41,9 @@ const AuthProvider = ({ children }) => {
   };
 
   // refetch
-  const refetch = () =>{
-    setRefetch(!isRefetch)
-  }
+  const refetch = () => {
+    setRefetch(!isRefetch);
+  };
 
   // update user
   const updateUser = (name, photo) => {
@@ -61,13 +63,29 @@ const AuthProvider = ({ children }) => {
   // save User
   useEffect(() => {
     const subscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoader(false);
+      if (currentUser) {
+        setUser(currentUser);
+        setLoader(false);
+
+        // genaret JWT token
+        const userInfo = { email: currentUser.email };
+        axiosPublic.post("/jwt", userInfo).then((res) => {
+          if (res.data.token) {
+            localStorage.setItem("access-token", res.data.token);
+          }
+        });
+      } else {
+        setUser(currentUser);
+        setLoader(false);
+
+        // remove JWT token
+        localStorage.removeItem("access-token");
+      }
     });
     return () => {
       subscribe();
     };
-  }, []);
+  }, [axiosPublic]);
 
   const authInfo = {
     user,

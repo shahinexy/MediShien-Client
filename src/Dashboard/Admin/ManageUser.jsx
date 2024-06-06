@@ -1,23 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import Loader from "../../components/Loader";
 import { Dropdown } from "keep-react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const ManageUser = () => {
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure()
   const { data, isPending, refetch } = useQuery({
     queryKey: ["manageUser"],
     queryFn: async () => {
-      const res = await axiosPublic.get("/allUsers");
+      const res = await axiosSecure.get("/allUsers", {
+        headers:{
+          authorization : `Bearer ${localStorage.getItem('access-token')}`
+        }
+      });
       return res.data;
     },
   });
 
   const handleRole = (id, userRole) => {
     console.log(id, userRole);
-    axiosPublic
+    axiosSecure
       .patch(`/users/${id}`, { userRole })
       .then((res) => {
         console.log(res.data);
