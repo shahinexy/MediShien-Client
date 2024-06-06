@@ -3,7 +3,6 @@ import { GiMedicines } from "react-icons/gi";
 import { PropTypes } from "prop-types";
 
 const CategoriCard = ({ category }) => {
-  console.log(category);
   return (
     <Link>
       <div className="relative flex justify-center text-center duration-300 shadow-lg hover:shadow-secondary/50 p-7 py-10  group cursor-pointer">

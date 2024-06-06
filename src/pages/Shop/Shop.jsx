@@ -3,9 +3,17 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import Loader from "../../components/Loader";
 import { PiShoppingCartFill } from "react-icons/pi";
 import MedicineDetails from "../../components/MedicineDetails";
+import useAuth from "../../Hooks/useAuth";
+import { useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const Shop = () => {
+  const { user, loader } = useAuth();
   const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure()
+  const navigate = useNavigate();
+  // const location = useLocation();
   const { data, isPending } = useQuery({
     queryKey: ["allMedicine"],
     queryFn: async () => {
@@ -14,9 +22,33 @@ const Shop = () => {
     },
   });
 
-    console.log(data);
+  const handleAddCart = (medicine) => {
+    if (!user) {
+      return navigate("/login");
+    }
+    const medicineInfo = {
+      ...medicine,
+      medicineId: medicine._id,
+      buyerEmail: user.email,
+    };
+    console.log(medicineInfo);
 
-  if (isPending) return <Loader></Loader>;
+    axiosSecure
+      .post("/cartItem", medicineInfo)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          Swal.fire({
+            title: "SuccessFull",
+            text: "Your Item has been saved.",
+            icon: "success",
+          });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  if (isPending || loader) return <Loader></Loader>;
   return (
     <div className="max-w-7xl mx-auto mt-32 mb-20">
       <div className="mt-6 overflow-x-auto">
@@ -63,7 +95,7 @@ const Shop = () => {
                 <td className="px-3 py-2 ">
                   <div className="flex justify-center items-center">
                     <div className="inline-block">
-                        <MedicineDetails medicine={medicine}></MedicineDetails>
+                      <MedicineDetails medicine={medicine}></MedicineDetails>
                     </div>
                   </div>
                 </td>
@@ -71,7 +103,7 @@ const Shop = () => {
                   <div className="flex justify-center items-center">
                     <div className="inline-block mx-auto">
                       <PiShoppingCartFill
-                        // onClick={() => handleDelete(medicine._id)}
+                        onClick={() => handleAddCart(medicine)}
                         className="text-3xl text-green-800 hover:text-green-700 cursor-pointer hover:scale-[1.15] hover:rotate-3 duration-500"
                       />
                     </div>

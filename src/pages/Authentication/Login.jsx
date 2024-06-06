@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import google from '../../assets/images/google-icon.png'
 import icon1 from '../../assets/images/pngwing.com (1).png'
 import icon2 from '../../assets/images/pngwing.com (3).png'
 import GoogleLoginBtn from "../../components/GoogleLoginBtn";
@@ -14,7 +13,7 @@ import GoogleLoginBtn from "../../components/GoogleLoginBtn";
 const Login = () => {
     const [showHide, setShowHide] = useState(true);
   const [passType, setPassType] = useState(true);
-  const { loginUser, googleLogin } = useContext(authContext);
+  const { loginUser } = useContext(authContext);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -40,25 +39,11 @@ const Login = () => {
       });
   };
 
-  // // handle google login
-  // const handleGoogleLogin = () => {
-  //   googleLogin()
-  //     .then((res) => {
-  //       if (res) {
-  //         toast.success("Login Successfull");
-  //         navigate(location?.state ? location.state : "/");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
-  //handle show hide icon
   const handleShowHide = () => {
     setShowHide(!showHide);
     setPassType(!passType);
   };
+
     return (
         <div className="md:pt-10 pt-20 flex md:flex-row flex-col justify-cente items-center md:gap-10 gap-4">
         <Helmet>
