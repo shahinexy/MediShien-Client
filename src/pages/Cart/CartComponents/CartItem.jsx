@@ -3,12 +3,26 @@ import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
+
 const CartItem = ({ medicine, refetch }) => {
-  const { medicienName, price, photo, medicineId } = medicine;
+  const { medicienName, price, photo, medicineId, quantity } =
+    medicine;
   const axiosSecure = useAxiosSecure();
+  const [itemQuantity, setQuantity] = useState(quantity);
+
+  useEffect(() => {
+    const updateInfo = {
+      quantity: parseInt(itemQuantity),
+    };
+    console.log(updateInfo);
+    axiosSecure
+      .patch(`/cartItem/update/${medicineId}`, updateInfo)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  }, [itemQuantity, axiosSecure, medicineId]);
 
   const handleDelete = (id) => {
-
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -37,6 +51,19 @@ const CartItem = ({ medicine, refetch }) => {
     });
   };
 
+  const handleQuentity = (e) => {
+    const value = e.target.value;
+    if (value >= 1) {
+      setQuantity(value);
+    }
+
+    // const updateInfo = {quantity: parseInt(itemQuantity), totalPrice: totalPrice * itemQuantity}
+    // console.log(updateInfo);
+    // axiosSecure.patch(`/cartItem/update/${medicineId}`, updateInfo)
+    // .then(res => console.log(res.data))
+    // .catch(err => console.log(err))
+  };
+
   return (
     <div className="flex gap-3 border border-secondary shadow-lg shadow-secondary/50 sm:p-3 p-2">
       <div className="w-5/12">
@@ -53,11 +80,21 @@ const CartItem = ({ medicine, refetch }) => {
             <input
               type="number"
               className="border border-primary text-primary outline-none w-8 text-center"
-              defaultValue={1}
+              value={itemQuantity}
+              min={1}
+              onChange={handleQuentity}
             />
             <p>
-              <IoMdArrowDropup className="text-2xl text-primary m-0 p-0" />
-              <IoMdArrowDropdown className="text-2xl text-primary" />
+              <IoMdArrowDropup
+                onClick={() => setQuantity(itemQuantity + 1)}
+                className="text-2xl text-primary cursor-pointer"
+              />
+              <IoMdArrowDropdown
+                onClick={() => {
+                  if (itemQuantity > 1) setQuantity(itemQuantity - 1);
+                }}
+                className="text-2xl text-primary cursor-pointer"
+              />
             </p>
           </p>
           <p className="sm:text-base text-sm sm:font-medium">
@@ -65,7 +102,7 @@ const CartItem = ({ medicine, refetch }) => {
           </p>
         </div>
         <div className="flex justify-between items-center">
-          <p className="sm:font-medium">Total Price: </p>
+          <p className="sm:font-medium">Total Price: {itemQuantity * price}$</p>
           <div>
             <RiDeleteBin6Line
               onClick={() => handleDelete(medicineId)}

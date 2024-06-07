@@ -4,7 +4,7 @@ import Loader from "../../components/Loader";
 import { PiShoppingCartFill } from "react-icons/pi";
 import MedicineDetails from "../../components/MedicineDetails";
 import useAuth from "../../Hooks/useAuth";
-import { useLocation, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
@@ -13,7 +13,7 @@ const Shop = () => {
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure()
   const navigate = useNavigate();
-  // const location = useLocation();
+  
   const { data, isPending } = useQuery({
     queryKey: ["allMedicine"],
     queryFn: async () => {
@@ -30,6 +30,7 @@ const Shop = () => {
       ...medicine,
       medicineId: medicine._id,
       buyerEmail: user.email,
+      quantity: 1,
     };
     console.log(medicineInfo);
 

@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 const CartPage = () => {
   const {user} = useAuth()
   const axiosSecure = useAxiosSecure()
+
   const {data, isPending, isError, error, refetch} = useQuery({
     queryKey: ['cartItem'],
     queryFn: async ()=>{
@@ -17,6 +18,7 @@ const CartPage = () => {
       return res.data
     }
   })
+  console.log(data);
 
   const handleAllDelete = (data) =>{
     const allIds = data.map(data => data._id)
@@ -61,8 +63,9 @@ const CartPage = () => {
         </Button>
       </div>
 
-      <div className="mt-7">
+      <div className="flex justify-between items-center mt-7">
         <button onClick={() => handleAllDelete(data)} className="flex sm:gap-2 items-center text-white bg-primary py-2 sm:px-5 px-2 rounded-none hover:bg-[#44adb0] hover:scale-95 duration-300">Clear All</button>
+        <p className="text-xl font-medium">Grant Total: </p>
       </div>
 
       <div className="grid md:grid-cols-2 grid-cols-1 gap-7 mt-3 mb-14">
