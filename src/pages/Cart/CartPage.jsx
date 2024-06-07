@@ -4,13 +4,15 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../components/Loader";
 import CartItem from "./CartComponents/CartItem";
+import useAuth from "../../Hooks/useAuth";
 
 const CartPage = () => {
+  const {user} = useAuth()
   const axiosSecure = useAxiosSecure()
-  const {data, isPending, isError, error} = useQuery({
+  const {data, isPending, isError, error, refetch} = useQuery({
     queryKey: ['cartItem'],
     queryFn: async ()=>{
-      const res = await axiosSecure.get('/cartItem')
+      const res = await axiosSecure.get(`/cartItem/buyerEmail/${user.email}`)
       return res.data
     }
   })
@@ -29,7 +31,7 @@ const CartPage = () => {
 
       <div className="grid md:grid-cols-2 grid-cols-1 gap-7 mt-7 mb-14">
         {
-          data?.map(medicine => <CartItem key={medicine._id} medicine={medicine}></CartItem>)
+          data?.map(medicine => <CartItem key={medicine._id} medicine={medicine} refetch={refetch}></CartItem>)
         }
       </div>
     </div>
