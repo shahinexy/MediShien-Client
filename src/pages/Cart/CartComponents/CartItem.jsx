@@ -4,10 +4,19 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
+import MedicineDetails from "../../../components/MedicineDetails";
 
 const CartItem = ({ medicine, refetch }) => {
-  const { medicienName, price, photo, medicineId, quantity } =
-    medicine;
+  const {
+    _id,
+    medicienName,
+    price,
+    photo,
+    medicineId,
+    quantity,
+    discount,
+    discountPrice,
+  } = medicine;
   const axiosSecure = useAxiosSecure();
   const [itemQuantity, setQuantity] = useState(quantity);
 
@@ -15,12 +24,13 @@ const CartItem = ({ medicine, refetch }) => {
     const updateInfo = {
       quantity: parseInt(itemQuantity),
     };
-    console.log(updateInfo);
     axiosSecure
-      .patch(`/cartItem/update/${medicineId}`, updateInfo)
-      .then((res) => console.log(res.data))
+      .patch(`/cartItem/update/${_id}`, updateInfo)
+      .then((res) => {
+        if (res.data) refetch();
+      })
       .catch((err) => console.log(err));
-  }, [itemQuantity, axiosSecure, medicineId]);
+  }, [itemQuantity, axiosSecure, _id, refetch]);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -56,12 +66,6 @@ const CartItem = ({ medicine, refetch }) => {
     if (value >= 1) {
       setQuantity(value);
     }
-
-    // const updateInfo = {quantity: parseInt(itemQuantity), totalPrice: totalPrice * itemQuantity}
-    // console.log(updateInfo);
-    // axiosSecure.patch(`/cartItem/update/${medicineId}`, updateInfo)
-    // .then(res => console.log(res.data))
-    // .catch(err => console.log(err))
   };
 
   return (
@@ -97,15 +101,32 @@ const CartItem = ({ medicine, refetch }) => {
               />
             </p>
           </p>
-          <p className="sm:text-base text-sm sm:font-medium">
-            Price per unit: {price}$
+          <p className="sm:text-base text-sm sm:font-medium w-full flex gap-2">
+            Price per unit:{" "}
+            {discount > 0 ? (
+              <p>
+                {" "}
+                <span className="line-through">{price}$</span> /
+                {discountPrice?.toFixed(2)}$
+              </p>
+            ) : (
+              <p>{price}$</p>
+            )}
           </p>
         </div>
         <div className="flex justify-between items-center">
-          <p className="sm:font-medium">Total Price: {itemQuantity * price}$</p>
-          <div>
+          <p className="sm:font-medium flex gap-2">
+            Total Price:{" "}
+            {discount > 0 ? (
+              <p>{discountPrice?.toFixed(2) * quantity}$</p>
+            ) : (
+              <p>{price * quantity}$</p>
+            )}
+          </p>
+          <div className="flex gap-4 items-center justify-center">
+            <p className="mt-2"><MedicineDetails medicine={medicine}></MedicineDetails></p>
             <RiDeleteBin6Line
-              onClick={() => handleDelete(medicineId)}
+              onClick={() => handleDelete(_id)}
               className="text-3xl text-red-500 hover:text-red-700 cursor-pointer hover:scale-110 hover:rotate-3 duration-500"
             />
           </div>

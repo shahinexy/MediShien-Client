@@ -26,8 +26,11 @@ const Shop = () => {
     if (!user) {
       return navigate("/login");
     }
+
+    const {_id, ...rest} = medicine;
+
     const medicineInfo = {
-      ...medicine,
+      ...rest,
       medicineId: medicine._id,
       buyerEmail: user.email,
       quantity: 1,
