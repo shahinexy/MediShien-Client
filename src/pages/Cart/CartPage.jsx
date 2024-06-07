@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import Loader from "../../components/Loader";
 import CartItem from "./CartComponents/CartItem";
 import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const CartPage = () => {
   const {user} = useAuth()
@@ -16,6 +17,37 @@ const CartPage = () => {
       return res.data
     }
   })
+
+  const handleAllDelete = (data) =>{
+    const allIds = data.map(data => data._id)
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to clear all of this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Clear All",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .post(`/cartItem/deleteAll`, allIds)
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.deletedCount > 0) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+              refetch();
+            }
+          })
+          .catch((err) => console.log(err));
+      }
+    });
+  }
 
   if(isPending) return <Loader></Loader>
   if(isError) return error
@@ -29,7 +61,11 @@ const CartPage = () => {
         </Button>
       </div>
 
-      <div className="grid md:grid-cols-2 grid-cols-1 gap-7 mt-7 mb-14">
+      <div className="mt-7">
+        <button onClick={() => handleAllDelete(data)} className="flex sm:gap-2 items-center text-white bg-primary py-2 sm:px-5 px-2 rounded-none hover:bg-[#44adb0] hover:scale-95 duration-300">Clear All</button>
+      </div>
+
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-7 mt-3 mb-14">
         {
           data?.map(medicine => <CartItem key={medicine._id} medicine={medicine} refetch={refetch}></CartItem>)
         }
