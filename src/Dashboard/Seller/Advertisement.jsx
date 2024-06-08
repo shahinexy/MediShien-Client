@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../components/Loader";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { Helmet } from "react-helmet";
 
 const Advertisement = () => {
   const { user } = useAuth();
@@ -81,6 +82,9 @@ const Advertisement = () => {
 
   return (
     <div>
+            <Helmet>
+        <title>Advertisement</title>
+      </Helmet>
       <div className="flex justify-between bg-secondary py-2 sm:px-7 px-2 text-white items-center">
         <p className="text-xl font-semibold ">Your Advertisement</p>
 

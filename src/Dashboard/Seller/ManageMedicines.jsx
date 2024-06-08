@@ -4,15 +4,19 @@ import { useState } from "react";
 import { Button, Modal } from "keep-react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import useAxiosSecure from './../../Hooks/useAxiosSecure';
+import useAxiosSecure from "./../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../components/Loader";
 import Swal from "sweetalert2";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { Helmet } from "react-helmet";
 
 const ManageMedicines = () => {
   const { user } = useAuth();
-  const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => {
     setIsOpen(true);
@@ -30,9 +34,19 @@ const ManageMedicines = () => {
     },
   });
 
+  // ==== get category data ===
+  const { data: categoryData } = useQuery({
+    queryKey: ["medicineCategory"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/medicineCategory");
+      return res.data;
+    },
+  });
+
   // ===== handle form submition ====
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = (data) => {
+    console.log(data);
     const photoFile = { image: data.photo[0] };
     axios
       .post(
@@ -71,8 +85,8 @@ const ManageMedicines = () => {
                   text: "Your Medisine Has Been Saved.",
                   icon: "success",
                 });
-                refetch()
-                reset()
+                refetch();
+                reset();
               }
             })
             .catch((err) => console.log(err));
@@ -81,9 +95,42 @@ const ManageMedicines = () => {
       .catch((error) => console.log(error));
   };
 
+  // ======== Handle Delete =====
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .delete(`/medicines/${id}`)
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.deletedCount > 0) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+              refetch();
+            }
+          })
+          .catch((err) => console.log(err));
+      }
+    });
+  };
+
   if (isPending) return <Loader></Loader>;
   return (
     <div>
+      <Helmet>
+        <title>Manage Medicines</title>
+      </Helmet>
       <div className="flex justify-between bg-secondary py-2 sm:px-7 px-2 text-white items-center">
         <p className="text-xl font-semibold ">Manage Your Medicines</p>
         <div>
@@ -150,10 +197,17 @@ const ManageMedicines = () => {
                         <div className="w-full">
                           <p className=" mb-1">Select Categori</p>
                           <select
-                            {...register("categori")}
+                            {...register("category")}
                             className="border-white w-full border-2 rounded-none bg-secondary text-base outline-none py-2 text-center"
                           >
-                            <option value="tablet">tablet</option>
+                            {categoryData.map((category) => (
+                              <option
+                                key={category._id}
+                                value={category.categoryName}
+                              >
+                                {category.categoryName}
+                              </option>
+                            ))}
                           </select>
                         </div>
                         <div className="w-full">
@@ -232,7 +286,7 @@ const ManageMedicines = () => {
               <th className="p-3">Image</th>
               <th className="p-3 ">Medicine Name</th>
               <th className="p-3">Description</th>
-              <th className="p-3">Categori</th>
+              <th className="p-3">Category</th>
               <th className="p-3">Price</th>
               <th className="p-3">View</th>
               <th className="p-3">Action</th>
@@ -255,12 +309,19 @@ const ManageMedicines = () => {
                     <small>{medicine.genericName}</small>
                   </div>
                 </td>
-                <td className="px-3 py-2">{medicine.description.slice(0, 50)}...</td>
-                <td className="px-3 py-2">{medicine.categori}</td>
+                <td className="px-3 py-2">
+                  {medicine.description.slice(0, 50)}...
+                </td>
+                <td className="px-3 py-2">{medicine.category}</td>
                 <td className="px-3 py-2">{medicine.price}</td>
                 <td className="px-3 py-2">View</td>
                 <td className="px-3 py-2">update</td>
-                <td className="px-3 py-2">delete</td>
+                <td className="px-3 py-2">
+                  <RiDeleteBin6Line
+                    onClick={() => handleDelete(medicine._id)}
+                    className="text-3xl text-red-500 hover:text-red-700 cursor-pointer hover:scale-110 hover:rotate-3 duration-500"
+                  />
+                </td>
               </tr>
             ))}
           </tbody>

@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../components/Loader";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { Helmet } from "react-helmet";
 
 const ManageCategory = () => {
   // const axiosPublic = useAxiosPublic();
@@ -102,6 +103,9 @@ const ManageCategory = () => {
   if (isPending) return <Loader></Loader>;
   return (
     <div>
+            <Helmet>
+        <title>Manage Category</title>
+      </Helmet>
       <div className="flex justify-between bg-secondary py-2 sm:px-7 px-2 text-white items-center">
         <p className="text-xl font-semibold ">Manage Category</p>
         <div>

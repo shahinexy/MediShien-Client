@@ -12,7 +12,6 @@ const CartItem = ({ medicine, refetch }) => {
     medicienName,
     price,
     photo,
-    medicineId,
     quantity,
     discount,
     discountPrice,

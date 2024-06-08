@@ -7,6 +7,7 @@ import CartItem from "./CartComponents/CartItem";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 
 const CartPage = () => {
   const { user } = useAuth();
@@ -75,6 +76,9 @@ const CartPage = () => {
   if (isError) return error;
   return (
     <div className="max-w-7xl mx-auto mt-32 mb-20 px-4">
+            <Helmet>
+        <title>Your Carts</title>
+      </Helmet>
       <div className="flex items-center justify-between py-2 bg-secondary px-4 text-white">
         <p className="text-xl font-semibold">Review Your Cart Items</p>
 
@@ -90,7 +94,7 @@ const CartPage = () => {
         >
           Clear All
         </button>
-        <p className="text-xl font-medium">Grant Total: {grandTotal}$</p>
+        <p className="text-xl font-medium">Grant Total: {grandTotal?.toFixed(2)}$</p>
       </div>
 
       <div className="grid md:grid-cols-2 grid-cols-1 gap-7 mt-3 mb-14">

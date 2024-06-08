@@ -1,27 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import Loader from "../../components/Loader";
 import { PiShoppingCartFill } from "react-icons/pi";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import MedicineDetails from "../../components/MedicineDetails";
-import useAuth from "../../Hooks/useAuth";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
 
-const Shop = () => {
-  const { user, loader } = useAuth();
-  const axiosPublic = useAxiosPublic();
-  const axiosSecure = useAxiosSecure();
-  const navigate = useNavigate();
-
-  const { data, isPending } = useQuery({
-    queryKey: ["allMedicine"],
-    queryFn: async () => {
-      const res = await axiosPublic.get("/medicines");
-      return res.data;
-    },
-  });
+const CategoryPage = () => {
+  const data = useLoaderData();
+  const {user} = useAuth()
+  const axiosSecure = useAxiosSecure()
+  const navigate = useNavigate()
 
   const handleAddCart = (medicine) => {
     if (!user) {
@@ -53,11 +42,10 @@ const Shop = () => {
       .catch((err) => console.log(err));
   };
 
-  if (isPending || loader) return <Loader></Loader>;
   return (
     <div className="max-w-7xl mx-auto mt-32 mb-20">
-      <Helmet>
-        <title>Shop</title>
+            <Helmet>
+        <title>MediShine Category</title>
       </Helmet>
       <div className="mt-6 overflow-x-auto">
         <table className="w-full  text-left whitespace-nowrap">
@@ -126,4 +114,4 @@ const Shop = () => {
   );
 };
 
-export default Shop;
+export default CategoryPage;

@@ -17,6 +17,7 @@ import ManageUser from "../Dashboard/Admin/ManageUser";
 import ManageCategory from "../Dashboard/Admin/ManageCategory";
 import ManageAdvertise from "../Dashboard/Admin/ManageAdvertise";
 import CartPage from "../pages/Cart/CartPage";
+import CategoryPage from "../pages/CategoryPage.jsx/CategoryPage";
 
 
 
@@ -37,6 +38,11 @@ const router = createBrowserRouter([
         {
           path: '/cart',
           element: <CartPage></CartPage>
+        },
+        {
+          path: '/categoryPage/:category',
+          element: <CategoryPage></CategoryPage>,
+          loader: ({params}) => fetch(`${import.meta.env.VITE_SERVER_URL}/medicines/category/${params.category}`)
         },
         {
           path:'register',

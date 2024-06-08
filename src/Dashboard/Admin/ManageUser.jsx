@@ -4,6 +4,7 @@ import { Dropdown } from "keep-react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { Helmet } from "react-helmet";
 
 const ManageUser = () => {
   const axiosSecure = useAxiosSecure()
@@ -39,6 +40,9 @@ const ManageUser = () => {
   if (isPending) return <Loader></Loader>;
   return (
     <div>
+            <Helmet>
+        <title>Manage User</title>
+      </Helmet>
       <div className="flex justify-between bg-secondary py-2 px-7 text-white items-center">
         <p className="text-xl font-semibold ">User Management</p>
       </div>

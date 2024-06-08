@@ -1,10 +1,14 @@
 import { FaEllipsisH } from "react-icons/fa";
 import { MdFileDownloadDone } from "react-icons/md";
 import imag from "../../assets/images/pngwing.com (5).png";
+import { Helmet } from "react-helmet";
 
 const SellerPaymentHistory = () => {
   return (
     <div>
+            <Helmet>
+        <title>Payment History</title>
+      </Helmet>
       <div className="flex justify-between bg-secondary py-2 px-7 text-white items-center">
         <p className="text-xl font-semibold ">Your Payment History</p>
       </div>

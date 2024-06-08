@@ -16,7 +16,7 @@ const MedicineDetails = ({ medicine }) => {
   const {
     medicienName,
     genericName,
-    categori,
+    category,
     company,
     price,
     description,
@@ -57,7 +57,7 @@ const MedicineDetails = ({ medicine }) => {
                   </p>
                   <p className="flex gap-2 items-center">
                     <MdCategory className="text-[#44adb0] text-2xl" />
-                    {categori}
+                    {category}
                   </p>
                 </div>
                 <div className="grid grid-cols-4 my-5 gap-3 text-center">
