@@ -59,7 +59,7 @@ const CheckOutPage = () => {
               </div>
             </div>
           ))}
-          <div className="border-t-2 border-secondary mt-7 text-end text-lg font-medium py-2">
+          <div className="border-t-2 border-secondary mt-3 text-end text-lg font-medium py-2">
               Total: {totalPrice}$
           </div>
         </div>

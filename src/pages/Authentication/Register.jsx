@@ -97,6 +97,7 @@ const Register = () => {
               className="w-full p-2 border-l-4 border-secondary outline-none"
               type="text"
               placeholder="name"
+              required
             />
           </div>
           <div>
@@ -134,6 +135,7 @@ const Register = () => {
                 {...register("photo")}
                 className="w-full p-[6px] border-l-4 border-secondary bg-[#ffffff] outline-none"
                 type="file"
+                required
               />
             </div>
             <div className="w-1/2">

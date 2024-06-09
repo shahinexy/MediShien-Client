@@ -19,6 +19,7 @@ import ManageAdvertise from "../Dashboard/Admin/ManageAdvertise";
 import CartPage from "../pages/Cart/CartPage";
 import CategoryPage from "../pages/CategoryPage.jsx/CategoryPage";
 import CheckOutPage from "../pages/CheckOutPage/CheckOutPage";
+import PaymentManagement from "../Dashboard/Admin/PaymentManagement";
 
 
 
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
         {
           path: 'manageAdvertise',
           element: <ManageAdvertise></ManageAdvertise>
+        },
+        {
+          path: 'paymentManagement',
+          element: <PaymentManagement></PaymentManagement>
         }
       ]
     }

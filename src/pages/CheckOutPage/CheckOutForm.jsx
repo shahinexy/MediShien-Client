@@ -132,7 +132,7 @@ const CheckOutForm = () => {
         <button type="submit" disabled={!stripe || !clientSecret} className="w-full flex mt-6 justify-center bg-primary text-lg font-medium gap-3 py-3 px-5 rounded-none hover:bg-[#44adb0] hover:scale-95 duration-300">
           Pay Now <FaMoneyBillTrendUp className="text-xl" />
         </button>
-        <p className="text-red-300 text-sm">{error}</p>
+        <p className="text-red-300 text-sm mt-6">{error}</p>
         {
             transitionId && <p className="text-green-300 mt-6">Your transition ID: {transitionId}</p>
         }
