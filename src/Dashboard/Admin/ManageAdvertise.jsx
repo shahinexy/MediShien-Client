@@ -8,10 +8,9 @@ import { Helmet } from "react-helmet";
 
 const ManageAdvertise = () => {
   const { data, isPending, refetch } = useAdvertiseData();
-  const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
 
   const hangdleApproval = (id, status) => {
-
     if (status === "pending" || status === "cancel") {
       Swal.fire({
         title: "Are you sure?",
@@ -69,7 +68,7 @@ const ManageAdvertise = () => {
     }
   };
 
-  const handleDelete = id =>{
+  const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -90,18 +89,18 @@ const ManageAdvertise = () => {
                 text: "Your file has been deleted.",
                 icon: "success",
               });
-              refetch()
+              refetch();
             }
           })
           .catch((err) => console.log(err));
       }
     });
-  }
+  };
 
   if (isPending) return <Loader></Loader>;
   return (
     <div>
-            <Helmet>
+      <Helmet>
         <title>Manage Advertise</title>
       </Helmet>
       <div className="flex justify-between bg-secondary py-2 px-7 text-white items-center">
@@ -144,9 +143,13 @@ const ManageAdvertise = () => {
                       onClick={() =>
                         hangdleApproval(medicine._id, medicine.status)
                       }
-                      className={`flex gap-3 border-2 ${ medicine.status === "pending" && "border-orange-500"}
-                      ${ medicine.status === "approve" && "border-green-500"}
-                      ${ medicine.status === "cancel" && "border-red-400"}  p-2 text-gray-400 cursor-pointer hover:bg-white/70`}
+                      className={`flex gap-3 border-2 ${
+                        medicine.status === "pending" && "border-orange-500"
+                      }
+                      ${medicine.status === "approve" && "border-green-500"}
+                      ${
+                        medicine.status === "cancel" && "border-red-400"
+                      }  p-2 text-gray-400 cursor-pointer hover:bg-white/70`}
                     >
                       <GiCancel
                         className={`text-xl ${

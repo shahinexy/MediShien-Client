@@ -55,7 +55,7 @@ const Shop = () => {
 
   if (isPending || loader) return <Loader></Loader>;
   return (
-    <div className="max-w-7xl mx-auto mt-32 mb-20">
+    <div className="max-w-7xl mx-auto mt-28 mb-20">
       <Helmet>
         <title>Shop</title>
       </Helmet>

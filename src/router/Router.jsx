@@ -18,6 +18,7 @@ import ManageCategory from "../Dashboard/Admin/ManageCategory";
 import ManageAdvertise from "../Dashboard/Admin/ManageAdvertise";
 import CartPage from "../pages/Cart/CartPage";
 import CategoryPage from "../pages/CategoryPage.jsx/CategoryPage";
+import CheckOutPage from "../pages/CheckOutPage/CheckOutPage";
 
 
 
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
           path: '/categoryPage/:category',
           element: <CategoryPage></CategoryPage>,
           loader: ({params}) => fetch(`${import.meta.env.VITE_SERVER_URL}/medicines/category/${params.category}`)
+        },
+        {
+          path: 'checkOut',
+          element: <CheckOutPage></CheckOutPage>
         },
         {
           path:'register',

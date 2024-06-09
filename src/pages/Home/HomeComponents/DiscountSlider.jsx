@@ -57,8 +57,8 @@ const DiscountSlider = () => {
               <MdDiscount className="text-4xl text-primary" />
             </span>
             <Link>
-              <div className=" text-center border border-secondary/50 p-3">
-                <img className="w-full h-48 p-2" src={medicine.photo} alt="" />
+              <div className=" text-center border border-secondary/20 p-3">
+                <img className="w-40 h-40 mx-auto p-7" src={medicine.photo} alt="" />
                 <h3 className="text-xl font-semibold">{medicine?.medicienName}</h3>
                 <p className="text-sm">{medicine?.genericName} </p>
                 <div className="flex justify-center gap-3 text-xl font-semibold pt-2 border-t-2 border-secondary/50">
