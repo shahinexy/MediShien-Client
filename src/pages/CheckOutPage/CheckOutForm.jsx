@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useCart from "../../Hooks/useCart";
 import useAuth from "../../Hooks/useAuth";
+import { FaMoneyBillTrendUp } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 const CheckOutForm = () => {
   const [error, setError] = useState();
@@ -21,7 +23,6 @@ const CheckOutForm = () => {
       return acc + medicine.price * medicine.quantity;
     }
   }, 0);
-  console.log(totalPrice);
 
   useEffect(() => {
     if (!totalPrice) return;
@@ -90,6 +91,11 @@ const CheckOutForm = () => {
 
         const res = await axiosSecure.post('/payments', paymentInfo)
         console.log(res.data);
+        Swal.fire({
+          title: "Action SuccessFull",
+          text: "Your payment in proccess.",
+          icon: "success",
+        });
       }
     }
   };
@@ -97,12 +103,21 @@ const CheckOutForm = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
+        <div className="my-3">
+          <p>Name</p>
+          <input className="w-full outline-none p-2 bg-inherit text-white border " type="text" disabled value={user?.displayName} />
+        </div>
+        <div className="my-3">
+          <p>Email</p>
+          <input className="w-full outline-none p-2 bg-inherit text-white border " type="text" disabled value={user?.email} />
+        </div>
+        <p>Card Info</p>
         <CardElement
           options={{
             style: {
               base: {
                 fontSize: "16px",
-                color: "#424770",
+                color: "#FAF9F6",
                 "::placeholder": {
                   color: "#aab7c4",
                 },
@@ -112,9 +127,10 @@ const CheckOutForm = () => {
               },
             },
           }}
+          className="border border-white p-3"
         />
-        <button type="submit" disabled={!stripe || !clientSecret}>
-          Pay
+        <button type="submit" disabled={!stripe || !clientSecret} className="w-full flex mt-6 justify-center bg-primary text-lg font-medium gap-3 py-3 px-5 rounded-none hover:bg-[#44adb0] hover:scale-95 duration-300">
+          Pay Now <FaMoneyBillTrendUp className="text-xl" />
         </button>
         <p className="text-red-300 text-sm">{error}</p>
         {
