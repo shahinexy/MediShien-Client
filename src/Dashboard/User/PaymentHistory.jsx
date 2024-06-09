@@ -45,7 +45,7 @@ const PaymentHistory = () => {
                 </td>
                 <td className="px-3 py-2">{paymentData.userEmail}</td>
                 <td className="px-3 py-2">{paymentData.transitionId}</td>
-                <td className="px-3 py-2">{paymentData.price}</td>
+                <td className="px-3 py-2">{paymentData.price}$</td>
                 <td className="px-3 py-2">{paymentData.date}</td>
                 <td className={`px-3 py-2 flex gap-1 items-center ${paymentData.status === 'pending' ? 'text-orange-500' : 'text-green-500'}`}>{paymentData.status} <GoDotFill className="text-lg" /> </td>
               </tr>

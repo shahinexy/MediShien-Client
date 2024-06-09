@@ -8,6 +8,7 @@ import { PiBuildingsBold } from "react-icons/pi";
 import { GiShoppingBag } from "react-icons/gi";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { Link } from "react-router-dom";
 
 const Slider = () => {
   const axiosPbulic = useAxiosPublic()
@@ -61,7 +62,9 @@ const Slider = () => {
       </Swiper>
       <div className="absolute flex w-full md:justify-start justify-center z-20 bottom-0 left-0">
         <div className="inline-block">
+        <Link to={'/shop'}>
         <button className="bg-primary hover:bg-[#44adb0] text-white text-lg flex w-full justify-center items-center gap-2 px-10 py-2  mt-3 hover:scale-95 duration-300"> <GiShoppingBag className="text-xl" /> Shop Now </button>
+        </Link>
       </div>
         </div>
       </div>

@@ -9,12 +9,12 @@ import Swal from "sweetalert2";
 const CheckOutForm = () => {
   const [error, setError] = useState();
   const [clientSecret, setClientSecret] = useState("");
-  const [transitionId, setTransitionId] = useState(null)
+  const [transitionId, setTransitionId] = useState(null);
   const axiosSecure = useAxiosSecure();
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useAuth();
-  const { data } = useCart();
+  const { data, refetch } = useCart();
 
   const totalPrice = data?.reduce((acc, medicine) => {
     if (medicine.discount > 0) {
@@ -23,6 +23,8 @@ const CheckOutForm = () => {
       return acc + medicine.price * medicine.quantity;
     }
   }, 0);
+
+  const sellerEmails = data.map((medicine) => medicine.userEmail);
 
   useEffect(() => {
     if (!totalPrice) return;
@@ -75,27 +77,29 @@ const CheckOutForm = () => {
       console.log(confirmError);
     } else {
       console.log("[Payment Intent]", paymentIntent);
-      if(paymentIntent.status === 'succeeded'){
-        console.log('transitionId', paymentIntent.id);
-        setTransitionId(paymentIntent.id)
+      if (paymentIntent.status === "succeeded") {
+        console.log("transitionId", paymentIntent.id);
+        setTransitionId(paymentIntent.id);
 
         const paymentInfo = {
-            userEmail: user?.email || "anonymous",
-            UserName: user?.displayName || "anonymous",
-            transitionId: paymentIntent.id,
-            price: totalPrice,
-            date: new Date(),
-            status: 'pending',
-            medicineIds: data.map(medicine => medicine._id),
-        }
+          sellerEmails,
+          userEmail: user?.email || "anonymous",
+          UserName: user?.displayName || "anonymous",
+          transitionId: paymentIntent.id,
+          price: totalPrice,
+          date: new Date(),
+          status: "pending",
+          medicineIds: data.map((medicine) => medicine._id),
+        };
 
-        const res = await axiosSecure.post('/payments', paymentInfo)
+        const res = await axiosSecure.post("/payments", paymentInfo);
         console.log(res.data);
         Swal.fire({
           title: "Action SuccessFull",
           text: "Your payment in proccess.",
           icon: "success",
         });
+        refetch()
       }
     }
   };
@@ -105,11 +109,21 @@ const CheckOutForm = () => {
       <form onSubmit={handleSubmit}>
         <div className="my-3">
           <p>Name</p>
-          <input className="w-full outline-none p-2 bg-inherit text-white border " type="text" disabled value={user?.displayName} />
+          <input
+            className="w-full outline-none p-2 bg-inherit text-white border "
+            type="text"
+            disabled
+            value={user?.displayName}
+          />
         </div>
         <div className="my-3">
           <p>Email</p>
-          <input className="w-full outline-none p-2 bg-inherit text-white border " type="text" disabled value={user?.email} />
+          <input
+            className="w-full outline-none p-2 bg-inherit text-white border "
+            type="text"
+            disabled
+            value={user?.email}
+          />
         </div>
         <p>Card Info</p>
         <CardElement
@@ -129,13 +143,19 @@ const CheckOutForm = () => {
           }}
           className="border border-white p-3"
         />
-        <button type="submit" disabled={!stripe || !clientSecret} className="w-full flex mt-6 justify-center bg-primary text-lg font-medium gap-3 py-3 px-5 rounded-none hover:bg-[#44adb0] hover:scale-95 duration-300">
+        <button
+          type="submit"
+          disabled={!stripe || !clientSecret}
+          className="w-full flex mt-6 justify-center bg-primary text-lg font-medium gap-3 py-3 px-5 rounded-none hover:bg-[#44adb0] hover:scale-95 duration-300"
+        >
           Pay Now <FaMoneyBillTrendUp className="text-xl" />
         </button>
         <p className="text-red-300 text-sm mt-6">{error}</p>
-        {
-            transitionId && <p className="text-green-300 mt-6">Your transition ID: {transitionId}</p>
-        }
+        {transitionId && (
+          <p className="text-green-300 mt-6">
+            Your transition ID: {transitionId}
+          </p>
+        )}
       </form>
     </div>
   );

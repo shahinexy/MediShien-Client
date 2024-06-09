@@ -38,23 +38,23 @@ const NavBar = () => {
     </>
   );
   return (
-    <div className="max-w-7xl mx-auto px-4 py-3 bg-primary text-white shadow-lg shadow-secondary/50 z-30">
-      <Navbar fluid={true} className="bg-inherit ">
+    <div className="max-w-7xl mx-auto md:px-4 md:py-3 bg-primary text-white shadow-lg shadow-secondary/50 z-30">
+      <Navbar fluid={false} className="bg-inherit px-1 py-2">
         <Navbar.Container className="flex items-center justify-between">
           <Navbar.Container className="flex items-center">
-            <Navbar.Brand >
+            <Navbar.Brand className="flex">
+            <Navbar.Toggle className="bg-secondary p-1"/>
               <Link to={'/'} className="flex gap-1 items-center text-xl font-semibold">
-              <img className="w-10" src={logo} alt="" />
+              <img className="md:w-10 w-7" src={logo} alt="" />
               <p>
                 Medi<span className="text-[#44adb0]">Shine</span>
               </p>
               </Link>
             </Navbar.Brand>
             {/* ==== Mobile === */}
-            <Navbar.Collapse collapseType="sidebar">
-              <Navbar.Container tag="ul" className="flex flex-col gap-5">
-                <Navbar.Link linkName="Home" />
-                <Navbar.Link linkName="Projects" />
+            <Navbar.Collapse collapseType="sidebar" className="bg-primary">
+              <Navbar.Container tag="ul" className="flex flex-col gap-1">
+              {navItems}
               </Navbar.Container>
             </Navbar.Collapse>
           </Navbar.Container>
@@ -69,13 +69,13 @@ const NavBar = () => {
 
           <Navbar.Container className="flex gap-2">
             <Link to={"/cart"} className="relative pr-2">
-              <img className="w-10" src={cart} alt="" />
+              <img className="sm:w-10 w-8" src={cart} alt="" />
               <small className="absolute px-1 top-0 right-0 bg-white rounded-full text-primary font-semibold">
                 +2
               </small>
             </Link>
 
-            <div className="flex items-center mx-5">
+            <div className="flex items-center md:mx-5">
               <select className="bg-inherit border p-1 outline-none" name="" id="">
                 <option className="bg-primary" value="">
                   ENG
@@ -142,7 +142,7 @@ const NavBar = () => {
               </Link>
             )}
 
-            <Navbar.Toggle />
+            
           </Navbar.Container>
         </Navbar.Container>
       </Navbar>

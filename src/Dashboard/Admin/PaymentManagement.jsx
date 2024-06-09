@@ -17,7 +17,8 @@ const PaymentManagement = () => {
     },
   });
 
-  const handleStatus = (id) => {
+  const handleStatus = (id, status) => {
+    if(status === 'paid') return
 
     Swal.fire({
         title: "Are you sure?",
@@ -26,7 +27,7 @@ const PaymentManagement = () => {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Approve it!",
+        confirmButtonText: "Accept it!",
       }).then((result) => {
         if (result.isConfirmed) {
           axiosSecure
@@ -62,7 +63,7 @@ const PaymentManagement = () => {
               <th className="p-3">Price</th>
               <th className="p-3">Date</th>
               <th className="p-3">Status</th>
-              <th className="p-3">Approve</th>
+              <th className="p-3">Accept</th>
             </tr>
           </thead>
           <tbody>
@@ -92,7 +93,7 @@ const PaymentManagement = () => {
                 </td>
                 <td className="px-3 py-2">
                   <div
-                    onClick={() => handleStatus(paymentData._id)}
+                    onClick={() => handleStatus(paymentData._id, paymentData.status)}
                     className="flex justify-center hover:bg-secondary py-2 cursor-pointer"
                   >
                     {paymentData.status === "pending" ? (

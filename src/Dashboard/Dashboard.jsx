@@ -314,17 +314,266 @@ const Dashboard = () => {
             <div>
               <Navbar className="bg-inherit p-3">
                 <Navbar.Container className="flex items-center justify-between">
-                  <Navbar.Collapse collapseType="sidebar">
-                    <Navbar.Container tag="ul" className="flex flex-col gap-5">
-                      <Navbar.Link linkName="Home" />
-                      <Navbar.Link linkName="Projects" />
-                      <Navbar.Link linkName="Blogs" />
-                      <Navbar.Link linkName="News" />
-                      <Navbar.Link linkName="Resources" />
+                  <Navbar.Collapse
+                    collapseType="sidebar"
+                    className="bg-primary p-2"
+                  >
+                    <Navbar.Container  className="flex flex-col ">
+                      {/* ========== Admin menu ====== */}
+                      {currentUser?.userRole === "admin" && (
+                        <div className="px-2 mt-5 space-y-1 border-b border-secondary pb-12">
+                          <NavLink
+                            to={"/dashboard/adminHome"}
+                            className={({ isActive, isPending }) =>
+                              isPending
+                                ? "pending"
+                                : isActive
+                                ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                                : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+                            }
+                          >
+                            <p className="flex items-center gap-3">
+                              <SiGooglehome className="text-xl" /> Admin Home
+                            </p>
+                          </NavLink>
+                          <NavLink
+                            to={"/dashboard/userProfile"}
+                            className={({ isActive, isPending }) =>
+                              isPending
+                                ? "pending"
+                                : isActive
+                                ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                                : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+                            }
+                          >
+                            <p className="flex items-center gap-3">
+                              <FaUser className="text-lg" /> User Profiel
+                            </p>
+                          </NavLink>
+                          <NavLink
+                            to={"/dashboard/manageUser"}
+                            className={({ isActive, isPending }) =>
+                              isPending
+                                ? "pending"
+                                : isActive
+                                ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                                : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+                            }
+                          >
+                            <p className="flex items-center gap-2">
+                              <FaUserFriends className="text-2xl" /> Manage User
+                            </p>
+                          </NavLink>
+                          <NavLink
+                            to={"/dashboard/manageCategory"}
+                            className={({ isActive, isPending }) =>
+                              isPending
+                                ? "pending"
+                                : isActive
+                                ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                                : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+                            }
+                          >
+                            <p className="flex items-center gap-2">
+                              <MdCategory className="text-2xl" /> Manage
+                              Category
+                            </p>
+                          </NavLink>
+                          <NavLink
+                            to={"/dashboard/paymentManagement"}
+                            className={({ isActive, isPending }) =>
+                              isPending
+                                ? "pending"
+                                : isActive
+                                ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                                : " hover:bg-black/10 py-1 pl-2 w-full inline-block"
+                            }
+                          >
+                            <p className="flex items-center gap-3 whitespace-nowrap ">
+                              <FaWallet className="text-lg" /> Payment
+                              management
+                            </p>
+                          </NavLink>
+                          <NavLink
+                            to={"/dashboard/salesReport"}
+                            className={({ isActive, isPending }) =>
+                              isPending
+                                ? "pending"
+                                : isActive
+                                ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                                : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+                            }
+                          >
+                            <p className="flex items-center gap-2">
+                              <TbReportSearch className="text-2xl" /> Sales
+                              Report
+                            </p>
+                          </NavLink>
+                          <NavLink
+                            to={"/dashboard/manageAdvertise"}
+                            className={({ isActive, isPending }) =>
+                              isPending
+                                ? "pending"
+                                : isActive
+                                ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                                : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+                            }
+                          >
+                            <p className="flex items-center gap-2">
+                              <PiTelevisionSimpleFill className="text-2xl" />{" "}
+                              Manage Advertise
+                            </p>
+                          </NavLink>
+                        </div>
+                      )}
+
+                      {/* ====== Seller menu =====  */}
+                      {currentUser?.userRole === "seller" && (
+                        <div className="px-2 mt-5 space-y-1 border-b border-secondary pb-12">
+                          <NavLink
+                            to={"/dashboard/userHome"}
+                            className={({ isActive, isPending }) =>
+                              isPending
+                                ? "pending"
+                                : isActive
+                                ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                                : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+                            }
+                          >
+                            <p className="flex items-center gap-3">
+                              <SiGooglehome className="text-lg" /> Seller Home
+                            </p>
+                          </NavLink>
+                          <NavLink
+                            to={"/dashboard/userProfile"}
+                            className={({ isActive, isPending }) =>
+                              isPending
+                                ? "pending"
+                                : isActive
+                                ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                                : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+                            }
+                          >
+                            <p className="flex items-center gap-3">
+                              <FaUser className="text-lg" /> User Profiel
+                            </p>
+                          </NavLink>
+                          <NavLink
+                            to={"/dashboard/manageMedicines"}
+                            className={({ isActive, isPending }) =>
+                              isPending
+                                ? "pending"
+                                : isActive
+                                ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                                : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+                            }
+                          >
+                            <p className="flex items-center gap-2">
+                              <RiMedicineBottleFill className="text-xl" />{" "}
+                              Manage Medicines
+                            </p>
+                          </NavLink>
+                          <NavLink
+                            to={"/dashboard/sellerPaymentHistory"}
+                            className={({ isActive, isPending }) =>
+                              isPending
+                                ? "pending"
+                                : isActive
+                                ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                                : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+                            }
+                          >
+                            <p className="flex items-center gap-3">
+                              <FaWallet className="text-lg" /> Payment History
+                            </p>
+                          </NavLink>
+                          <NavLink
+                            to={"/dashboard/sellerAdvertisement"}
+                            className={({ isActive, isPending }) =>
+                              isPending
+                                ? "pending"
+                                : isActive
+                                ? " bg-black/20 rounded-none px-[6px] py-1 w-full inline-block"
+                                : " hover:bg-black/10 py-1 px-[6px] w-full inline-block"
+                            }
+                          >
+                            <p className="flex items-center gap-2">
+                              <PiTelevisionSimpleFill className="text-2xl" />{" "}
+                              Advertisement
+                            </p>
+                          </NavLink>
+                        </div>
+                      )}
+
+                      {/* ====== User menu =====  */}
+                      {currentUser?.userRole === "user" && (
+                        <div className="px-2 mt-5 space-y-1 border-b border-secondary pb-12">
+                          <NavLink
+                            to={"/dashboard/userProfile"}
+                            className={({ isActive, isPending }) =>
+                              isPending
+                                ? "pending"
+                                : isActive
+                                ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                                : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+                            }
+                          >
+                            <p className="flex items-center gap-3">
+                              <FaUser className="text-lg" /> User Profiel
+                            </p>
+                          </NavLink>
+                          <NavLink
+                            to={"/dashboard/paymentHistory"}
+                            className={({ isActive, isPending }) =>
+                              isPending
+                                ? "pending"
+                                : isActive
+                                ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                                : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+                            }
+                          >
+                            <p className="flex items-center gap-3">
+                              <FaWallet className="text-lg" /> Payment History
+                            </p>
+                          </NavLink>
+                        </div>
+                      )}
+
+                      {/* ====== All user menu ===== */}
+                      <div className="px-2 mt-5 space-y-1">
+                        <NavLink
+                          to={"/"}
+                          className={({ isActive, isPending }) =>
+                            isPending
+                              ? "pending"
+                              : isActive
+                              ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                              : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+                          }
+                        >
+                          <p className="flex items-center gap-3">
+                            <FaHome className="text-2xl" /> Home
+                          </p>
+                        </NavLink>
+                        <NavLink
+                          to={"/shop"}
+                          className={({ isActive, isPending }) =>
+                            isPending
+                              ? "pending"
+                              : isActive
+                              ? " bg-black/20 rounded-none px-2 py-1 w-full inline-block"
+                              : " hover:bg-black/10 py-1 px-2 w-full inline-block"
+                          }
+                        >
+                          <p className="flex items-center gap-3">
+                            <GiShoppingBag className="text-2xl" /> Shop
+                          </p>
+                        </NavLink>
+                      </div>
                     </Navbar.Container>
                   </Navbar.Collapse>
 
-                  <Navbar.Toggle className="bg-white sm:p-2 p-0" />
+                  <Navbar.Toggle className="bg-secondary sm:p-2 p-1" />
                 </Navbar.Container>
               </Navbar>
             </div>

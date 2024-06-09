@@ -210,13 +210,17 @@ const ManageMedicines = () => {
                             ))}
                           </select>
                         </div>
+
                         <div className="w-full">
                           <p className=" mb-1">Select Company</p>
                           <select
                             {...register("company")}
                             className="border-white w-full border-2 rounded-none bg-secondary text-base outline-none py-2 text-center"
                           >
-                            <option value="tablet">company</option>
+                            <option value="Square Pharmaceuticals">Square Pharmaceuticals</option>
+                            <option value="Incepta Pharmaceuticals">Incepta Pharmaceuticals</option>
+                            <option value="Beximco Pharmaceuticals">Beximco Pharmaceuticals</option>
+                            <option value="Orion Pharma Ltd">Orion Pharma Ltd</option>
                           </select>
                         </div>
                       </div>

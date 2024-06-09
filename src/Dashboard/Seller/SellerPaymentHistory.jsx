@@ -1,9 +1,25 @@
-import { FaEllipsisH } from "react-icons/fa";
-import { MdFileDownloadDone } from "react-icons/md";
-import imag from "../../assets/images/pngwing.com (5).png";
+
 import { Helmet } from "react-helmet";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import useAuth from "../../Hooks/useAuth";
+import Loader from "../../components/Loader";
+import { GoDotFill } from "react-icons/go";
 
 const SellerPaymentHistory = () => {
+  const {user} = useAuth()
+  const axiosSecure = useAxiosSecure()
+
+  const {data, isPending, isError, error} = useQuery({
+    queryKey: ['sellerPayment'],
+    queryFn: async () =>{
+      const res = await axiosSecure.get(`/sellerPayments/${user.email}`)
+      return res.data
+    }
+  })
+
+  if (isPending) return <Loader></Loader>;
+  if (isError) console.log(error.message);
   return (
     <div>
             <Helmet>
@@ -15,68 +31,34 @@ const SellerPaymentHistory = () => {
 
       <div className="mt-6 overflow-x-auto">
         <table className="w-full p-6 text-left whitespace-nowrap">
-          <colgroup>
-            <col className="w-5" />
-            <col />
-            <col />
-            <col />
-            <col />
-            <col />
-            <col className="w-5" />
-          </colgroup>
           <thead>
             <tr className="text-left bg-secondary/70 text-white">
               <th className="p-3">No.</th>
-              <th className="p-3">Image</th>
-              <th className="p-3 ">Medicine Name</th>
-              <th className="p-3">Quantity</th>
+              <th className="p-3">Name</th>
+              <th className="p-3 ">Email</th>
+              <th className="p-3">Transaction Id</th>
               <th className="p-3">Price</th>
+              <th className="p-3">Date</th>
               <th className="p-3">Status</th>
             </tr>
           </thead>
-          <tbody className="bg-secondary/10 border-b border-secondary/30 hover:bg-secondary/30">
-            <tr>
-              <td className="px-3 py-2 pl-4">1.</td>
-              <td className="px-3 py-2">
-                {" "}
-                <img className="w-16 h-16" src={imag} alt="" />{" "}
-              </td>
-              <td className="px-3 py-2">
-                <div>
-                  <p>Maria Anders</p>
-                  <small>medicine generic namge</small>
-                </div>
-              </td>
-              <td className="px-3 py-2">Germany</td>
-              <td className="px-3 py-2">Germany</td>
-              <td className="px-3 py-2">
-                <p className="flex gap-2 items-center text-green-500">
-                  Completed <MdFileDownloadDone className="text-2xl" />
-                </p>
-              </td>
-            </tr>
-          </tbody>
-          <tbody className="bg-secondary/10 border-b border-secondary/30 hover:bg-secondary/30">
-            <tr>
-              <td className="px-3 py-2 pl-4">1.</td>
-              <td className="px-3 py-2">
-                {" "}
-                <img className="w-16 h-16" src={imag} alt="" />{" "}
-              </td>
-              <td className="px-3 py-2">
-                <div>
-                  <p>Maria Anders</p>
-                  <small>medicine generic namge</small>
-                </div>
-              </td>
-              <td className="px-3 py-2">Germany</td>
-              <td className="px-3 py-2">Germany</td>
-              <td className="px-3 py-2">
-                <p className="flex gap-2 items-center text-orange-500">
-                  Pending <FaEllipsisH className="text-xl" />
-                </p>
-              </td>
-            </tr>
+          <tbody>
+            {data?.map((paymentData, idx) => (
+              <tr
+                key={paymentData._id}
+                className="bg-secondary/10 border-b border-secondary/30 hover:bg-secondary/30"
+              >
+                <td className="px-3 py-2 pl-4">{idx + 1}.</td>
+                <td className="px-3 py-2 font-medium">
+                  {paymentData.UserName}
+                </td>
+                <td className="px-3 py-2">{paymentData.userEmail}</td>
+                <td className="px-3 py-2">{paymentData.transitionId}</td>
+                <td className="px-3 py-2">{paymentData.price}$</td>
+                <td className="px-3 py-2">{paymentData.date}</td>
+                <td className={`px-3 py-2 flex gap-1 items-center ${paymentData.status === 'pending' ? 'text-orange-500' : 'text-green-500'}`}>{paymentData.status} <GoDotFill className="text-lg" /> </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
