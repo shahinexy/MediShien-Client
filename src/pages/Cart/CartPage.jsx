@@ -1,6 +1,5 @@
 import { Button } from "keep-react";
 import { IoBagCheckSharp } from "react-icons/io5";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Loader from "../../components/Loader";
 import CartItem from "./CartComponents/CartItem";
 import Swal from "sweetalert2";
@@ -8,9 +7,10 @@ import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import useCart from "../../Hooks/useCart";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const CartPage = () => {
-  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic()
   const [grandTotal, setGrandTotal] = useState(0);
   const { data, isPending, isError, error, refetch } = useCart();
 
@@ -28,7 +28,7 @@ const CartPage = () => {
       confirmButtonText: "Clear All",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure
+        axiosPublic
           .post(`/cartItem/deleteAll`, allIds)
           .then((res) => {
             console.log(res.data);

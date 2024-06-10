@@ -8,17 +8,23 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { Helmet } from "react-helmet";
+import { ImSortAmountDesc } from "react-icons/im";
+import { Dropdown } from "keep-react";
+import { FaSearch } from "react-icons/fa";
+import { useState } from "react";
 
 const Shop = () => {
+  const [searchFilter, setSearchFilter] = useState("");
+  const [asc, setAsc] = useState("non");
   const { user, loader } = useAuth();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
   const { data, isPending } = useQuery({
-    queryKey: ["allMedicine"],
+    queryKey: ["allMedicine", asc],
     queryFn: async () => {
-      const res = await axiosPublic.get("/medicines");
+      const res = await axiosPublic.get(`/medicines?sort=${asc}`);
       return res.data;
     },
   });
@@ -62,7 +68,56 @@ const Shop = () => {
       <div className="flex justify-between bg-secondary p-2 text-white items-center">
         <p className="text-xl font-semibold ">Shop Now</p>
       </div>
-      <div className="mt-6 overflow-x-auto">
+
+      <div className="flex justify-between items-center mt-6">
+        <div>
+          <Dropdown
+            action={
+              <div className="flex items-center gap-2 text-lg w-20 justify-center">
+                Sort <ImSortAmountDesc />
+              </div>
+            }
+            actionClassName="bg-secondary py-2 px-5 rounded-none hover:bg-[#44adb0] hover:scale-95 duration-300"
+            className="rounded-none bg-secondary w-40"
+          >
+            <Dropdown.List>
+              <Dropdown.Item
+                onClick={() => setAsc("asc")}
+                className="text-black text-sm border-b border-white rounded-none"
+              >
+                Low to high $
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => setAsc("dsc")}
+                className="text-black text-sm border-b border-white rounded-none"
+              >
+                High to low $
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => setAsc("non")}
+                className="text-black text-sm rounded-none"
+              >
+                Default
+              </Dropdown.Item>
+            </Dropdown.List>
+          </Dropdown>
+        </div>
+
+        <form>
+          <div className="flex gap-3 justify-between items-center bg-secondary">
+            <input
+              className="flex-1  bg-black/15 px-3 py-3 outline-none text-white"
+              type=""
+              placeholder="name, company"
+            />
+            <button className="w-full  pr-4 pl-2 text-xl text-white">
+              <FaSearch />{" "}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div className="mt-3 overflow-x-auto">
         <table className="w-full  text-left whitespace-nowrap">
           <thead>
             <tr className="text-left text-lg bg-secondary/70 text-white">
