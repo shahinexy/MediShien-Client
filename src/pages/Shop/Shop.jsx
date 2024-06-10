@@ -4,7 +4,7 @@ import Loader from "../../components/Loader";
 import { PiShoppingCartFill } from "react-icons/pi";
 import MedicineDetails from "../../components/MedicineDetails";
 import useAuth from "../../Hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { Helmet } from "react-helmet";
@@ -16,15 +16,20 @@ import { useState } from "react";
 const Shop = () => {
   const [searchFilter, setSearchFilter] = useState("");
   const [asc, setAsc] = useState("non");
+  const [itemParPage, setItemParPage] = useState(5);
+  const [currentPage, setCurrentPage] = useState(0);
   const { user, loader } = useAuth();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
+  const { count } = useLoaderData();
 
   const { data, isPending } = useQuery({
-    queryKey: ["allMedicine", asc],
+    queryKey: ["allMedicine", asc, currentPage, itemParPage],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/medicines?sort=${asc}`);
+      const res = await axiosPublic.get(
+        `/medicines?sort=${asc}&page=${currentPage}&size=${itemParPage}`
+      );
       return res.data;
     },
   });
@@ -63,6 +68,29 @@ const Shop = () => {
     e.preventDefault();
     console.log(e.target.textFild.value);
     setSearchFilter(e.target.textFild.value);
+  };
+
+  // ===== Pagination =====
+  const numberOfPages = Math.ceil(count / itemParPage);
+
+  const pages = [...Array(numberOfPages).keys()];
+
+  const handleItemParPage = (e) => {
+    const value = parseInt(e.target.value);
+    setItemParPage(value);
+    setCurrentPage(0);
+  };
+
+  const handlePvevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < pages.length - 1) {
+      setCurrentPage(currentPage + 1);
+    }
   };
 
   if (isPending || loader) return <Loader></Loader>;
@@ -147,16 +175,13 @@ const Shop = () => {
                   ? item
                   : item.medicienName
                       .toLowerCase()
-                      .includes(searchFilter?.toLowerCase())
-                      ||
+                      .includes(searchFilter?.toLowerCase()) ||
                       item.genericName
-                      .toLowerCase()
-                      .includes(searchFilter?.toLowerCase())
-                      ||
+                        .toLowerCase()
+                        .includes(searchFilter?.toLowerCase()) ||
                       item.company
-                      .toLowerCase()
-                      .includes(searchFilter?.toLowerCase())
-                      ;
+                        .toLowerCase()
+                        .includes(searchFilter?.toLowerCase());
               })
               .map((medicine, idx) => (
                 <tr
@@ -205,6 +230,42 @@ const Shop = () => {
               ))}
           </tbody>
         </table>
+      </div>
+      <div className="mt-8">
+        <button
+          onClick={handlePvevPage}
+          className="bg-secondary px-2 py-[1px] text-white mr-5"
+        >
+          Prev
+        </button>
+        {pages.map((page) => (
+          <button
+            onClick={() => setCurrentPage(page)}
+            key={page}
+            className={`border px-2 mx-2 border-secondary/50 ${
+              currentPage === page && "bg-secondary/50"
+            }`}
+          >
+            {page + 1}
+          </button>
+        ))}
+        <button
+          onClick={handleNextPage}
+          className="bg-secondary px-2 py-[1px] text-white mx-5"
+        >
+          Next
+        </button>
+
+        <select
+          defaultValue={itemParPage}
+          onChange={handleItemParPage}
+          className="border px-2 mr-3 border-secondary/50"
+        >
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
       </div>
     </div>
   );

@@ -39,7 +39,8 @@ const router = createBrowserRouter([
         },
         {
           path: '/shop',
-          element: <Shop></Shop>
+          element: <Shop></Shop>,
+          loader: ()=> fetch(`${import.meta.env.VITE_SERVER_URL}/medicinesCount`)
         },
         {
           path: '/cart',
