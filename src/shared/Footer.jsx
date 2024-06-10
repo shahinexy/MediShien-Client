@@ -18,10 +18,7 @@ const Footer = () => {
               </p>
             </div>
             <p className="text-sm mt-4">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti
-              quibusdam numquam hic nisi accusantium culpa dolorum velit aut
-              perspiciatis, delectus vel nemo eius quasi explicabo laudantium,
-              vero, neque in commodi.
+            Simplifying healthcare with a diverse range of medications and exclusive discounts, ensuring affordability and convenience for all your needs.
             </p>
             <p className="flex items-center gap-2 sm:mt-10 mt-6">
               <FaLocationDot className="text-[#44adb0] text-xl" /> Adanjee

@@ -43,10 +43,15 @@ const CategoryPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto mt-32 mb-20">
+    <div className="max-w-7xl mx-auto mt-28 mb-20">
             <Helmet>
         <title>MediShine Category</title>
       </Helmet>
+
+      <div className="flex justify-between bg-secondary p-2 text-white items-center">
+        <p className="text-xl font-semibold ">{data[0].category}</p>
+      </div>
+
       <div className="mt-6 overflow-x-auto">
         <table className="w-full  text-left whitespace-nowrap">
           <thead>

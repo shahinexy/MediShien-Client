@@ -59,6 +59,9 @@ const Shop = () => {
       <Helmet>
         <title>Shop</title>
       </Helmet>
+      <div className="flex justify-between bg-secondary p-2 text-white items-center">
+        <p className="text-xl font-semibold ">Shop Now</p>
+      </div>
       <div className="mt-6 overflow-x-auto">
         <table className="w-full  text-left whitespace-nowrap">
           <thead>
@@ -81,7 +84,7 @@ const Shop = () => {
                 className="bg-secondary/10 border-b border-secondary/30 hover:bg-secondary/30"
               >
                 <td className="px-3 py-2 pl-4">{idx + 1}.</td>
-                <td className="pl-3 py-2 font-medium">
+                <td className="pl-3 py-2 bg-secondary/10">
                   <img className="w-16 h-12" src={medicine?.photo} alt="" />
                 </td>
                 <td className="px-3 py-2 ">

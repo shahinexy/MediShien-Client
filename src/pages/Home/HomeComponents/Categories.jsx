@@ -18,7 +18,7 @@ const Categories = () => {
     if(isPending) return <Loader></Loader>
     return (
         <div className="px-4">
-            <SectionTitle title={'Categories Of Medicien'} des={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus ea in consequuntur quasi eaque praesentium id iste pariatur ullam explicabo, eum quos culpa ad veniam alias molestiae facilis odit numquam?'}></SectionTitle>
+            <SectionTitle title={'Explore Our Medicine Categories'} des={"Discover a wide range of medications categorized for your convenience. Whether you're looking for prescription drugs, over-the-counter remedies, or specialized treatments, our comprehensive selection ensures you find exactly what you need. Browse through our categories to find the right medicine tailored to your health requirements."}></SectionTitle>
 
             <div className="max-w-5xl mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
             {

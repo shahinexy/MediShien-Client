@@ -1,4 +1,3 @@
-
 import { Helmet } from "react-helmet";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
@@ -7,23 +6,23 @@ import Loader from "../../components/Loader";
 import { GoDotFill } from "react-icons/go";
 
 const SellerPaymentHistory = () => {
-  const {user} = useAuth()
-  const axiosSecure = useAxiosSecure()
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
 
-  const {data, isPending, isError, error} = useQuery({
-    queryKey: ['sellerPayment'],
-    queryFn: async () =>{
-      const res = await axiosSecure.get(`/sellerPayments/${user.email}`)
-      return res.data
-    }
-  })
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: ["sellerPayment"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/sellerPayments/${user.email}`);
+      return res.data;
+    },
+  });
 
   if (isPending) return <Loader></Loader>;
   if (isError) console.log(error.message);
   return (
     <div>
-            <Helmet>
-        <title>Payment History</title>
+      <Helmet>
+        <title>Seller Payment History</title>
       </Helmet>
       <div className="flex justify-between bg-secondary py-2 px-7 text-white items-center">
         <p className="text-xl font-semibold ">Your Payment History</p>
@@ -45,11 +44,13 @@ const SellerPaymentHistory = () => {
             </tr>
           </thead>
           {data?.map((paymentData, idx) => (
-              <tbody key={paymentData._id}>
-                {
-                  paymentData.medicineDatas.filter(item => {
-                    return item.userEmail === user.email
-                  }).map(medicine =>               <tr
+            <tbody key={paymentData._id}>
+              {paymentData.medicineDatas
+                .filter((item) => {
+                  return item.userEmail === user.email;
+                })
+                .map((medicine) => (
+                  <tr
                     key={medicine.id}
                     className="bg-secondary/10 border-b border-secondary/30 hover:bg-secondary/30"
                   >
@@ -61,8 +62,15 @@ const SellerPaymentHistory = () => {
                     <td className="px-3 py-2">{medicine.userEmail}</td>
                     <td className="px-3 py-2">{paymentData.transitionId}</td>
                     <td className="px-3 py-2">{medicine.quantity}</td>
-                    <td className="px-3 py-2">{medicine.discount > 0 ? medicine.quantity * medicine.discountPrice : medicine.quantity * medicine.price}$</td>
-                    <td className="px-3 py-2">{paymentData.date.split('T')[0]}</td>
+                    <td className="px-3 py-2">
+                      {medicine.discount > 0
+                        ? medicine.quantity * medicine.discountPrice
+                        : medicine.quantity * medicine.price}
+                      $
+                    </td>
+                    <td className="px-3 py-2">
+                      {paymentData.date.split("T")[0]}
+                    </td>
                     <td
                       className={`px-3 py-2 flex gap-1 items-center ${
                         paymentData.status === "pending"
@@ -72,10 +80,10 @@ const SellerPaymentHistory = () => {
                     >
                       {paymentData.status} <GoDotFill className="text-lg" />{" "}
                     </td>
-                  </tr>)
-                }
-              </tbody>
-            ))}
+                  </tr>
+                ))}
+            </tbody>
+          ))}
         </table>
       </div>
     </div>

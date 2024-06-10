@@ -5,6 +5,7 @@ import useCart from "../../Hooks/useCart";
 import useAuth from "../../Hooks/useAuth";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const CheckOutForm = () => {
   const [error, setError] = useState();
@@ -15,6 +16,7 @@ const CheckOutForm = () => {
   const elements = useElements();
   const { user } = useAuth();
   const { data, refetch } = useCart();
+  const navigate = useNavigate()
 
   const totalPrice = data?.reduce((acc, medicine) => {
     if (medicine.discount > 0) {
@@ -101,6 +103,7 @@ const CheckOutForm = () => {
           icon: "success",
         });
         refetch()
+        navigate('/invoice')
       }
     }
   };

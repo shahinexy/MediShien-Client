@@ -21,6 +21,7 @@ import CategoryPage from "../pages/CategoryPage.jsx/CategoryPage";
 import CheckOutPage from "../pages/CheckOutPage/CheckOutPage";
 import PaymentManagement from "../Dashboard/Admin/PaymentManagement";
 import SalesReport from "../Dashboard/Admin/SalesReport";
+import InvoicePage from "../pages/InvoicePage/InvoicePage";
 
 
 
@@ -48,11 +49,15 @@ const router = createBrowserRouter([
           loader: ({params}) => fetch(`${import.meta.env.VITE_SERVER_URL}/medicines/category/${params.category}`)
         },
         {
-          path: 'checkOut',
+          path: '/checkOut',
           element: <CheckOutPage></CheckOutPage>
         },
         {
-          path:'register',
+          path: '/invoice',
+          element: <InvoicePage></InvoicePage>
+        },
+        {
+          path:'/register',
           element: <Register></Register>
         },
         {

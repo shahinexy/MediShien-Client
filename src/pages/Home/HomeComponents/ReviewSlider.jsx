@@ -27,16 +27,13 @@ const ReviewSlider = () => {
             <FaQuoteLeft className="sm:text-5xl text-4xl text-secondary" />
             <div className="sm:px-16 px-4">
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
-                minus consectetur ipsa at aut nulla aliquid aspernatur sint
-                optio ut? Dolores minus consectetur ipsa at aut nulla aliquid
-                aspernatur sint optio ut?
+              This site has become my go-to for all my medical needs. The prices are unbeatable, especially with the special discounts. Plus, the website is easy to navigate, and the delivery is always quick and reliable. The convenience and reliability keep me coming back.
               </p>
               <div className="flex gap-3 items-center mt-7">
                 <img className="w-12 h-12 rounded-full" src="" alt="" />
                 <div>
-                  <p className="text-lg font-medium">reivewar Name</p>
-                  <small>Adammje nagar, Narayanganj</small>
+                  <p className="text-lg font-medium">Jakariya Shekh</p>
+                  <small>Demra, Dhaka</small>
                 </div>
               </div>
             </div>
@@ -52,16 +49,13 @@ const ReviewSlider = () => {
             <FaQuoteLeft className="sm:text-5xl text-4xl text-secondary" />
             <div className="sm:px-16 px-4">
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
-                minus consectetur ipsa at aut nulla aliquid aspernatur sint
-                optio ut? Dolores minus consectetur ipsa at aut nulla aliquid
-                aspernatur sint optio ut?
+              Great experience from start to finish. The variety of medicines available is impressive, and the special discounts make it even better. Customer support was very helpful with my queries, and my order arrived promptly. It's a lifesaver for my family's healthcare needs.
               </p>
               <div className="flex gap-3 items-center mt-7">
                 <img className="w-12 h-12 rounded-full" src="" alt="" />
                 <div>
-                  <p className="text-lg font-medium">reivewar Name</p>
-                  <small>Adammje nagar, Narayanganj</small>
+                  <p className="text-lg font-medium">James K</p>
+                  <small>Mirpur-20, Dhaka</small>
                 </div>
               </div>
             </div>
@@ -77,16 +71,13 @@ const ReviewSlider = () => {
             <FaQuoteLeft className="sm:text-5xl text-4xl text-secondary" />
             <div className="sm:px-16 px-4">
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
-                minus consectetur ipsa at aut nulla aliquid aspernatur sint
-                optio ut? Dolores minus consectetur ipsa at aut nulla aliquid
-                aspernatur sint optio ut?
+              I've been using this site for a few months now, and I'm very impressed with the range of products and the savings from the special discounts. The ordering process is simple and straightforward, and the medicines always arrive on time. I appreciate the detailed product descriptions provided.
               </p>
               <div className="flex gap-3 items-center mt-7">
                 <img className="w-12 h-12 rounded-full" src="" alt="" />
                 <div>
-                  <p className="text-lg font-medium">reivewar Name</p>
-                  <small>Adammje nagar, Narayanganj</small>
+                  <p className="text-lg font-medium">Emily Rehman</p>
+                  <small>Gajipur</small>
                 </div>
               </div>
             </div>
