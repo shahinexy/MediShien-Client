@@ -160,7 +160,7 @@ const Dashboard = () => {
         {currentUser?.userRole === "seller" && (
           <div className="px-2 mt-5 space-y-1 border-b border-secondary pb-12">
             <NavLink
-              to={"/dashboard/userHome"}
+              to={"/dashboard/sellerHome"}
               className={({ isActive, isPending }) =>
                 isPending
                   ? "pending"

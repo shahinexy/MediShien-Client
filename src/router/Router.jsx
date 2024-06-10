@@ -22,6 +22,8 @@ import CheckOutPage from "../pages/CheckOutPage/CheckOutPage";
 import PaymentManagement from "../Dashboard/Admin/PaymentManagement";
 import SalesReport from "../Dashboard/Admin/SalesReport";
 import InvoicePage from "../pages/InvoicePage/InvoicePage";
+import SellerHome from "../Dashboard/Seller/SellerHome";
+import AdminHome from "../Dashboard/Admin/AdminHome";
 
 
 
@@ -93,8 +95,16 @@ const router = createBrowserRouter([
           path: 'sellerAdvertisement',
           element: <Advertisement></Advertisement>
         },
+        {
+          path: 'sellerHome',
+          element: <SellerHome></SellerHome>
+        },
 
         // ====== Admin Route =======
+        {
+          path: 'adminHome',
+          element: <AdminHome></AdminHome>
+        },
         {
           path: 'manageUser',
           element: <ManageUser></ManageUser>

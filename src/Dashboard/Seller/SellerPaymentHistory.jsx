@@ -24,7 +24,7 @@ const SellerPaymentHistory = () => {
       <Helmet>
         <title>Seller Payment History</title>
       </Helmet>
-      <div className="flex justify-between bg-secondary py-2 px-7 text-white items-center">
+      <div className="flex justify-between bg-secondary p-2 text-white items-center">
         <p className="text-xl font-semibold ">Your Payment History</p>
       </div>
 
