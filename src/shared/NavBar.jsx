@@ -75,7 +75,7 @@ const NavBar = () => {
               </small>
             </Link>
 
-            <div className="flex items-center md:mx-5">
+            <div className="sm:flex hidden items-center md:mx-5">
               <select className="bg-inherit border p-1 outline-none" name="" id="">
                 <option className="bg-primary" value="">
                   ENG
@@ -136,7 +136,7 @@ const NavBar = () => {
               </Dropdown>
             ) : (
               <Link to={"/login"}>
-                <button className="flex bg-secondary py-2 px-5 rounded-none hover:bg-[#44adb0] hover:scale-95 duration-300">
+                <button className="flex sm:text-base text-sm bg-secondary py-2 sm:px-5 px-2 rounded-none hover:bg-[#44adb0] hover:scale-95 duration-300">
                   Join Us <GrLogin className="ml-3 text-xl" />
                 </button>
               </Link>

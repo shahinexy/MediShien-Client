@@ -79,14 +79,14 @@ const Register = () => {
   };
 
   return (
-    <div className="md:pt-10 pt-20 flex md:flex-row flex-col justify-cente items-center md:gap-10 gap-4">
+    <div className="md:pt-10 pt-20 flex lg:flex-row flex-col justify-cente items-center md:gap-10 gap-4">
       <Helmet>
         <title>Legister</title>
       </Helmet>
       <div className="lg:w-4/12">
         <img src={icon1} alt="" />
       </div>
-      <div className="lg:w-4/12 p-8 bg-secondary/50 mx-auto md:my-20 my-6 border-2 shadow-lg shadow-secondary">
+      <div className="xl:w-1/3 md:w-2/3 p-8 bg-secondary/50 mx-auto md:my-20 my-6 border-2 shadow-lg shadow-secondary">
         <h1 className="text-3xl font-bold text-center mb-8">Register Now</h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

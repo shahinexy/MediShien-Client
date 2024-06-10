@@ -95,7 +95,7 @@ const Shop = () => {
 
   if (isPending || loader) return <Loader></Loader>;
   return (
-    <div className="max-w-7xl mx-auto mt-28 mb-20">
+    <div className="max-w-7xl mx-auto sm:px-4 px-2 mt-28 mb-20">
       <Helmet>
         <title>Shop</title>
       </Helmet>
@@ -103,7 +103,7 @@ const Shop = () => {
         <p className="text-xl font-semibold ">Shop Now</p>
       </div>
 
-      <div className="flex justify-between items-center mt-6">
+      <div className="flex justify-between gap-3 flex-wrap items-center mt-6">
         <div>
           <Dropdown
             action={
