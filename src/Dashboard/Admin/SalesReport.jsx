@@ -3,22 +3,32 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../components/Loader";
 import { GoDotFill } from "react-icons/go";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import { FaFileDownload } from "react-icons/fa";
 
 const SalesReport = () => {
   const axiosSecure = useAxiosSecure();
+  const [filterDate, setFilterDate] = useState()
 
   const { data, isPending, isError, error } = useQuery({
-    queryKey: ["payments"],
+    queryKey: ["payments", filterDate],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/payments`);
+      const res = await axiosSecure.get(`/payments?filter=${filterDate}`);
       return res.data;
     },
   });
 
   const tableRef = useRef(null);
+
+  const handleSubmit = e =>{
+    e.preventDefault()
+    const startDate = e.target.startDate.value;
+    const endDate = e.target.endDate.value;
+    const dates = [startDate, endDate]
+    console.log(dates);
+    setFilterDate(dates)
+  }
 
   if (isPending) return <Loader></Loader>;
   if (isError) console.log(error.message);
@@ -39,7 +49,18 @@ const SalesReport = () => {
       </DownloadTableExcel>
       </div>
 
-      <div className="mt-6 overflow-x-auto">
+      <div>
+        <form onSubmit={handleSubmit} className="flex gap-3 mt-6">
+          <div>
+          <input className="mr-3 py-2" type="date" name="startDate"/>
+          To 
+          <input className="ml-3 py-2" type="date" name="endDate" />
+          </div>
+          <button className="bg-secondary px-4 py-2 text-white">Filter</button>
+        </form>
+      </div>
+
+      <div className="mt-3 overflow-x-auto">
         <table
           ref={tableRef}
           className="w-full p-6 text-left whitespace-nowrap"
