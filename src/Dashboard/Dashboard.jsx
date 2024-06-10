@@ -577,12 +577,14 @@ const Dashboard = () => {
                 </Navbar.Container>
               </Navbar>
             </div>
-            <div className="flex items-center sm:gap-2">
+              <Link to={'/'}>
+              <div className="flex items-center sm:gap-2">
               <img className="sm:w-12 w-7" src={logo} alt="" />
               <p className="sm:text-2xl text-lg text-white font-semibold">
                 Medi<span className="text-[#44adb0]">Shine</span>
               </p>
             </div>
+              </Link>
           </div>
           <h3 className="sm:text-2xl text-base sm:text-start text-end font-semibold pr-3">
             DASHBOARD

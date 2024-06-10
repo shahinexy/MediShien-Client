@@ -82,6 +82,7 @@ const CheckOutForm = () => {
         setTransitionId(paymentIntent.id);
 
         const paymentInfo = {
+          medicineDatas: [...data],
           sellerEmails,
           userEmail: user?.email || "anonymous",
           UserName: user?.displayName || "anonymous",

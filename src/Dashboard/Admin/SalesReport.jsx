@@ -1,26 +1,31 @@
-import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import useAuth from "../../Hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
 import Loader from "../../components/Loader";
 import { GoDotFill } from "react-icons/go";
 
-const PaymentHistory = () => {
-  const { user } = useAuth();
-  const axiosSecure = useAxiosSecure();
+const SalesReport = () => {
+    const axiosSecure = useAxiosSecure();
 
-  const { data, isPending, isError, error } = useQuery({
-    queryKey: ["userPayments"],
-    queryFn: async () => {
-      const res = await axiosSecure.get(`/userPayments/${user.email}`);
-      return res.data;
-    },
-  });
-  console.log(data);
-
-  if (isPending) return <Loader></Loader>;
-  if (isError) console.log(error.message);
+    const { data, isPending, isError, error, refetch } = useQuery({
+      queryKey: ["payments"],
+      queryFn: async () => {
+        const res = await axiosSecure.get(`/payments`);
+        return res.data;
+      },
+    });
+  
+    if (isPending) return <Loader></Loader>;
+    if (isError) console.log(error.message);
   return (
     <div>
+      <Helmet>
+        <title>Sales Report</title>
+      </Helmet>
+      <div className="flex justify-between bg-secondary py-2 px-2 text-white items-center">
+        <p className="text-xl font-semibold ">Payment Management</p>
+      </div>
+
       <div className="mt-6 overflow-x-auto">
         <table className="w-full p-6 text-left whitespace-nowrap">
           <thead>
@@ -72,4 +77,4 @@ const PaymentHistory = () => {
   );
 };
 
-export default PaymentHistory;
+export default SalesReport;

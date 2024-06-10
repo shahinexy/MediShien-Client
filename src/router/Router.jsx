@@ -20,6 +20,7 @@ import CartPage from "../pages/Cart/CartPage";
 import CategoryPage from "../pages/CategoryPage.jsx/CategoryPage";
 import CheckOutPage from "../pages/CheckOutPage/CheckOutPage";
 import PaymentManagement from "../Dashboard/Admin/PaymentManagement";
+import SalesReport from "../Dashboard/Admin/SalesReport";
 
 
 
@@ -104,6 +105,10 @@ const router = createBrowserRouter([
         {
           path: 'paymentManagement',
           element: <PaymentManagement></PaymentManagement>
+        },
+        {
+          path: 'salesReport',
+          element: <SalesReport></SalesReport>
         }
       ]
     }

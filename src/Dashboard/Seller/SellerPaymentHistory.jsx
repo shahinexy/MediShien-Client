@@ -34,32 +34,48 @@ const SellerPaymentHistory = () => {
           <thead>
             <tr className="text-left bg-secondary/70 text-white">
               <th className="p-3">No.</th>
-              <th className="p-3">Name</th>
-              <th className="p-3 ">Email</th>
+              <th className="p-3">Medicine Name</th>
+              <th className="p-3 ">User Email</th>
+              <th className="p-3 ">Seller Email</th>
               <th className="p-3">Transaction Id</th>
+              <th className="p-3">Quantity</th>
               <th className="p-3">Price</th>
               <th className="p-3">Date</th>
               <th className="p-3">Status</th>
             </tr>
           </thead>
-          <tbody>
-            {data?.map((paymentData, idx) => (
-              <tr
-                key={paymentData._id}
-                className="bg-secondary/10 border-b border-secondary/30 hover:bg-secondary/30"
-              >
-                <td className="px-3 py-2 pl-4">{idx + 1}.</td>
-                <td className="px-3 py-2 font-medium">
-                  {paymentData.UserName}
-                </td>
-                <td className="px-3 py-2">{paymentData.userEmail}</td>
-                <td className="px-3 py-2">{paymentData.transitionId}</td>
-                <td className="px-3 py-2">{paymentData.price}$</td>
-                <td className="px-3 py-2">{paymentData.date}</td>
-                <td className={`px-3 py-2 flex gap-1 items-center ${paymentData.status === 'pending' ? 'text-orange-500' : 'text-green-500'}`}>{paymentData.status} <GoDotFill className="text-lg" /> </td>
-              </tr>
+          {data?.map((paymentData, idx) => (
+              <tbody key={paymentData._id}>
+                {
+                  paymentData.medicineDatas.filter(item => {
+                    return item.userEmail === user.email
+                  }).map(medicine =>               <tr
+                    key={medicine.id}
+                    className="bg-secondary/10 border-b border-secondary/30 hover:bg-secondary/30"
+                  >
+                    <td className="px-3 py-2 pl-4">{idx + 1}.</td>
+                    <td className="px-3 py-2 font-medium">
+                      {medicine.medicienName}
+                    </td>
+                    <td className="px-3 py-2">{medicine.buyerEmail}</td>
+                    <td className="px-3 py-2">{medicine.userEmail}</td>
+                    <td className="px-3 py-2">{paymentData.transitionId}</td>
+                    <td className="px-3 py-2">{medicine.quantity}</td>
+                    <td className="px-3 py-2">{medicine.discount > 0 ? medicine.quantity * medicine.discountPrice : medicine.quantity * medicine.price}$</td>
+                    <td className="px-3 py-2">{paymentData.date.split('T')[0]}</td>
+                    <td
+                      className={`px-3 py-2 flex gap-1 items-center ${
+                        paymentData.status === "pending"
+                          ? "text-orange-500"
+                          : "text-green-500"
+                      }`}
+                    >
+                      {paymentData.status} <GoDotFill className="text-lg" />{" "}
+                    </td>
+                  </tr>)
+                }
+              </tbody>
             ))}
-          </tbody>
         </table>
       </div>
     </div>
