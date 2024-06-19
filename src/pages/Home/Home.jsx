@@ -16,7 +16,7 @@ const Home = () => {
         <title>MediShine | Home</title>
       </Helmet>
       <div
-        className="w-full h-screen bg-[#c3edeb]"
+        className="w-full lg:h-screen bg-[#c3edeb] py-20"
       >
         {/* <Slider> </Slider> */}
         <HeroSection></HeroSection>

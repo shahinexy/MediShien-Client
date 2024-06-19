@@ -57,7 +57,7 @@ const CategoryPage = () => {
           <thead>
             <tr className="text-left text-lg bg-secondary/70 text-white">
               <th className="p-3">No.</th>
-              <th className="py-3 pl-3 ">Image</th>
+              <th className="p-3">Image</th>
               <th className="p-3 ">Medicine Name</th>
               <th className="p-3">Category</th>
               <th className="p-3">Description</th>
@@ -74,8 +74,8 @@ const CategoryPage = () => {
                 className="bg-secondary/10 border-b border-secondary/30 hover:bg-secondary/30"
               >
                 <td className="px-3 py-2 pl-4">{idx + 1}.</td>
-                <td className="pl-3 py-2 font-medium">
-                  <img className="w-16 h-12" src={medicine?.photo} alt="" />
+                <td className="px-3 py-2 bg-secondary/10 flex justify-center">
+                  <img className="w-20 h-16" src={medicine?.photo} alt="" />
                 </td>
                 <td className="px-3 py-2 ">
                   <div>

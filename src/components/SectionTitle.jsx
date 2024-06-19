@@ -6,7 +6,8 @@ const SectionTitle = ({ title, des }) => {
       <h2 className="sm:text-4xl text-3xl font-semibold text-secondary uppercase">
         {title}
       </h2>
-      <img className="-mt-6 -mb-4" src={heartbeat} alt="" />
+      {/* <img className="-mt-6 -mb-4" src={heartbeat} alt="" /> */}
+      <div className="border-2 border-primary w-36 mt-1 mb-4"></div>
       <p>{des}</p>
     </div>
   );

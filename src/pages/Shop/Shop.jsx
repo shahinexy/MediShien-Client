@@ -33,7 +33,7 @@ const Shop = () => {
       return res.data;
     },
   });
-
+  
   const handleAddCart = (medicine) => {
     if (!user) {
       return navigate("/login");
@@ -157,11 +157,10 @@ const Shop = () => {
           <thead>
             <tr className="text-left text-lg bg-secondary/70 text-white">
               <th className="p-3">No.</th>
-              <th className="py-3 pl-3 ">Image</th>
+              <th className="p-3">Image</th>
               <th className="p-3 ">Medicine Name</th>
               <th className="p-3">Company</th>
               <th className="p-3">Category</th>
-              <th className="p-3">Description</th>
               <th className="p-3">Price</th>
               <th className="p-3">Discount Price</th>
               <th className="p-3">View</th>
@@ -189,8 +188,8 @@ const Shop = () => {
                   className="bg-secondary/10 border-b border-secondary/30 hover:bg-secondary/30"
                 >
                   <td className="px-3 py-2 pl-4">{idx + 1}.</td>
-                  <td className="pl-3 py-2 bg-secondary/10">
-                    <img className="w-16 h-12" src={medicine?.photo} alt="" />
+                  <td className="px-3 py-2 bg-secondary/10 flex justify-center">
+                    <img className="w-20 h-16" src={medicine?.photo} alt="" />
                   </td>
                   <td className="px-3 py-2 ">
                     <div>
@@ -200,9 +199,6 @@ const Shop = () => {
                   </td>
                   <td className="px-3 py-2">{medicine?.company}</td>
                   <td className="px-3 py-2">{medicine?.category}</td>
-                  <td className="px-3 py-2">
-                    {medicine.description.slice(0, 50)}...
-                  </td>
                   <td className="px-3 py-2 font-medium text-center">
                     {medicine?.price}$
                   </td>
