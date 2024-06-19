@@ -82,7 +82,8 @@ const InvoicePage = () => {
                     $
                   </td>
                   <td className="px-3 py-2">
-                    {paymentData.date.split("T")[0]}
+                    {/* {paymentData.date.split("T")[0]} */}
+                    {new Date(paymentData.date).toLocaleDateString('en-GB')}
                   </td>
                   <td
                     className={`px-3 py-2 flex gap-1 items-center ${

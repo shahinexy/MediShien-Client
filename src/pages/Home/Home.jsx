@@ -3,10 +3,11 @@ import Slider from "./HomeComponents/Slider";
 import Categories from "./HomeComponents/Categories";
 import DiscountSection from "./HomeComponents/DiscountSection";
 import FacilitySection from "./HomeComponents/FacilitySection";
-import heroBg from "../../assets/images/—Slidesdocs—medical light blue_016efe7fdf.jpg";
+// import heroBg from "../../assets/images/—Slidesdocs—medical light blue_016efe7fdf.jpg";
 import sectionbg from '../../assets/images/Free-Medicine-Background-1024x576.jpg'
 import review from '../../assets/images/1685488950_en-idei-club-p-medical-background-dizain-pinterest-2.jpg'
 import Review from "./HomeComponents/Review";
+import HeroSection from "./HomeComponents/HeroSection";
 
 const Home = () => {
   return (
@@ -15,10 +16,10 @@ const Home = () => {
         <title>MediShine | Home</title>
       </Helmet>
       <div
-        style={{ backgroundImage: `url(${heroBg})` }}
-        className="w-full h-screen bg-no-repeat bg-cover"
+        className="w-full h-screen bg-[#c3edeb]"
       >
-        <Slider> </Slider>
+        {/* <Slider> </Slider> */}
+        <HeroSection></HeroSection>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:my-36 my-20">

@@ -90,7 +90,7 @@ const CheckOutForm = () => {
           UserName: user?.displayName || "anonymous",
           transitionId: paymentIntent.id,
           price: totalPrice,
-          date: new Date(),
+          date: new Date().getTime(),
           status: "pending",
           medicineIds: data.map((medicine) => medicine._id),
         };

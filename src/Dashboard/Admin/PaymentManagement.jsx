@@ -89,7 +89,7 @@ const PaymentManagement = () => {
                 <td className="px-3 py-2">{paymentData.transitionId}</td>
                 <td className="px-3 py-2">{paymentData.medicineDatas.length}</td>
                 <td className="px-3 py-2">{paymentData.price}</td>
-                <td className="px-3 py-2">{paymentData.date.split("T")[0]}</td>
+                <td className="px-3 py-2">{new Date(paymentData.date).toLocaleDateString('en-GB')}</td>
                 <td className={`px-3 py-2`}>
                   <div
                     className={`flex gap-1 items-center ${

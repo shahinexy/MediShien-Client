@@ -9,7 +9,7 @@ import { FaFileDownload } from "react-icons/fa";
 
 const SalesReport = () => {
   const axiosSecure = useAxiosSecure();
-  const [filterDate, setFilterDate] = useState()
+  const [filterDate, setFilterDate] = useState('')
 
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["payments", filterDate],
@@ -52,9 +52,9 @@ const SalesReport = () => {
       <div>
         <form onSubmit={handleSubmit} className="flex gap-3 mt-6">
           <div>
-          <input className="mr-3 py-2" type="date" name="startDate"/>
+          <input className="mr-3 py-2" type="date" name="startDate" required/>
           To 
-          <input className="ml-3 py-2" type="date" name="endDate" />
+          <input className="ml-3 py-2" type="date" name="endDate" required/>
           </div>
           <button className="bg-secondary px-4 py-2 text-white">Filter</button>
         </form>
@@ -100,7 +100,7 @@ const SalesReport = () => {
                     $
                   </td>
                   <td className="px-3 py-2">
-                    {paymentData.date.split("T")[0]}
+                    {new Date(paymentData.date).toLocaleDateString('en-GB')}
                   </td>
                   <td
                     className={`px-3 py-2 flex gap-1 items-center ${

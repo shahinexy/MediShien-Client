@@ -119,7 +119,7 @@ const NavBar = () => {
                       </button>
                     </Link>
 
-                    <Link  className="w-full">
+                    <Link to={'/dashboard/userProfile'}  className="w-full">
                       <button className="bg-primary flex w-full justify-center items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300">
                         Update User <FaUserEdit className="text-xl" />{" "}
                       </button>
