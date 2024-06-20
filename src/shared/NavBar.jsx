@@ -68,14 +68,14 @@ const NavBar = () => {
           </Navbar.Container>
 
           <Navbar.Container className="flex gap-2">
-            <Link to={"/cart"} className="relative pr-2">
+            <Link to={"/cart"} className="relative pr-2 mr-5">
               <img className="sm:w-10 w-8" src={cart} alt="" />
               <small className="absolute px-1 top-0 right-0 bg-white rounded-full text-primary font-semibold">
                 +2
               </small>
             </Link>
 
-            <div className="sm:flex hidden items-center md:mx-5">
+            {/* <div className="sm:flex hidden items-center md:mx-5">
               <select className="bg-inherit border p-1 outline-none" name="" id="">
                 <option className="bg-primary" value="">
                   ENG
@@ -84,7 +84,7 @@ const NavBar = () => {
                   BAN
                 </option>
               </select>
-            </div>
+            </div> */}
 
             {user ? (
               <Dropdown
