@@ -7,14 +7,14 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { Helmet } from "react-helmet";
 
 const ManageUser = () => {
-  const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
   const { data, isPending, refetch } = useQuery({
     queryKey: ["manageUser"],
     queryFn: async () => {
       const res = await axiosSecure.get("/allUsers", {
-        headers:{
-          authorization : `Bearer ${localStorage.getItem('access-token')}`
-        }
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
       });
       return res.data;
     },
@@ -40,14 +40,14 @@ const ManageUser = () => {
   if (isPending) return <Loader></Loader>;
   return (
     <div>
-            <Helmet>
+      <Helmet>
         <title>Manage User</title>
       </Helmet>
       <div className="flex justify-between bg-secondary py-2 px-7 text-white items-center">
         <p className="text-xl font-semibold ">User Management</p>
       </div>
 
-      <div className="mt-6 overflow-x-auto">
+      <div className="mt-6 mb-16 overflow-x-auto">
         <table className="w-full  text-left whitespace-nowrap">
           <thead>
             <tr className="text-left text-lg bg-secondary/70 text-white">

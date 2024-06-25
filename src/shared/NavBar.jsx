@@ -7,10 +7,22 @@ import { FaUserCircle, FaUserEdit } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import useAuth from "./../Hooks/useAuth";
 import useCart from "../Hooks/useCart";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 const NavBar = () => {
   const { user, logoutUser } = useAuth();
   const {data} = useCart()
+  const axisoPublic = useAxiosPublic();
+
+  const { data: currentUser } = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const res = await axisoPublic.get(`/users?email=${user.email}`);
+      return res.data;
+    },
+  });
+
   const navItems = (
     <>
       <NavLink
@@ -115,7 +127,7 @@ const NavBar = () => {
                   <p className="text-lg ">{user?.displayName} </p>
                   <div className="flex flex-col items-center justify-center">
 
-                    <Link to={"/dashboard/userProfile"} className="w-full outline-none">
+                    <Link to={currentUser?.userRole === 'admin' ? '/dashboard/adminHome' : currentUser?.userRole === 'seller' ? '/dashboard/sellerHome' : '/dashboard/paymentHistory'} className="w-full outline-none">
                       <button className="bg-primary flex w-full justify-center items-center gap-3 px-5 py-2 text-sm mt-3 hover:scale-95 duration-300">
                         Dashboard <MdDashboard className="text-xl" />{" "}
                       </button>

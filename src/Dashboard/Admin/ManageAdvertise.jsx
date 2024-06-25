@@ -107,7 +107,7 @@ const ManageAdvertise = () => {
         <p className="text-xl font-semibold ">Manage Advertisement</p>
       </div>
 
-      <div className="mt-6 overflow-x-auto">
+      <div className="mt-6 mb-16 overflow-x-auto">
         <table className="w-full  text-left whitespace-nowrap">
           <thead>
             <tr className="text-left text-lg bg-secondary/70 text-white">

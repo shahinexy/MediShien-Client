@@ -7,10 +7,10 @@ import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import useCart from "../../Hooks/useCart";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const CartPage = () => {
-  const axiosPublic = useAxiosPublic()
+  const axiosSecure = useAxiosSecure()
   const [grandTotal, setGrandTotal] = useState(0);
   const { data, isPending, isError, error, refetch } = useCart();
 
@@ -28,7 +28,7 @@ const CartPage = () => {
       confirmButtonText: "Clear All",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosPublic
+        axiosSecure
           .post(`/cartItem/deleteAll`, allIds)
           .then((res) => {
             console.log(res.data);

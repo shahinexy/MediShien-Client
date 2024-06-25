@@ -76,7 +76,7 @@ const SellerHome = () => {
             <GiWallet className="text-4xl " />
           </div>
           <div>
-            <p className="text-2xl font-medium">{paidTotal + pendingTotal}$</p>
+            <p className="text-2xl font-medium">{paidTotal + pendingTotal.toFixed(2)}$</p>
             <p className="text-xl">Revenue</p>
           </div>
         </div>
@@ -85,7 +85,7 @@ const SellerHome = () => {
             <FaMoneyCheckAlt className="text-4xl " />
           </div>
           <div>
-            <p className="text-2xl font-medium">{paidTotal}$</p>
+            <p className="text-2xl font-medium">{paidTotal.toFixed(2)}$</p>
             <p className="text-xl">Total Paid</p>
           </div>
         </div>
@@ -94,7 +94,7 @@ const SellerHome = () => {
             <MdOutlinePendingActions className="text-4xl " />
           </div>
           <div>
-            <p className="text-2xl font-medium">{pendingTotal}$</p>
+            <p className="text-2xl font-medium">{pendingTotal.toFixed(2)}$</p>
             <p className="text-xl">Total Pending</p>
           </div>
         </div>

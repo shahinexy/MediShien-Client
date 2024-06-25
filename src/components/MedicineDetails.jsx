@@ -5,7 +5,7 @@ import { FaEye } from "react-icons/fa";
 import { MdCategory } from "react-icons/md";
 import { PiBuildingsBold } from "react-icons/pi";
 
-const MedicineDetails = ({ medicine }) => {
+const MedicineDetails = ({ medicine, size }) => {
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => {
     setIsOpen(true);
@@ -28,7 +28,7 @@ const MedicineDetails = ({ medicine }) => {
   return (
     <div>
       <Button onClick={openModal} className="inline-block p-0">
-        <FaEye className="text-2xl text-secondary hover:text-primary cursor-pointer hover:scale-[1.25] hover:rotate-6 duration-500" />
+        <FaEye className={`${size ? size : 'text-2xl'}  text-secondary hover:text-primary cursor-pointer hover:scale-[1.25] hover:rotate-6 duration-500`} />
       </Button>
       <Modal isOpen={isOpen} onClose={closeModal} className="bg-transparent mx-2">
         <Modal.Body className="max-w-4xl w-full mx-auto rounded-none text-white bg-secondary border-2 border-gray-400 p-0">
@@ -101,6 +101,7 @@ const MedicineDetails = ({ medicine }) => {
 MedicineDetails.propTypes = {
   medicine: PropTypes.object,
   setIsOpen: PropTypes.func,
+  size: PropTypes.string
 };
 
 export default MedicineDetails;

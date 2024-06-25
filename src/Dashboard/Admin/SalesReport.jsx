@@ -60,7 +60,7 @@ const SalesReport = () => {
         </form>
       </div>
 
-      <div className="mt-3 overflow-x-auto">
+      <div className="mt-3 mb-16 overflow-x-auto">
         <table
           ref={tableRef}
           className="w-full p-6 text-left whitespace-nowrap"

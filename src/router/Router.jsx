@@ -44,7 +44,7 @@ const router = createBrowserRouter([
         },
         {
           path: '/cart',
-          element: <CartPage></CartPage>
+          element: <PrivetRoute><CartPage></CartPage></PrivetRoute>
         },
         {
           path: '/categoryPage/:category',
@@ -53,11 +53,11 @@ const router = createBrowserRouter([
         },
         {
           path: '/checkOut',
-          element: <CheckOutPage></CheckOutPage>
+          element: <PrivetRoute><CheckOutPage></CheckOutPage></PrivetRoute>
         },
         {
           path: '/invoice',
-          element: <InvoicePage></InvoicePage>
+          element: <PrivetRoute><InvoicePage></InvoicePage></PrivetRoute>
         },
         {
           path:'/register',

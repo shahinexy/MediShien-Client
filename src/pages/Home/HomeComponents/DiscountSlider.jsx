@@ -1,6 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import img from "../../../assets/images/pngwing.com (5).png";
 import { Link } from "react-router-dom";
 
 import { Autoplay } from "swiper/modules";
@@ -8,6 +7,7 @@ import { MdDiscount } from "react-icons/md";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../../components/Loader";
+import MedicineDetails from "../../../components/MedicineDetails";
 
 const DiscountSlider = () => {
   const axiosPublic = useAxiosPublic();
@@ -51,8 +51,11 @@ const DiscountSlider = () => {
         {data.map((medicine) => (
           <SwiperSlide
             key={medicine._id}
-            className="relative"
+            className="relative group overflow-hidden"
           >
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/50 translate-y-full group-hover:translate-y-0 duration-500">
+                <div className="flex justify-center h-full items-center"><MedicineDetails medicine={medicine} size={'text-4xl'}></MedicineDetails></div>
+            </div>
             <span className="absolute top-2 right-2">
               <MdDiscount className="text-4xl text-primary" />
             </span>

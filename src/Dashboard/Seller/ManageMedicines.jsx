@@ -292,7 +292,7 @@ const ManageMedicines = () => {
         </div>
       </div>
 
-      <div className="mt-6 overflow-x-auto">
+      <div className="mt-6 mb-16 overflow-x-auto">
         <table className="w-full p-6 text-left whitespace-nowrap">
           <thead>
             <tr className="text-left bg-secondary/70 text-white">
