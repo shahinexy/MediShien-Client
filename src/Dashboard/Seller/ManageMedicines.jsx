@@ -12,6 +12,8 @@ import Swal from "sweetalert2";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { Helmet } from "react-helmet";
+import MedicineDetails from "../../components/MedicineDetails";
+import UpdateMedicine from "./UpdateMedicine";
 
 const ManageMedicines = () => {
   const { user } = useAuth();
@@ -131,7 +133,7 @@ const ManageMedicines = () => {
       <Helmet>
         <title>Manage Medicines</title>
       </Helmet>
-      <div className="flex justify-between bg-secondary py-2 sm:px-7 px-2 text-white items-center">
+      <div className="flex justify-between bg-secondary py-2 px-2 text-white items-center">
         <p className="text-xl font-semibold ">Manage Your Medicines</p>
         <div>
           {/* ======= Modal ====== */}
@@ -142,7 +144,7 @@ const ManageMedicines = () => {
             Add Medicien <MdLibraryAdd className="text-xl" />
           </Button>
           <Modal isOpen={isOpen} onClose={closeModal}>
-            <Modal.Body className="lg:w-1/3 sm:w-4/6 w-full rounded-none text-white bg-secondary border-2 border-gray-400 shadow-lg shadow-primary p-0 my-20 pt-20">
+            <Modal.Body className="lg:w-3/6 sm:w-4/6 w-full rounded-none text-white bg-secondary border-2 border-gray-400 shadow-lg shadow-primary p-0 my-20 pt-20">
               <div className="shadow-inner shadow-primary space-y-3 p-7">
                 <Modal.Content className="">
                   <div className="!mb-6">
@@ -200,7 +202,7 @@ const ManageMedicines = () => {
                             {...register("category")}
                             className="border-white w-full border-2 rounded-none bg-secondary text-base outline-none py-2 text-center"
                           >
-                            {categoryData.map((category) => (
+                            {categoryData?.map((category) => (
                               <option
                                 key={category._id}
                                 value={category.categoryName}
@@ -217,10 +219,18 @@ const ManageMedicines = () => {
                             {...register("company")}
                             className="border-white w-full border-2 rounded-none bg-secondary text-base outline-none py-2 text-center"
                           >
-                            <option value="Square Pharmaceuticals">Square Pharmaceuticals</option>
-                            <option value="Incepta Pharmaceuticals">Incepta Pharmaceuticals</option>
-                            <option value="Beximco Pharmaceuticals">Beximco Pharmaceuticals</option>
-                            <option value="Orion Pharma Ltd">Orion Pharma Ltd</option>
+                            <option value="Square Pharmaceuticals">
+                              Square Pharmaceuticals
+                            </option>
+                            <option value="Incepta Pharmaceuticals">
+                              Incepta Pharmaceuticals
+                            </option>
+                            <option value="Beximco Pharmaceuticals">
+                              Beximco Pharmaceuticals
+                            </option>
+                            <option value="Orion Pharma Ltd">
+                              Orion Pharma Ltd
+                            </option>
                           </select>
                         </div>
                       </div>
@@ -293,8 +303,8 @@ const ManageMedicines = () => {
               <th className="p-3">Category</th>
               <th className="p-3">Price</th>
               <th className="p-3">View</th>
-              <th className="p-3">Action</th>
-              <th className="p-3">Action</th>
+              <th className="p-3">Edit</th>
+              <th className="p-3">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -318,13 +328,29 @@ const ManageMedicines = () => {
                 </td>
                 <td className="px-3 py-2">{medicine.category}</td>
                 <td className="px-3 py-2">{medicine.price}</td>
-                <td className="px-3 py-2">View</td>
-                <td className="px-3 py-2">update</td>
                 <td className="px-3 py-2">
-                  <RiDeleteBin6Line
-                    onClick={() => handleDelete(medicine._id)}
-                    className="text-3xl text-red-500 hover:text-red-700 cursor-pointer hover:scale-110 hover:rotate-3 duration-500"
-                  />
+                  <div className="flex justify-center items-center">
+                    <div className="inline-block mt-2">
+                      <MedicineDetails medicine={medicine}></MedicineDetails>
+                    </div>
+                  </div>
+                </td>
+                <td className="px-3 py-2">
+                <div className="flex justify-center items-center">
+                    <div className="inline-block">
+                      <UpdateMedicine medicine={medicine} refetch={refetch}></UpdateMedicine>
+                    </div>
+                  </div>
+                </td>
+                <td className="px-3 py-2">
+                  <div className="flex justify-center items-center">
+                    <div className="inline-block mx-auto">
+                      <RiDeleteBin6Line
+                        onClick={() => handleDelete(medicine._id)}
+                        className="text-3xl text-red-500 hover:text-red-700 cursor-pointer hover:scale-110 hover:rotate-3 duration-500"
+                      />
+                    </div>
+                  </div>
                 </td>
               </tr>
             ))}

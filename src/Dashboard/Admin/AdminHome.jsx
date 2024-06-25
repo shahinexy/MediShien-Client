@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import Loader from "../../components/Loader";
 import { FaMoneyCheckAlt } from "react-icons/fa";
 import { MdOutlinePendingActions } from "react-icons/md";
+import { Helmet } from "react-helmet";
 
 const AdminHome = () => {
     const axiosSecure = useAxiosSecure()
@@ -18,6 +19,9 @@ const AdminHome = () => {
     if(isPending) return <Loader></Loader>
   return (
     <div>
+          <Helmet>
+        <title>Admin Home</title>
+      </Helmet>
       <div className="flex justify-between bg-secondary p-2 text-white items-center">
         <p className="text-xl font-semibold ">Hi Welcome Back</p>
       </div>

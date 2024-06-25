@@ -6,9 +6,11 @@ import { Link, NavLink } from "react-router-dom";
 import { FaUserCircle, FaUserEdit } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import useAuth from "./../Hooks/useAuth";
+import useCart from "../Hooks/useCart";
 
 const NavBar = () => {
   const { user, logoutUser } = useAuth();
+  const {data} = useCart()
   const navItems = (
     <>
       <NavLink
@@ -71,7 +73,7 @@ const NavBar = () => {
             <Link to={"/cart"} className="relative pr-2 mr-5">
               <img className="sm:w-10 w-8" src={cart} alt="" />
               <small className="absolute px-1 top-0 right-0 bg-white rounded-full text-primary font-semibold">
-                +2
+                +{data?.length}
               </small>
             </Link>
 

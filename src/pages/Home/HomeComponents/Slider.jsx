@@ -40,7 +40,7 @@ const Slider = () => {
       >
         {data?.map((advertise) => (
           <SwiperSlide key={advertise._id}>
-            <div className=" z-10 bg-[#c3edeb] flex md:flex-row flex-col-reverse  justify-center items-center md:gap-8 gap-2">
+            <div className=" z-10 bg-[#f1f5f9] flex md:flex-row flex-col-reverse  justify-center items-center md:gap-8 gap-2">
               <div className="md:w-1/2 md:text-start text-center ">
                 <h2 className="text-3xl text-primary font-semibold mb-3">
                   {advertise.medicienName}

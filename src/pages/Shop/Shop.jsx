@@ -12,6 +12,7 @@ import { ImSortAmountDesc } from "react-icons/im";
 import { Dropdown } from "keep-react";
 import { FaSearch } from "react-icons/fa";
 import { useState } from "react";
+import useCart from "../../Hooks/useCart";
 
 const Shop = () => {
   const [searchFilter, setSearchFilter] = useState("");
@@ -23,6 +24,7 @@ const Shop = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const { count } = useLoaderData();
+  const {refetch} = useCart()
 
   const { data, isPending } = useQuery({
     queryKey: ["allMedicine", asc, currentPage, itemParPage],
@@ -59,6 +61,7 @@ const Shop = () => {
             text: "Your Item has been saved.",
             icon: "success",
           });
+          refetch()
         }
       })
       .catch((err) => console.log(err));
@@ -213,7 +216,7 @@ const Shop = () => {
                     </div>
                   </td>
                   <td className="px-3 py-2">
-                    <div className="flex justify-center items-center">
+                    <div className="flex w-full justify-center items-center">
                       <div className="inline-block mx-auto">
                         <PiShoppingCartFill
                           onClick={() => handleAddCart(medicine)}

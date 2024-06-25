@@ -5,6 +5,7 @@ import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../components/Loader";
+import { Helmet } from "react-helmet";
 
 const SellerHome = () => {
   const { user } = useAuth();
@@ -62,6 +63,9 @@ const SellerHome = () => {
   if (isError) console.log(error.message);
   return (
     <div>
+        <Helmet>
+        <title>Seller Home</title>
+      </Helmet>
       <div className="flex justify-between bg-secondary p-2 text-white items-center">
         <p className="text-xl font-semibold ">Hi Welcome Back</p>
       </div>
