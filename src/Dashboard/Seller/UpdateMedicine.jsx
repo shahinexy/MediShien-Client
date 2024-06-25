@@ -47,11 +47,13 @@ const UpdateMedicine = ({ medicine, refetch }) => {
 
   // ====== handle update ========
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
+    let photoUrl = photo;
     const photoFile = { image: data.photo[0] };
-    axios
-      .post(
+
+    try {
+      const res = await axios.post(
         `https://api.imgbb.com/1/upload?key=${
           import.meta.env.VITE_IMAGEBB_SECRET_KEY
         }`,
@@ -61,42 +63,42 @@ const UpdateMedicine = ({ medicine, refetch }) => {
             "content-type": "multipart/form-data",
           },
         }
-      )
-      .then((res) => {
-        let photoUrl = photo;
-        if (res.data.success) {
-           photoUrl = res.data.data.display_url;         
-        }
+      );
 
-        const discountPrice = data.price - data.price * (data.discount / 100);
-        const price = parseFloat(data.price);
-        const discount = parseFloat(data.discount);
-        const medicienInfo = {
-          ...data,
-          photo: photoUrl,
-          discountPrice,
-          price,
-          discount,
-          userEmail: user.email,
-        };
-        console.log(medicienInfo);
+      if (res.data.success) {
+        photoUrl = res.data.data.display_url;
+      }
+    } catch (err) {
+      console.log(err);
+    }
 
-        axiosSecure
-          .patch(`/medicine/${_id}`, medicienInfo)
-          .then((res) => {
-            console.log(res.data);
-            if (res.data.modifiedCount > 0) {
-              Swal.fire({
-                title: "SuccessFull",
-                text: "Your Medisine Has Been Saved.",
-                icon: "success",
-              });
-                refetch();
-            }
-          })
-          .catch((err) => console.log(err));
-      })
-      .catch((error) => console.log(error));
+    const discountPrice = data.price - data.price * (data.discount / 100);
+    const price = parseFloat(data.price);
+    const discount = parseFloat(data.discount);
+    const medicienInfo = {
+      ...data,
+      photo: photoUrl,
+      discountPrice,
+      price,
+      discount,
+      userEmail: user.email,
+    };
+    console.log(medicienInfo);
+
+    try {
+      const res = await axiosSecure.patch(`/medicine/${_id}`, medicienInfo);
+
+      if (res.data.modifiedCount > 0) {
+        Swal.fire({
+          title: "SuccessFull",
+          text: "Your Medisine Has Been Saved.",
+          icon: "success",
+        });
+        refetch();
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -124,6 +126,7 @@ const UpdateMedicine = ({ medicine, refetch }) => {
                       type="text"
                       placeholder="name"
                       defaultValue={medicienName}
+                      required
                     />
                   </div>
                   <div>
@@ -134,6 +137,7 @@ const UpdateMedicine = ({ medicine, refetch }) => {
                       type="text"
                       placeholder="name"
                       defaultValue={genericName}
+                      required
                     />
                   </div>
 
@@ -143,7 +147,6 @@ const UpdateMedicine = ({ medicine, refetch }) => {
                       {...register("photo")}
                       className="w-full p-[6px] border-l-[5px] border-primary bg-white text-primary"
                       type="file"
-                      required
                     />
                   </div>
 
@@ -155,6 +158,7 @@ const UpdateMedicine = ({ medicine, refetch }) => {
                       placeholder="description"
                       className="w-full p-2 border-l-[5px] border-primary text-primary outline-none"
                       defaultValue={description}
+                      required
                     ></textarea>
                   </div>
 
@@ -167,13 +171,13 @@ const UpdateMedicine = ({ medicine, refetch }) => {
                         defaultValue={category}
                       >
                         {categoryData?.map((category) => (
-                              <option
-                                key={category._id}
-                                value={category.categoryName}
-                              >
-                                {category.categoryName}
-                              </option>
-                            ))}
+                          <option
+                            key={category._id}
+                            value={category.categoryName}
+                          >
+                            {category.categoryName}
+                          </option>
+                        ))}
                       </select>
                     </div>
 
@@ -208,6 +212,7 @@ const UpdateMedicine = ({ medicine, refetch }) => {
                       type="text"
                       placeholder="name"
                       defaultValue={massUnit}
+                      required
                     />
                   </div>
 
@@ -220,6 +225,7 @@ const UpdateMedicine = ({ medicine, refetch }) => {
                         type="number"
                         placeholder="price"
                         defaultValue={price}
+                        required
                       />
                     </div>
                     <div className="w-full">
@@ -262,7 +268,7 @@ const UpdateMedicine = ({ medicine, refetch }) => {
 
 UpdateMedicine.propTypes = {
   medicine: PropTypes.object,
-  refetch: PropTypes.func
+  refetch: PropTypes.func,
 };
 
 export default UpdateMedicine;
