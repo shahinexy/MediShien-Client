@@ -4,9 +4,19 @@ import { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { MdCategory } from "react-icons/md";
 import { PiBuildingsBold } from "react-icons/pi";
+import useAuth from "../Hooks/useAuth";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import useCart from "../Hooks/useCart";
+import { useNavigate } from "react-router-dom";
 
 const MedicineDetails = ({ medicine, size }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const {user} = useAuth()
+  const axiosSecure = useAxiosSecure()
+  const {refetch} = useCart()
+  const navigate = useNavigate()
+
   const openModal = () => {
     setIsOpen(true);
   };
@@ -25,6 +35,40 @@ const MedicineDetails = ({ medicine, size }) => {
     massUnit,
     photo,
   } = medicine;
+
+
+  const handleAddCart = (medicine) => {
+    if (!user) {
+      return navigate("/login");
+    }
+
+    const { _id, ...rest } = medicine;
+
+    const medicineInfo = {
+      ...rest,
+      medicineId: medicine._id,
+      buyerEmail: user.email,
+      quantity: 1,
+    };
+    console.log(medicineInfo);
+
+    axiosSecure
+      .post("/cartItem", medicineInfo)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          Swal.fire({
+            title: "SuccessFull",
+            text: "Your Item has been saved.",
+            icon: "success",
+          });
+          refetch()
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+
   return (
     <div>
       <Button onClick={openModal} className="inline-block p-0">
@@ -78,6 +122,10 @@ const MedicineDetails = ({ medicine, size }) => {
                     <p className="font-medium"> {massUnit}</p>
                   </div>
                 </div>
+
+                <div>
+                    <button onClick={() => handleAddCart(medicine)} className="border border-white px-7 py-2 hover:scale-90 duration-500">Add To Cart</button>
+                  </div>
               </div>
               <Modal.Footer className="flex justify-end">
                 <Button

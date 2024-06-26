@@ -44,7 +44,7 @@ const SellerPaymentHistory = () => {
             </tr>
           </thead>
           {data?.map((paymentData, idx) => (
-            <tbody key={paymentData._id}>
+            <tbody key={idx}>
               {paymentData.medicineDatas
                 .filter((item) => {
                   return item.userEmail === user.email;

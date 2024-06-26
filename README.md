@@ -2,8 +2,8 @@
 
 Live Link: https://medishine-4cd26.web.app/
 
-Admin Use Name: Shahin Alam
-Admin Email: shahinexy@gmail.com
+Admin Use Name: Shahin Alam<br/>
+Admin Email: shahinexy@gmail.com<br/>
 Password: Shahin
 
 ## Feature of this website

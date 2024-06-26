@@ -20,10 +20,10 @@ const InvoicePage = () => {
       return res.data;
     },
   });
-  console.log(data);
-
+  
   if (isPending) return <Loader></Loader>;
   if (isError) console.log(error.message);
+  console.log(data[data.length -1]);
   return (
     <div ref={targetRef} className="max-w-7xl mx-auto mt-28 mb-20">
       <Helmet>
@@ -60,7 +60,45 @@ const InvoicePage = () => {
               <th className="p-3">Status</th>
             </tr>
           </thead>
-          {data?.map((paymentData, idx) => (
+
+          <tbody>
+              {data[data.length -1].medicineDatas.map((medicine, idx) => (
+                <tr
+                  key={medicine.id}
+                  className="bg-secondary/10 border-b border-secondary/30 hover:bg-secondary/30"
+                >
+                  <td className="px-3 py-2 pl-4">{idx + 1}.</td>
+                  <td className="px-3 py-2 font-medium">
+                    {medicine.medicienName}
+                  </td>
+                  <td className="px-3 py-2">{medicine.buyerEmail}</td>
+                  <td className="px-3 py-2">{medicine.userEmail}</td>
+                  <td className="px-3 py-2">{data[data.length -1].transitionId}</td>
+                  <td className="px-3 py-2">{medicine.quantity}</td>
+                  <td className="px-3 py-2">
+                    {medicine.discount > 0
+                      ? medicine.quantity * medicine.discountPrice
+                      : medicine.quantity * medicine.price}
+                    $
+                  </td>
+                  <td className="px-3 py-2">
+                    {new Date(data[data.length -1].date).toLocaleDateString('en-GB')}
+                  </td>
+                  <td
+                    className={`px-3 py-2 flex gap-1 items-center ${
+                      data[data.length -1].status === "pending"
+                        ? "text-orange-500"
+                        : "text-green-500"
+                    }`}
+                  >
+                    {data[data.length -1].status} <GoDotFill className="text-lg" />{" "}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+
+
+          {/* {data?.map((paymentData, idx) => (
             <tbody key={paymentData._id}>
               {paymentData.medicineDatas.map((medicine) => (
                 <tr
@@ -82,7 +120,6 @@ const InvoicePage = () => {
                     $
                   </td>
                   <td className="px-3 py-2">
-                    {/* {paymentData.date.split("T")[0]} */}
                     {new Date(paymentData.date).toLocaleDateString('en-GB')}
                   </td>
                   <td
@@ -97,7 +134,7 @@ const InvoicePage = () => {
                 </tr>
               ))}
             </tbody>
-          ))}
+          ))} */}
         </table>
       </div>
     </div>

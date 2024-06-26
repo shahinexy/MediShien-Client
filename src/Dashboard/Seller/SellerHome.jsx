@@ -76,7 +76,7 @@ const SellerHome = () => {
             <GiWallet className="text-4xl " />
           </div>
           <div>
-            <p className="text-2xl font-medium">{paidTotal + pendingTotal.toFixed(2)}$</p>
+            <p className="text-2xl font-medium">{(paidTotal + pendingTotal).toFixed(2)}$</p>
             <p className="text-xl">Revenue</p>
           </div>
         </div>

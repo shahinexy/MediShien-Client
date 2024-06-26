@@ -65,13 +65,13 @@ const AuthProvider = ({ children }) => {
     const subscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
-        setLoader(false);
 
         // genaret JWT token
         const userInfo = { email: currentUser.email };
         axiosPublic.post("/jwt", userInfo).then((res) => {
           if (res.data.token) {
             localStorage.setItem("access-token", res.data.token);
+            setLoader(false);
           }
         });
       } else {

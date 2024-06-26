@@ -118,11 +118,17 @@ const NavBar = () => {
               >
                 <div>
                   <div className="flex justify-center pb-3">
-                    <img
-                      className="w-16 h-16 rounded-full"
-                      src={user?.photoURL}
-                      alt=""
-                    />
+                    {
+                      user?.photoURL ? (
+                        <img
+                          className=" w-16  h-16 rounded-full"
+                          src={user?.photoURL}
+                          alt=""
+                        />
+                      ) : (
+                        <FaUserCircle className="text-6xl text-white" />
+                      )
+                    }
                   </div>
                   <p className="text-lg ">{user?.displayName} </p>
                   <div className="flex flex-col items-center justify-center">
